@@ -29,12 +29,14 @@ Template.event_page.onRendered(function(){
   $( '.datetimepicker' ).datetimepicker({
     lang:'fr',
     timepicker:true,
+    format: 'MM/DD/YYYY HH:mm'
   });
 });
 Template.edit_event_page.onRendered(function(){
   $( '.datetimepicker' ).datetimepicker({
     lang:'fr',
     timepicker:true,
+    format: 'MM/DD/YYYY HH:mm'
   });
 });
 Template.delete_alert_modal.onRendered(function() {
@@ -58,8 +60,8 @@ Template.event_page.helpers({
     return Template.instance().data.event;
   },
   formatMoment(date){
-    //return date.format('YYYY-MM-DD h:mm:ss');
-    return date;
+    return date.format('YYYY-MM-DD HH:mm:ss');
+    //return date;
   },
 });
 Template.edit_event_page.helpers({
@@ -79,8 +81,8 @@ Template.edit_event_page.helpers({
     return Template.instance().data.event;
   },
   formatMoment(date){
-    //return date.format('YYYY-MM-DD h:mm:ss');
-    return date;
+    return date.format('YYYY-MM-DD HH:mm:ss');
+    //return date;
   },
 });
 Template.delete_alert_modal.helpers({

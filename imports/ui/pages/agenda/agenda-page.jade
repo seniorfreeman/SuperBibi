@@ -1,5 +1,10 @@
 template(name="agenda_page")
 	div.agenda_page
+		select(id="agendalist")
+			if listDropDown
+				each list in listDropDown
+					option(value='{{list._id}}')
+						{{list.name}}
 		div#agenda
 			//- |{{> fullcalendar events=todos lang='fr' eventClick=onEventClicked options=options selectable= true editable= true dayClick=onDayClick}}
 		//|{{> fullcalendar class=mainCalendar defaultView='month' events=events lang='fr' eventClick=onEventClicked}}

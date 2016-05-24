@@ -8,7 +8,7 @@ template(name="event_page")
             li
               h2
                 |{{_ "Event Starts"}}
-              input.form-control.datetimepicker( type="text",data-DateTimePicker, id='start', value='{{event.start }}')
+              input.form-control.datetimepicker( type="text",data-DateTimePicker, id='start', value='{{formatMoment event.start }}')
               br.clearFix
             li
               h2

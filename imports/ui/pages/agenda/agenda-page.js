@@ -111,6 +111,10 @@ Template.agenda_page.onRendered(function() {
 });
 Template.agenda_page.helpers({
 
+    listDropDown: function(){
+      return Lists.find({system:false});
+    },
+
     onEventClicked: function() {
         return function(calEvent, jsEvent, view) {
             alert("Event clicked: " + calEvent.title);
