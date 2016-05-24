@@ -29,14 +29,12 @@ Template.event_page.onRendered(function(){
   $( '.datetimepicker' ).datetimepicker({
     lang:'fr',
     timepicker:true,
-    format: 'MM/DD/YYYY HH:mm'
   });
 });
 Template.edit_event_page.onRendered(function(){
   $( '.datetimepicker' ).datetimepicker({
     lang:'fr',
     timepicker:true,
-    format: 'MM/DD/YYYY HH:mm'
   });
 });
 Template.delete_alert_modal.onRendered(function() {
