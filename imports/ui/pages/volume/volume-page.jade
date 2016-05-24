@@ -1,0 +1,74 @@
+template(name="volume_page")
+	div.volume_page
+		header
+			div.title-block
+				h2 {{_ 'volumePageTitle'}}
+				h3 {{_ 'volumePageSubTitle'}}
+			div.result-block
+				table
+					tr
+						td {{_ 'volumeTotal'}}
+						td {{_ 'scotch'}}
+						td {{_ 'boxes'}}
+						td {{_ 'carVolume'}}
+						td {{_ 'nbArms'}}
+					tr
+						td
+							div.value {{volumeTotal}}m³
+							| estimés
+						td
+							img(src='')
+							div.value {{nbScotchs}}
+						td
+							img(src='')
+							div.value {{nbBoxes}}
+							button.buy-btn(type='button') Acheter
+						td
+							img(src='')
+							div.value {{carVolume}}
+						td
+							img(src='')
+							div.value {{nbArms}}
+
+		div.objects-block
+			each rooms
+				{{> room_item}}
+			div.room-item.new
+				form(action='#')
+					div.room-item-header
+						input(type='text', placeholder='Tapez une nouvelle pièce')
+					ul.room-item-objects
+
+		div.send-valuation-block
+			div.valuation-title
+				| {{_ 'valuationTitle'}}
+			button.send-btn(type='button')
+				i.fa.fa-comment
+				| {{_ 'valuationButton'}}
+
+
+template(name='room_item')
+	div.room-item(id="{{_id}}")
+		div.room-item-header
+			input(type='text', value='{{title}}')
+			i.fa.fa-lg.fa-pencil.update
+			i.fa.fa-lg.fa-times.delete
+		ul.room-item-objects
+			each roomObjects
+				{{> room_item_object}}
+			li.room-item-new-object
+				{{> inputAutocomplete settings=settings id="newVolumeObject" class="form-control" name="newVolumeObject" placeholder="Tapez un nouvel objet" }}
+		div.room-item-total-title Total
+			div.total-volume {{volumeTotal}}m³
+
+template(name='room_item_object')
+	li
+		div.object-title {{title}}
+		input.object-volume(type='text', placeholder='...', value="{{volume}}")
+		span.object-volume-unity m³
+		i.fa.fa-lg.fa-times.delete
+
+template(name='volume_object_item')
+	| {{title}}
+
+template(name='volume_object_no_match')

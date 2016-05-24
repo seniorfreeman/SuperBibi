@@ -1,0 +1,13 @@
+template(name="listTodo")
+		if list
+			each typo in listTypologies
+				if isEmptyList list typo
+					div.labelHr
+						hr.forte
+						label {{typo.name}} 
+						hr.forte
+					ul.itemList(id="itemList")
+						each todo in currenTodoListTypo list typo
+							li(class="task.theme")
+								| {{> Todos_item todo}}
+		

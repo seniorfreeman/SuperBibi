@@ -1,0 +1,117 @@
+template(name="content_page")
+	section#content_page
+		header
+			ul.menu
+				li.profil
+					a(href="#",class="{{#if currentUser}}profileShow{{else}}loginShow{{/if}}")
+						span.picto
+							|&nbsp;
+						div
+							h2
+								|MON PROFIL
+							span
+								| {{#if currentUser}}{{else}}{{_ 'Login'}}{{/if}}
+				li.volume
+					a(href="#",class="volumeShow")
+						span.picto
+							|&nbsp;
+						div
+							h2
+								|MON VOLUME
+							span
+								| non-estimé
+				li.trajet
+					a(href="#",class="trajetShow")
+						span.picto
+						div
+							h2
+								| MON TRAJET
+							span
+								|  x Km 
+								br
+								| Départ &gt; Arrivée
+				li.agenda
+					a(href="#",class="agendaShow")
+						span.picto
+						div
+							h2
+								| MON AGENDA
+							span
+								| Mes grandes dates
+				li.dossier
+					a(href="#",class="dossierShow")
+						span.picto
+						div
+							h2
+								| MON DOSSIER
+							span
+								| Super rangé
+				li.date.white
+					a(href="#")
+						div
+							h2
+								span
+									|J-
+								span(id="jourRef")
+									| {{nbJourRestant}}
+							span(id="dateDem")
+								| {{dateFinDem}}
+		
+			ul.essentiels
+				li.materiel
+					a(href='#',class="materielShow")
+						span.light
+							span
+							span.sep
+								span
+						span.picto
+						div
+							h2
+								| MON MATERIEL
+							span
+								| x produits - 00.00€
+				li.camion
+					a(href='#',class="camionShow")
+						span.light
+							span
+							span.sep
+								span
+						span.picto
+						div
+							h2
+								| MON CAMION
+							span
+								| taille - modèle - marque
+				li.amis
+					a(href='#',class="amisShow")
+						span.light
+							span
+							span.sep
+								span
+						span.picto
+						div
+							h2
+								| MES AMIS
+							span
+								| x amis - x en attente
+		article
+			ul
+				li
+					form.js-todo-new
+						input(type='text', id="newTodo", autocomplete="off", placeholder='Ajouter une tâche', aria-describedby='basic-addon2')
+						span
+							select(id="list")
+								if listsDropDown
+									each list in listsDropDown
+										if getActiveList list._id
+											option(value='{{list._id}}', selected="true") 
+												= renderIfJourJ(list.name)
+										else
+											option(value='{{list._id}}') 
+												= renderIfJourJ(list.name)
+							//input(type='checkbox', id="prioritaire")
+							.star#prioritaireEdit
+								i.fa.fa-star-o
+								i.fa.fa-star
+									
+			| {{> listTodo}}

@@ -1,0 +1,117 @@
+.volume_page {
+	position: relative;
+    height: 100%;
+	
+	
+	header .title-block {
+		float: left;
+	}
+
+	header .result-block {
+		float: right;
+	}
+
+	header .result-block td {
+		padding-left: 15px;
+    	padding-right: 15px;
+    	text-align: center;
+	}
+
+	.objects-block {
+		height: calc(~"100% - 35px");
+		padding-top: 137px;
+
+		.room-item {
+			width: 275px;
+			min-height: 300px;
+	    	display: inline-block;
+	    	vertical-align: top;
+	    	background-color: #F2F2F2;
+	    	margin: 15px 15px 15px 15px;
+	    	position: relative;
+
+	    	.room-item-header {
+				input {
+					display: inline-block;
+			    	width: calc(~"100% - 50px");
+			    	color: black;
+				    opacity: 1;
+				    border: none;
+			    }
+
+				.delete {
+					cursor: pointer;
+					float: right;
+	    			line-height: 40px;
+				}
+			}
+
+			.room-item-objects {
+				.object-title {
+					width: calc(~"100% - 75px");
+	   	 			display: inline-block;
+				}
+
+				.object-volume {
+					width: 31px;
+	    			display: inline-block;
+	    			padding: 0;
+	    			border: 0;
+				}
+
+				.room-item-object-delete {
+					width: 10px;
+				    height: 10px;
+				    display: inline-block;
+				}
+
+				.delete {
+					cursor: pointer;
+				}
+			}
+
+			.room-item-new-object {
+				.-autocomplete-container {
+					border: none !important;
+				}
+			}
+
+			.room-item-total-title {
+				position: absolute;
+		    	bottom: 0px;
+		    	width: 100%;
+
+		    	.total-volume {
+		    		float: right;
+		    	}
+			}
+		}
+
+		.room-item.new {
+			.room-item-header {
+				input {
+			    	width: 100%;
+			    }
+			}
+		}
+	}
+
+	
+
+	.send-valuation-block {
+		position: absolute;
+		bottom: 0px;
+		width: 100%;
+
+		.valuation-title {
+			float: left;
+		}
+
+		.send-btn {
+			float: right;
+		}
+	}
+
+}
+
+

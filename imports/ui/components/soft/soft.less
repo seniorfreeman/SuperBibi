@@ -1,0 +1,199 @@
+body {
+
+
+	section#soft {
+
+		width: 100%;
+		left:-100%;
+		height: 100%;
+		padding-right: @largeurNav;
+
+		.bckBtn {
+			position: absolute;
+			right: .5em;
+			top:.5em;
+			display: block;
+			padding: .45em 1em .55em;
+			z-index: 1000;
+		}
+
+		& > div {
+			position: relative;
+			height: 100%;
+			width: 100%;
+			
+			header {
+				
+				height: @Softheader_height;
+				border-bottom:2px solid @whiteBorder;
+				background-color: @whiteSmoke;
+				position: absolute;
+				width: 100%;
+				z-index: 101;
+				
+				img {
+					float: right;
+				}
+				& > div {
+					padding: 1em;
+					&:not(.redaction){
+						width: 70%;
+						background: @white;
+						height: 100%;
+						right: 0;
+						position: absolute;
+					}
+					&.redaction{
+						width: 30%;
+						position: absolute;
+						bottom:0;
+					}
+				}
+
+
+				&  > ul {
+					
+					float: right;
+					height: 100%;
+					border-left:1px solid @whiteBorder;
+
+					li {
+
+						border-right:1px solid @whiteBorder;
+						display: block;
+						float: left;
+						height: 100%;
+						text-align: center;
+						
+
+						h2 {
+							text-transform: uppercase;
+							color:@grey;
+							padding: .5em;
+							background-color: @white;
+						}
+
+						p {
+							padding: 0 1em;
+							margin-top: 0;
+							font-size: 1.25em;
+							font-weight: 100;
+							color:@grey;
+						}
+
+						i.picto {
+							margin: 0 auto;
+							width: 64px;
+							height: 64px;
+							display: block;
+							background-image: url(../images/Ada_Glyphs_Icons.png);
+						}
+
+						@he:64px;
+						&#carburant i.picto {background-position: @he*-1 @he*-2;}
+						&#distance i.picto {background-position: @he*-2 @he*-2;}
+						&#temps i.picto {background-position: @he*-3 @he*-2;}
+						&#bras i.picto {background-position: @he*-3 @he*-1;}
+						&#date i.picto {background-position: @he*-3 0;}
+						&#stress i.picto {background-position: 0 @he*-2;}
+
+					}
+
+				}
+			}
+
+			article {
+				padding-top: @Softheader_height;
+	
+				position: absolute;
+				
+				height: 100%;
+				top: 0;
+				width: 100%;
+				& > div{
+					position: relative;
+					width: 100%;
+					height: 100%;
+					overflow-x:hidden;
+					overflow-y:auto;
+				}
+				
+				/*
+				ul {
+
+					position: absolute;
+					top:0;
+					left:0;
+					width: 100%;
+
+					li {
+
+						display: inline-block;
+						width:18%;
+						padding: 1em;
+						background: @whiteSmoke;
+						border-radius: 0 0 10px 10px;
+						margin: 0 1% 1%;
+						.anim();
+						&:hover,
+						&.active{
+							background-color: @blue;
+							color:@white;
+						}
+					}
+				}
+
+				div {
+					padding: 3em;
+				
+					img {
+						margin: 3em auto;
+						display: block;
+					}
+				
+				}
+				*/
+			}
+
+			footer {
+				background-color: @white;
+				z-index: 110;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width:100%;
+				text-align: right;
+				ul.ssmenu{
+					padding: 1em;
+					li{
+						display: inline;
+						margin-right: .5em;
+					}
+				}
+			}
+		}
+	}
+
+	/* SOFT */
+	&.soft {
+
+		section#soft {
+			left: 0;
+			@media screen and (max-width: @min-width-mobile){
+				z-index: 101;
+				padding-right: 0;
+				background: @whiteSmokeHover;
+				.bckBtn {
+					display: block;
+				}
+			}
+
+		}
+
+		nav {
+			right:@largeurNav;
+		}
+
+	}
+
+}

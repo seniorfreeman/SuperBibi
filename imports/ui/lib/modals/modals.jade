@@ -1,0 +1,9 @@
+template(name="modals")
+	div.modal.fade
+		div
+			+header
+			if inputAndTextarea
+				+input_and_textarea
+			if inputAutocomplete
+				+input_autocomplete
+			+footer

@@ -1,0 +1,344 @@
+@import '../../stylesheets/utils.less';
+aside {
+
+	width: @largeurAside;
+	right:-@largeurAside;
+	height: 100%;
+	background-color: @whiteSmoke;
+	border-left:1px solid @whiteSmokeHover;
+	color:@grey;
+	overflow: hidden;
+	z-index: 102;
+
+	form {
+		position: absolute;
+	    width: 100%;
+	    height: 100%;
+	    overflow: auto;
+	    padding-bottom: 3em;
+	}
+
+	header {
+		
+		display: flex; /* contexte sur le parent */
+		padding: 1em .5em 2em;
+		border-bottom:1px solid @whiteSmokeHover;
+
+		.squaredThree{
+			margin-top:5px;
+			position: relative;
+			margin-left:0;
+			height: 30px;
+		}
+		
+		.squaredThree + textarea{
+			padding: .5em 1em;
+    		margin: 0;
+			resize: none;
+			width:80%;
+			&:active,
+			&:focus {
+				background-color: @whiteSmokeHover;
+			}
+		}
+		
+		.star{
+			margin-top:5px;
+			text-align: right;
+			padding-right: 5px;
+			width:40px;
+		}
+	}
+
+	article {
+		padding-bottom: 3em;
+
+		& > ul {
+		
+			& > li {
+				
+				padding: .5em 0;
+				@reduction:-10px;
+				clear:both;
+				border-bottom:1px solid @whiteSmokeHover;
+
+				span.picto {
+			
+					display: block;
+					float: left;
+					width: @taille_menu;
+					height: 49px;
+					background-image: url(../images/Ada_Glyphs_Icons.png);
+					background-repeat: no-repeat;
+
+				}
+
+				h2 {
+					text-transform: uppercase;
+					margin: 1.25em 0;
+					float: left;
+				}
+				
+				.slider{
+					float: right;
+					margin-top: .75em;
+				}
+				
+				ul {
+					clear: both;
+					li {
+						
+						padding: .25em 1em .35em;
+						
+						button {
+							float: right;
+							&,
+							&:active{
+								padding: .25em;
+							}
+						}
+						p{
+							padding-top: .5em;
+							small {
+								font-size: .8em;
+							}
+						}
+	
+						span.portrait {
+							float: left;
+							display: block;
+							width: 28px;
+							height: 28px;
+							border-radius: 100%;
+							background-color: @whiteSmoke;
+							margin-right:1.75em;
+							background-size: cover;
+						}
+					}
+				}
+
+				.addParticipant {
+
+					padding-right: 1em;
+					padding-top: .5em;
+					input {
+						float: left;
+						width: 84%;
+						padding: .5em;
+						border: none;
+						margin: 0;
+					}
+					span {
+						color : @whiteBorderHover;
+						height: 30px;
+						width: 16%;
+						text-align: center;
+						display: block;
+						padding: 9px 10px 10px;
+						float: left;
+					}
+
+					.-autocomplete-container {
+						border: none !important;
+					}
+				}
+				
+				&.conseils {
+					
+					padding-bottom: .5em;
+
+					textarea {
+						width: 84%;
+						float: right;
+						margin: 0;
+						height: 7em;
+						overflow: hidden;
+						line-height: 1.9em;
+    					padding-top: .15em;
+						background-image: url(../images/aside_rpt_txt_area.png);
+
+						&:focus{
+							background-color: inherit;
+						}
+
+					}
+
+				}
+				
+				&.echeance span.picto {background-position:@taille_menu*-3 0+@reduction;}
+				&.notifier span.picto {background-position:@taille_menu*-6 @taille_menu*-1+@reduction;}
+				&.participants span.picto {background-position:@taille_menu*-7 @taille_menu*-1+@reduction;}
+				&.conseils span.picto {background-position:@taille_menu*-5 @taille_menu*-1+@reduction;}
+				&.shopping span.picto {background-position:@taille_menu*-4 @taille_menu*-1+@reduction;}
+				&.videos span.picto {background-position:@taille_menu*-8 @taille_menu*-1+@reduction;}
+				&.videos {
+					
+					iframe {
+						margin-top: 1em;
+						width: 100%;
+						height: 180px;
+					}
+				}
+				&.shopping {
+					padding-bottom: 0;
+					ul li {
+						padding: 0;
+						background-color: @white;
+						border-top:1px solid @whiteSmokeHover;
+						position: relative;
+						p {
+							margin: .5em 0;
+						    width: 195px;
+						    float: left;
+						}
+						p.price{
+							width: inherit;
+							padding:.5em;
+							clear: right;
+    						float: right;
+						}
+						button{
+							position: absolute;
+							bottom: .5em;
+							right: .5em;
+							font-size: 1em;
+							font-weight: normal;
+						}
+						img {
+							float: left;
+							@taille_image_produits:80px;
+							width: @taille_image_produits;
+							height: @taille_image_produits;
+							margin: .5em;
+						}
+					}
+				}
+
+				textarea {
+					width: 100%;
+					border:none;
+					resize:none;
+					padding: 1em;
+					margin-top: 1em;
+				}
+
+				
+
+				p {
+					margin : 0;
+					width : 195px;
+					float : left;
+				}
+
+			}
+
+		}
+
+		/*
+		ul li.shopping div,
+		& > ul > li:not(.shopping){
+			padding: .75em 1em;
+
+			i.fa{
+				font-size: 1.5em;
+				margin-right: .5em;
+				min-width: 24px;
+			}
+			.slider{
+				float: right;
+			}
+
+		}
+		
+		& > ul:not(.whiteGroup) > li:not(.shopping){
+			border-bottom:1px solid @whiteSmokeHover;
+			padding: 1.25em 1em;
+		}
+
+		& > ul li.shopping ul li {
+			padding: 0;
+			background-color: @white;
+			border-bottom:1px solid @whiteSmokeHover;
+			padding: .5em;
+			img {
+				float: left;
+			}
+		}
+
+		ul li.shopping div{
+			padding: 1em;
+		}
+		
+		p,span{
+			padding : .5em;
+		}
+		
+		li span {
+			width: 100px;
+			margin-bottom: .5em;
+		}
+
+		li button,
+		li span {
+			clear: right;
+			float: right;
+		}
+
+		*/
+		
+		ul.whiteGroup {
+		
+			background-color: @white;
+		
+			li{
+
+				&.hr{
+					padding: 0;
+					padding-right: 1em;
+					hr {
+						float: right;
+						margin: 0;
+						width: 330px;
+					}
+				}
+
+				input{
+					width: 310px;
+					border:none;
+					padding: 1em;
+				}
+			}
+		}
+	}
+
+	footer {
+		width: 100%;
+		position: absolute;
+		background-color: @whiteSmoke;
+		.shadow(@whiteBorderHover);
+		bottom: 0;
+		text-align: right;
+		padding: .5em;
+		button {
+
+		}
+		.bckBtn {
+			display: none;
+			float: left;
+			padding: .45em 1em .55em;
+		}
+	}
+	
+	@media screen and (max-width: @min-width-tablet){
+		width: 100%;
+		right:-100%;
+
+		footer .bckBtn {
+			display: block;
+		}
+	}
+}
+
+body.aside aside {
+	right: 0;
+}

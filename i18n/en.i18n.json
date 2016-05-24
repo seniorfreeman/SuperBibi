@@ -1,0 +1,147 @@
+﻿//'KeyInEnglish' : "Value in language"
+{
+/* INTERFACE */
+
+	//A
+	//B
+	"bonjour" : "Bonjour"
+	//C
+	//D
+
+
+	//L
+	, "logout" : "Se déconnecter"
+	, "login" : "Se connecter"
+	// P
+	, "progressBarPercentageDone" : "% de tâches éfféctuées"
+
+	// S
+	, "salut" : "Salut"
+
+/* EMAILS */
+	//H
+	, "helpToMove": "L'aider à déménager"
+	, "helpToManage": "Organiser votre déménagement"
+	// N
+	, "notificationsActionText" : "Gérer mes notifications"
+	, "notificationsContent" : "Voici les points que je devais vous rappeler"
+	, "notificationsTitle" : "Points du jour ;)"
+	// P
+	, "pwdRebuildTitle" : "Regénérer votre mot de passe"
+	, "pwdRebuildContent" : "Vous avez demandé un Super nouveau mot de passe"
+	, "pwdRebuildActionText" : "Suivez le guide en 2 clics"
+
+	// S
+	, "seeYouSoonTitle" : "... vous partez? #bibiPasSuperContent"
+	, "seeYouSoonContent" : "Nous vous confirmons la bonne désactivation de votre compte, mais ici tout le monde vous pleure déjà. :( #pasSuperCool"
+
+	// V
+	, "verifyActionText" : "Vérifier mon compte"
+	, "verifyContent" : "Bienvenue sur Super Bibi !\n Pendant que tu prépares ton profil, penses à finaliser la validation de ton compte pour que nous sachions que c’est bien toi."
+	, "verifyTitle" : "Certifier votre compte !"
+	, "valuationMailContent": "Test du contenu du mail d'estimation"
+	, "valuationMailTitle": "Test du contenu du titre du mail d'estimation"
+	// Y
+	, "yesOrNoContent1" : "Vous recevez cet email car "
+	, "yesOrNoContent2" : " a besoin de vous pour : "
+	, "yesOrNoTitle" : "needs you ! #AideMoiJeTeLeRevaudrai"
+	, "yesOrNoCallToActionTextPositive" : "Oui, il peut compter sur moi!"
+	, "yesOrNoCallToActionTextNegative" : "Non malheureusement je ne peux pas"
+
+/* AI */
+/* MON PROFIL */
+
+	, "agePlaceholder" : "Age"
+	, "animalsLabel" : "Animaux"
+	, "childrenNumberPlaceholder" : "Nombre d'enfants"
+	, "deleteAccount" : "Délier mon compte Facebook"
+	, "emailPlaceholder" : "Email"
+	, "firstNamePlaceholder" : "Prénom"
+	, "lastNamePlaceholder" : "Nom"
+	, "leaseHolderLabel" : "Locataire"
+	, "movingDate" : "Date de déménagement"
+	, "ownerLabel" : "Propriétaire"
+	, "passwordPlaceholder" : "Password"
+	, "stateDepartureLabel" : "Vous partez d'un bien en tant que :"
+	, "stateArrivalLabel" : "Et vous entrer en tant que"
+	, "stressMode" : "Mode stréssé(e)"
+	, "superProfil" : "Mon super profil"
+	, "superProfilDescription" : "J'ai vraiment un super profil"
+	, "unlinkFacebook" : "Supprimer mon compte"
+
+/* CAMION */
+	, "changeOffice" : "Changer d'agence"
+	, "chooseThatTruck" : "Réserver ce camion"
+	, "openingTimes" : "Les horaires"
+	, "superCamionLegals" : "Les prix s’entendent pour un conducteur ayant un an de permis au moins"
+	, "superCamion" : "Des supers camions"
+	, "superCamionDescription" : "avec les super prix d'Ada.fr"
+	, "websiteOffice" : "Le site de l'agence"
+
+/* CUBAGE */
+	// B
+   , "boxes": "Cartons"
+   	// C
+   , "carVolume": "Volume Camion"
+   	// N
+   , "nbArms": "Nombre de bras"
+   	// S
+   , "scotch": "Scotch"
+	// V
+   , "volumePageTitle": "Super estimation des volumes de mon déménagement"
+   , "volumePageSubTitle": "Tous ces chiffres sont à titre informatif"
+   , "volumeTotal": "Volume total"
+   , "valuationTitle": "Soumettez votre estimation à un professionnel du déménagement et commencez à emballer sans risques"
+   , "valuationButton": "Soumettre mon estimation"
+
+/* MES AMIS */
+	, "arms" : "bras"
+
+
+/* TRAJET */
+	, "arrival" : "Arrivée"
+	, "departure" : "Départ"
+	, "distance" : "Distance"
+	, "noAdresses" : "Pas d'itinéraire à produire"
+	, "oil" : "Essence"
+	, "showItinerary" : "Afficher l'itinéraire"
+	, "superTrajet" : "Mon super trajet"
+	, "superTrajetDescription" : "Faire un super point plan"
+	, "time" : "Temps"
+
+/* CUBAGE */
+	// B
+   , "boxes": "Cartons"
+   	// C
+   , "carVolume": "Volume Camion"
+   	// N
+   , "nbArms": "Nombre de bras"
+   	// S
+   , "scotch": "Scotch"
+	// V
+   , "volumePageTitle": "Super estimation des volumes de mon déménagement"
+   , "volumePageSubTitle": "Tous ces chiffres sont à titre informatif"
+   , "volumeTotal": "Volume total"
+   , "valuationTitle": "Soumettez votre estimation à un professionnel du déménagement et commencez à emballer sans risques"
+   , "valuationButton": "Soumettre mon estimation"
+
+/* AMIS */
+	// F
+   , "friendPageTitle": "Mes super amis"
+   , "friendPageSubTitle": "Tous ces chiffres sont à titre informatif"
+   , "friendPageAdminTitle": "Mes super co-déménagés"
+   , "friendPageMoverFriendsTitle": "Ma super équipe de déménageurs du"
+   , "friendPageTaskFriendsTitle": "Les participants à mes tâches"
+
+
+
+/* GLOBAL */
+	, "pending": "en attente"
+	, "accepted": "accepté"
+	, "refused": "refusé"
+
+	/* AGANDA */
+	,"Event Starts": "Début"
+	,"Event End": "Fin"
+	,"Event Title": "Titre"
+}

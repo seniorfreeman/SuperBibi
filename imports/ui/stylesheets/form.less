@@ -1,0 +1,178 @@
+@import './utils.less';
+
+.list-errors{
+  color:@red;
+}
+
+// Standard text input
+input[type="text"],
+input[type="date"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+textarea {
+  // Sizing
+  display: block;
+  width: 100%;
+  padding: .75em;
+  background-color: @whiteSmoke;
+  font-size: inherit;
+  margin-bottom: .25em;
+  border: 1px solid @whiteBorder;
+  line-height: normal;
+
+  
+
+  &:focus {
+    background-color: @whiteSmokeHover;
+  }
+  // Style
+  ::placeholder {
+    color: @color-complementary;
+  }
+
+  border-radius: 0;
+  box-sizing: border-box;
+  color: @color-full;
+  outline: none;
+
+  &[disabled] { opacity: .5; }
+
+}
+
+// Remove chrome/saf autofill yellow background
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px @color-empty inset;
+}
+select {
+  border-radius: 0;
+  border: 0;
+}
+
+.progressBar{
+  div{
+    position:relative;
+    width: 100%;
+    height: 17px;
+    padding: 2px;
+    margin-bottom: 1em;
+    background-color:@whiteSmokeHover;
+    div:first-child{
+      height: 13px;
+      top:2px;
+      .anim();
+      position: absolute;
+      left: 0;
+      background-color: @green;
+      background-image: url(../images/rpt_progressBar.png);
+    }
+  }
+  small{
+    display: block;
+    text-align: center;
+  }
+      
+}
+.squaredThree {
+
+  width: 40px;
+  position: absolute;
+
+  label {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 3px;
+    left: 0;
+    border:1px solid @whiteBorder;
+    background-color: @whiteSmokeHover;
+  }
+
+  & + span{
+    // position: absolute;
+    // left: 35px;
+    // top: 10px;
+  }
+
+  & + textarea{
+    color:@blue;
+    margin-left: 35px;
+    height: 100%;
+    width: 90%;
+    padding: .25em .5em;
+    min-height: 30px;
+    background-color: transparent;
+    border:none;
+    font-size: 15px;
+    &:focus {
+        outline:none;
+        border-top:1px solid @whiteBorderHover;
+    }
+  }
+}
+
+.slider {
+  margin-right: 1em;
+  .anim();
+  -webkit-appearance: none;
+  background: @whiteSmoke url('../images/check_option_neg.png');
+  cursor: -webkit-grab;
+  width:42px !important;
+  height:22px;
+  padding:1px 6px 1px 2px;
+  border-radius:4px;
+  box-shadow:0px 0px 3px 0px @grey inset, 0px 1px 3px 0px @grey inset;
+
+  &:active {
+      cursor: -webkit-grabbing;
+  }
+  &:focus {
+    outline:none;
+  }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #444;
+    width: 16px;
+    height: 16px;
+    border-radius:2px;
+    position:relative;
+    margin:2px 2px 2px 2px;
+    box-shadow:0px 1px 2px 1px #666;
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(255,255,255,1) 28%, rgba(244,244,244,1) 67%, rgba(244,244,244,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(28%,rgba(255,255,255,1)), color-stop(67%,rgba(244,244,244,1)), color-stop(100%,rgba(244,244,244,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 28%,rgba(244,244,244,1) 67%,rgba(244,244,244,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 28%,rgba(244,244,244,1) 67%,rgba(244,244,244,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 28%,rgba(244,244,244,1) 67%,rgba(244,244,244,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 28%,rgba(244,244,244,1) 67%,rgba(244,244,244,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f4f4f4',GradientType=0 ); /* IE6-9 */
+  }
+  &.bg_green {
+    
+    background:url('../images/check_option.png'), -webkit-linear-gradient(top, rgba(53,126,194,1) 1%,rgba(45,105,175,1) 100%) !important;
+    background:url('../images/check_option.png'),  rgb(53,126,194); /* Old browsers */
+    background:url('../images/check_option.png'),  -moz-radial-gradient(center, ellipse cover,  rgba(53,126,194,1) 1%, rgba(45,105,175,1) 100%); /* FF3.6+ */
+    background:url('../images/check_option.png'),  -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(1%,rgba(53,126,194,1)), color-stop(100%,rgba(45,105,175,1))); /* Chrome,Safari4+ */
+    background:url('../images/check_option.png'),  -webkit-radial-gradient(center, ellipse cover,  rgba(53,126,194,1) 1%,rgba(45,105,175,1) 100%); /* Chrome10+,Safari5.1+ */
+    background:url('../images/check_option.png'),  -o-radial-gradient(center, ellipse cover,  rgba(53,126,194,1) 1%,rgba(45,105,175,1) 100%); /* Opera 12+ */
+    background:url('../images/check_option.png'),  -ms-radial-gradient(center, ellipse cover,  rgba(53,126,194,1) 1%,rgba(45,105,175,1) 100%); /* IE10+ */
+    background:url('../images/check_option.png'),  radial-gradient(ellipse at center,  rgba(53,126,194,1) 1%,rgba(45,105,175,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#82d234', endColorstr='#66ba28',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+  }
+}
+
+.star {
+
+  font-size: 1.75em;
+  padding-top:3px;
+  i:first-child{color:@grey;}
+  i:last-child{ display: none; color:@red;}
+
+  &.active{
+    i:first-child{ display: none; }
+    i:last-child{ display: block;}
+
+  }
+}

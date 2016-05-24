@@ -1,0 +1,92 @@
+template(name="aside")
+	aside
+		header
+			div(class="squaredThree")
+				input(type="checkbox", value="None", id="todoEffectue", name="check")
+				label(for="squaredThree")
+			textarea(placeholder="Titre de votre tache", id="todoTitle")
+					| {{currentTodo.title}}
+			if currentTodo.prioritaire
+				.star.active(id="prioritaireEdit")
+					i.fa.fa-star-o
+					i.fa.fa-star
+			else
+				.star(id="prioritaire")
+					i.fa.fa-star-o
+					i.fa.fa-star
+		
+		article
+			ul(class="whiteGroup")
+				li.echeance
+					span.picto
+					input(type="date", id="todoEcheance",placeholder="Définir une échéance" value="{{formatDate(currentTodo.echeance)}}")
+			ul
+				li.notifier
+					span.picto
+					h2
+						| Etre notifié de cette tâche
+					input(type="range", id="allowNotification", min="1", max="2", class="slider bg-green", value="{{allowNotification}}")
+					br.clearFix
+				
+				li.participants
+					span.picto
+					h2
+						| Participants
+					ul
+						each friends
+							{{> todo_friend}}
+					div.addParticipant
+						span
+							i.fa.fa-plus
+						{{> inputAutocomplete settings=settings id="newParticipant" class="form-control" name="newParticipant" placeholder="Entrez un nom, un mail, ou choisissez un ami" }}
+						i.clearFix
+				
+				li.conseils
+					span.picto
+					h2
+						| Conseils / Notes 
+					textarea(placeholder="Vos notes", id="conseils")
+						| {{currentTodo.conseils}}
+					i.clearFix
+				
+				if currentTodo.products
+					li.shopping
+						span.picto
+						h2
+							| Achats / Services recommandés
+						ul
+							each product in currentTodo.products
+								li
+									img(src="{{product.imageUrl}}", alt="")
+									p 
+										| {{product.description}}
+									p.price {{product.price}} € 
+									button(type="button",id="{{product._id}}") Ajouter au panier
+									br(class="clearFix")
+				if currentTodo.videos		
+					li.videos
+						span.picto
+						h2
+							| Vidéo / tutoriel
+						ul
+							each video in currentTodo.videos
+								li
+									iframe(width="560", height="315", src="{{video}}", frameborder="0", allowfullscreen)
+		footer
+			button(type="button" ,class="bckBtn")
+				i.fa.fa-step-backward
+			button(type="button" id="deleteTodo" data="{{currentTodo._id}}")
+				i(class="fa fa-times")
+				| Supprimer la tâche
+
+template(name='todo_friend')
+	li
+		span.portrait(style="background-image: url({{picture}});")
+		p
+			| {{name}}{{mail}}
+			if isMailOrInvitation
+				small
+					|- {{state}}
+		button
+			i.fa.fa-times
+		br.clearFix

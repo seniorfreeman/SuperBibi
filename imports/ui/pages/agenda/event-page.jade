@@ -1,0 +1,53 @@
+template(name="event_page")
+  div.modal.fade
+    div
+      +header modalTitle=modalTitle modalDescription=modalDescription
+      section
+        article
+          ul
+            li
+              h2
+                |{{_ "Event Starts"}}
+              input.form-control.datetimepicker( type="text",data-DateTimePicker, id='start', value='{{event.start }}')
+              br.clearFix
+            li
+              h2
+                |{{_ "Event End"}}
+              input.form-control.datetimepicker( type="text", id='end',data-DateTimePicker, value='{{#if formatMoment event.end }}{{formatMoment event.end }}{{else}}{{formatMoment event.start }}{{/if}}')
+              br.clearFix
+        ul
+          li
+            h2
+              |{{_ "Event Title"}}
+            input.form-control(type='text', id='title', value='{{event.title}}')
+            br.clearFix
+      +footer cancelBtnLabel=cancelBtnLabel validBtnLabel=validBtnLabel
+
+
+template(name="edit_event_page")
+  div.modal.fade
+    div
+      +header modalTitle=modalTitle modalDescription=modalDescription
+      section
+        article
+          ul
+            li
+              h2
+                |{{_ "Event Starts"}}
+              input.form-control.datetimepicker( type="text",data-DateTimePicker, id='start', value='{{formatMoment event.start }}')
+              br.clearFix
+            li
+              h2
+                |{{_ "Event End"}}
+              input.form-control.datetimepicker( type="text", id='end',data-DateTimePicker, value='{{#if formatMoment event.end }}{{formatMoment event.end }}{{else}}{{formatMoment event.start }}{{/if}}')
+              br.clearFix
+        ul
+          li
+            h2
+              |{{_ "Event Title"}}
+            input.form-control(type='text', id='title', value='{{event.title}}')
+            br.clearFix
+      +footer cancelBtnLabel=cancelBtnLabel validBtnLabel=validBtnLabel
+
+template(name='delete_alert_modal')
+  | {{> modals inputAutocomplete=false modalTitle=title modalDescription=description  cancelBtnLabel="Annuler" validBtnLabel="ok"}}

@@ -1,0 +1,43 @@
+template(name="camion_page")
+	div.camion_page
+		header
+			div#agence
+				h2
+				p
+				ul
+					li
+						button
+							i.fa.fa-clock-o
+							|{{_ "openingTimes"}}
+						button
+							i.fa.fa-external-link
+							|{{_ "websiteOffice"}}
+						button
+							i.fa.fa-retweet
+							|{{_ "changeOffice"}}
+
+			div.redaction
+				h1
+					|{{_ "superCamion"}}
+				p
+					|{{_ "superCamionDescription"}}
+		article
+			div
+				ul.offres
+					each camion in listCamion 
+						li
+							h3
+								| {{camion.categorie}}
+							p
+								| {{camion.modele}}
+							span.prix
+								| {{camion.prix}}€
+							span.rond
+								span
+
+							img(src="{{camion.img_big}}")
+							button.vert(type="button", href="{{camion.url}}", target="_blank")
+								i.fa.fa-road
+								|{{_ "chooseThatTruck"}}
+		footer
+			|{{_ "superCamionLegals"}}

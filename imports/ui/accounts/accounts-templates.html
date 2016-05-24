@@ -1,0 +1,73 @@
+<template name="Auth_page">
+  <div class="page auth">
+    <div >
+      <div class="wrapper-auth">
+        {{> atForm}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="override-atPwdFormBtn">
+  <button type="submit" class="">
+    {{buttonText}}
+  </button>
+</template>
+
+<template name="override-atTextInput">
+  <div class="input {{#if isValidating}}validating{{/if}} {{#if hasError}}error{{/if}} {{#if hasSuccess}}has-success{{/if}} {{#if feedback}}has-feedback{{/if}}">
+    <input type="{{type}}" id="at-field-{{_id}}" name="at-field-{{_id}}" placeholder="{{placeholder}}" autocapitalize="none" autocorrect="off">
+    {{#if hasIcon}}
+        <span class="{{iconClass}}"></span>
+    {{/if}}
+    {{#if hasError}}
+      <span>{{errorText}}</span>
+    {{/if}}
+  </div>
+</template>
+
+<template name="override-atTitle">
+  <img src="/images/logo_centre.png" alt="" class="logo">
+  <!--<h1 class="title-auth">{{title}}</h1>-->
+  <p class="subtitle-auth">Inscrivez-vous et<br> découvrez SuperBibi</p>
+</template>
+
+<template name="override-atError">
+  <div class="list-errors">
+    {{#each error}}
+      <p>{{errorText}}</p>
+    {{/each}}
+  </div>
+</template>
+
+<template name="override-atSep">
+  <div class="labelHr">
+    <hr class="forte" />
+    <label>ou</label>
+    <hr class="forte" />
+  </div>
+</template>
+
+<template name="override-atPwdForm">
+  <div class="at-pwd-form">
+    <form role="form" id="at-pwd-form" class="{{disabled}}" novalidate action="#" method="POST">
+      {{#each fields}}
+        {{> atInput}}
+      {{/each}}
+      
+      {{#if showReCaptcha}}
+        {{> atReCaptcha}}
+      {{/if}}
+
+      {{> atPwdFormBtn}}
+      
+      <p class="legals">En vous {{#if showForgotPasswordLink}}connectant{{else}}enregistrant{{/if}}, vous acceptez nos <a href="#">Conditions générales d’utilisation</a></p>
+      
+      {{#if showForgotPasswordLink}}
+        {{> atPwdLink}}
+        <hr class="forte" />
+      {{/if}}
+    </form>
+  </div>
+
+</template>

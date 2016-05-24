@@ -1,0 +1,236 @@
+{
+  "volumeObjects": [
+  	{
+  		"title": "Commode",
+  		"volume": 0.66
+  	},
+  	{
+  		"title": "Divers(0.5m³)",
+  		"volume": 0.66
+  	},
+  	{
+  		"title": "Penderie",
+  		"volume": 1
+  	},
+  	{
+  		"title": "Etagère",
+  		"volume": 0.5
+  	},
+  	{
+  		"title": "Miroir",
+  		"volume": 0.15
+  	},
+  	{
+  		"title": "Buffet 2 corps",
+  		"volume": 2
+  	},
+  	{
+  		"title": "Buffet bas",
+  		"volume": 1
+  	},
+  	{
+  		"title": "Fauteuil de salon",
+  		"volume": 0.5
+  	},
+  	{
+  		"title": "Chaise",
+  		"volume": 0.25
+  	},
+  	{
+  		"title": "Table",
+  		"volume": 0.66
+  	},
+  	{
+  		"title": "Canapé",
+  		"volume": 2
+  	},
+  	{
+  		"title": "Canapé 3 places",
+  		"volume": 0
+  	},
+  	{
+  		"title": "Petit meuble",
+  		"volume": 0.33
+  	},
+  	{
+  		"title": "Secrétaire",
+  		"volume": 0.5
+  	},
+  	{
+  		"title": "Bibliothèque",
+  		"volume": 2
+  	},
+  	{
+  		"title": "Table basse",
+  		"volume": 0.3
+  	},
+  	{
+  		"title": "Meuble TV / Hifi",
+  		"volume": 0.5
+  	},
+  	{
+  		"title": "Plante",
+  		"volume": 0.33
+  	},
+  	{
+  		"title": "Etagère",
+  		"volume": 0.75
+  	},
+  	{
+  		"title": "Horloge",
+  		"volume": 0.75
+  	},
+  	{
+  		"title": "Télévision",
+  		"volume": 0.33
+  	},
+  	{
+  		"title": "Bureau",
+  		"volume": 0.5
+  	},
+  	{
+  		"title": "Living",
+  		"volume": 2.5
+  	},
+  	{
+  		"title": "Chaîne Hifi",
+  		"volume": 0.15
+  	},
+  	{
+  		"title": "Ordinateur",
+  		"volume": 0.15
+  	},
+  	{
+  		"title": "Commode",
+  		"volume": 0.66
+  	},
+  	{
+  		"title": "Piano",
+  		"volume": 0.5
+  	},
+  	{
+  		"title": "Lave vaisselle",
+  		"volume": 0.5
+  	},
+  	{
+  		"title": "Cuisinière",
+  		"volume": 0.5
+  	},
+  	{
+  		"title": "Four",
+  		"volume": 0.5
+  	},
+  	{
+  		"title": "Tabouret",
+  		"volume": 0.2
+  	},
+  	{
+  		"title": "Réfrigérateur Américain",
+  		"volume": 2
+  	},
+  	{
+  		"title": "Réfrigérateur haut",
+  		"volume": 1
+  	},
+  	{
+  		"title": "Meuble bas",
+  		"volume": 0.5
+  	},
+  	{
+  		"title": "Meuble haut",
+  		"volume": 0.5
+  	},
+  	{
+  		"title": "Casseroles",
+  		"volume": 0.2
+  	},
+  	{
+  		"title": "Plaques de cuisson",
+  		"volume": 0.2
+  	},
+  	{
+  		"title": "Micro-ondes",
+  		"volume": 0.1
+  	},
+  	{
+  		"title": "Cuisine aménagée",
+  		"volume": 0.5
+  	},
+  	{
+  		"title": "Machine à laver",
+  		"volume": 0.5
+  	},
+  	{
+  		"title": "Sèche-linge",
+  		"volume": 0.5
+  	},
+  	{
+  		"title": "Armoire toilette",
+  		"volume": 0.25
+  	},
+  	{
+  		"title": "Lit 1 place",
+  		"volume": 1
+  	},
+  	{
+  		"title": "Lit 2 places",
+  		"volume": 2
+  	},
+  	{
+  		"title": "Table de chevet",
+  		"volume": 0.25
+  	},
+  	{
+  		"title": "Coiffeuse",
+  		"volume": 0.66
+  	},
+  	{
+  		"title": "Dressing",
+  		"volume": 2
+  	},
+  	{
+  		"title": "Miroir",
+  		"volume": 0.15
+  	},
+  	{
+  		"title": "Tapis",
+  		"volume": 0.15
+  	},
+  	{
+  		"title": "Lit king size",
+  		"volume": 2.5
+  	},
+  	{
+  		"title": "Coffre",
+  		"volume": 0.33
+  	},
+  	{
+  		"title": "Vélo",
+  		"volume": 0.35
+  	},
+  	{
+  		"title": "Tondeuse",
+  		"volume": 0.5
+  	},
+  	{
+  		"title": "Etabli",
+  		"volume": 1
+  	},
+  	{
+  		"title": "Table de jardin",
+  		"volume": 0.33
+  	},
+  	{
+  		"title": "Chaise de jardin",
+  		"volume": 0.15
+  	},
+  	{
+  		"title": "Malle",
+  		"volume": 0.33
+  	},
+  	{
+  		"title": "Outils de jardin",
+  		"volume": 0.5
+  	}
+  ]
+}

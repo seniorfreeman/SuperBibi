@@ -1,0 +1,351 @@
+.mobile_content_page{
+	
+	header {
+
+		ul.essentiels li,
+		ul.menu li {
+			&:not(.date){
+				div {
+					bottom: 0;
+				    width: 100%;
+				    margin: 0;
+				    text-align: center;
+				    height: auto;
+				    top: inherit;
+				    span {
+				    	display: none;
+				    }
+				    h2{
+				    	font-size: .75em;
+				    }
+
+				}
+				.picto {
+					float: none;
+					margin-left: auto;
+    				margin-right: auto;
+				}
+			}
+		}
+		
+		ul.essentiels li {
+			.picto {
+				background-position-y: -74px !important;
+			}
+		}
+
+		ul.menu li {
+			&.date h2{
+				font-size: 3em;
+				margin-top: .3em;
+			}
+			.picto {
+				background-position-y: -10px !important;
+			}
+		}
+
+	}
+
+	.menu h3{
+		font-size: 3.5em;
+	}
+
+}
+
+body {
+		
+	#content_page {
+
+		padding-left: @largeurNav;
+		width: 100%;
+		left:0;
+		height: 100%;
+		overflow-y: auto;
+		
+		background-color: @whiteSmokeHover;
+		header {
+			ul.essentiels,
+			ul.menu {
+				
+				li {
+					
+					width: 100%/@nombre_menu;
+					float: left;
+					height: @taille_menu;
+					background-color: @whiteSmoke;
+					border-right: 1px solid @whiteBorder;
+					border-bottom: 1px solid @whiteBorder;
+					position: relative;
+					overflow: hidden;
+
+					font-size: .9em;
+
+					.anim();
+					&.white,
+					&:hover {
+						background-color: @white;
+					}
+					
+					a {
+					
+						width: 100%;
+						height: 100%;
+						position: absolute;
+					
+						span.picto {
+					
+							display: block;
+			    			float: left;
+							width: @taille_menu;
+							height: @taille_menu;
+							background-image: url(../images/Ada_Glyphs_Icons.png);
+							background-repeat: no-repeat;
+
+						}
+						
+						& > div{
+					
+							position: absolute;
+						    height: 100%;
+						    
+						    margin-left: 70px;
+					
+						    h2 {
+						    	margin: 1.2em 0 .35em;
+						    	color:@grey;
+						    }
+					
+						}
+						
+					}
+
+					&.volume a span.picto{background-position: 0 0;}
+					&.profil a span.picto{background-position: (@taille_menu*-1) 0;}
+					&.trajet a span.picto{background-position: (@taille_menu*-2) 0;}
+					&.agenda a span.picto{background-position: (@taille_menu*-3) 0;}
+					&.dossier a span.picto{background-position: (@taille_menu*-4) 0;}
+					&.date a div{
+						
+						margin-left: 0;
+						text-align: center;
+						width: 100%;
+						h2 {
+							color:@red;
+							font-size: 4em;
+							font-weight: 100;
+							margin-top: .125em;
+							font-style: italic;
+							span:first-child {
+								color:@grey;
+								margin-right: -10px;
+							}
+						}
+						&:hover > span {
+							height: 18px;
+							margin-top: -50px;
+							padding-top: 3px;
+						}
+						& > span {
+							.anim();
+							height: 0px;
+							margin-top: -40px;
+							padding-top: 0px;
+							overflow: hidden;
+							position: relative;
+							z-index: 10;
+							
+							display: block;
+							background: @white;
+						}
+					}
+					&.materiel a span.picto{background-position: 0 @taille_menu*-1;}
+					&.camion a span.picto{background-position: (@taille_menu*-1) @taille_menu*-1;}
+					&.amis a span.picto{background-position: (@taille_menu*-2) @taille_menu*-1;}
+				}
+			}
+
+			ul.essentiels{
+				
+		    	
+				li {
+					
+					font-size: 1.1em;
+					width: 100%/@nombre_essentiels;
+					height: @taille_essentiels;
+					border-bottom-width: 2px;
+					
+					a {
+						
+						& > div {
+							
+							padding-left: 1em;
+							height: 70%;
+							top: 15%;
+		    				border-left: 1px dashed @whiteBorder;
+		    				
+		    				h2 {
+		    					margin-top: .5em;
+		    				}
+
+						}
+						
+						span.picto{
+							float: right;
+							margin-top: .25em;
+							margin-right: 1em;
+						}
+						span.light {
+							@taille_light:22px;
+							width: @taille_light;
+							height: @taille_light;
+							display: block;
+							float: left;
+							margin: 26px 26px 26px;
+							position: relative;
+							border-radius:100%;
+							border: 1px solid @whiteBorder;
+
+							& > span:not(.sep) {
+								border-radius:100%;
+								background-color: @red;	
+								width: (@taille_light+-6);
+								height: (@taille_light+-6);
+								top: 2px;
+		    					left: 2px;
+							    position: absolute;
+							}
+						}
+
+					}
+					&.active a span.light > span:not(.sep){
+						background-color: @green;
+					}
+
+				}
+
+			}
+		}
+		
+		article {
+			padding: 1em .5em 2em;
+	    	clear: both;
+	    	.labelHr {
+				width: 50%;
+				margin-right: auto;
+				margin-left: auto;
+				clear: both;
+				label {
+					font-size: 1em;
+					font-weight: normal;
+				}
+	    	}
+	    	li {
+	    		position: relative;
+	    		height: 40px;
+	    		span {
+	    			position: absolute;
+				    top: 0;
+				    right: 0;
+				    padding: .35em;
+				    height: 100%;
+	    			select,
+		    		.star {
+		    			display: block;
+					    float: left;
+					    margin-right: .5em;
+		    		}
+		    		select{
+		    			margin-top: .35em;
+					    width: 120px;
+		    		}
+		    	}
+		    	input[type="text"]{
+		    		padding-right:170px;
+		    	}
+	    	}
+	    
+			ul.itemList {
+
+				li {
+					
+					background: @whiteSmoke;
+					padding: 5px 5px;
+					
+					margin-bottom: 4px;
+
+					-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,.25);
+					-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,.25);
+					-o-box-shadow: 0px 0px 5px 0px rgba(0,0,0,.25);
+					box-shadow: 0px 0px 5px 0px rgba(0,0,0,.25);
+
+					width: 100%;
+					position: relative;
+					overflow: hidden;
+					&.removing {
+						.anim();
+						height: 0px;
+						padding: 0;
+						margin: 0;
+						opacity: 0.25;
+					}
+					.squaredThree {
+						width: 34px;
+					    position: absolute;
+					    height: 32px;
+					    background: @whiteSmoke;
+						// border-right:1px solid @whiteBorderHover;
+						label {
+							left:3px;
+						}
+					}
+					select{
+						margin-top: .45em;
+					}
+					input {
+						padding-left: 40px;
+						padding-top: 7px;
+						padding-bottom: 6px;
+						width: 100%;
+						border: 0;
+						margin-bottom: 0;
+						&:focus,
+						&:active{
+							border-left:none;
+							border-right:none;
+							border-bottom:none;
+						    border-top:1px solid @whiteBorderHover;
+						    //border-bottom:1px solid @whiteBorderHover;
+						}
+					}
+				}
+
+			}
+		}
+
+		@media screen and (max-width: @min-width-mobile){
+		
+			padding-left: 0;
+			z-index: 101;
+		
+			.mobile_content_page()
+		}
+
+	}
+
+
+	&.soft #content_page {
+		left:100%; 
+	}
+	
+	&.aside #content_page {
+		@media screen and (min-width: @min-width-tablet){
+			padding-right: @largeurAside;
+
+		}
+		.mobile_content_page()
+
+	}
+
+}
+
+

@@ -1,0 +1,184 @@
+.amis_page {
+	position: relative;
+    height: 100%;
+	
+	
+	header .title-block {
+		float: left;
+		width: 40%;
+	}
+
+	header .admin-block {
+		float: right;
+		height: calc(~"100% + 80px");
+    	width: 60%;
+
+    	.admin-title {
+    		text-align: center;
+    	}
+
+    	.admin-list {
+    		height: calc(~"100% - 16px");
+    		overflow-x: auto;
+
+    		> li {
+	    		display: inline-block;
+	    		vertical-align: top;
+	    		margin-left: 15px;
+	    		margin-right: 15px;
+	    		cursor: pointer;
+	    		height: 100%;
+
+	    		img {
+	    			height: 50px;
+				    width: 50px;
+				    border-radius: 50%;
+				    float: inherit !important;
+				    display: block;
+				    margin-left: auto;
+				    margin-right: auto;
+	    		}
+
+	    		button {
+	    			display: block;
+	    		}
+	    	}
+
+	    	> li.new {
+	    		cursor: pointer;
+
+	    		img {
+	    			height: 30px;
+				    width: 30px;
+	    		}
+	    	}
+    	} 
+	}
+
+	.friends-block {
+		height: calc(~"100% - 140px");
+		 padding-top: 137px;
+
+		.mover-friends-block {
+			height: 100%;
+			overflow-y: auto;
+			display: inline-block;
+    		width: 50%;
+    		vertical-align: top;
+    		padding: 20px 20px 20px 20px;
+
+			h2 {
+				display: inline-block;
+			}
+
+			.mover-friends-image {
+				display: inline-block;
+				background-position: -128px -64px;
+				width: 64px;
+			    height: 64px;
+			    background-image: url(/images/Ada_Glyphs_Icons.png);
+			    background-repeat: no-repeat;
+			}
+
+			.mover-friends-list {
+
+				> li {
+					margin-top: 10px;
+					margin-bottom: 10px;
+					height: 35px;
+    				line-height: 35px;
+
+					img {
+		    			height: 30px;
+					    width: 30px;
+					    border-radius: 50%;
+		    		}
+
+				}
+
+				.-autocomplete-container {
+					border: none !important;
+				}
+
+			}
+		}
+
+		.task-friends-block {
+			height: 100%;
+			overflow-y: auto;
+			display: inline-block;
+    		width: 49%;
+    		vertical-align: top;
+    		padding: 20px 20px 20px 20px;
+
+			h2 {
+				display: inline-block;
+			}
+
+			.task-friends-image {
+				display: inline-block;
+				background-position: -446px -64px;
+				width: 64px;
+			    height: 64px;
+			    background-image: url(/images/Ada_Glyphs_Icons.png);
+			    background-repeat: no-repeat;
+			}
+
+			.task-friends-list {
+				> li {
+					position: relative;
+				    margin-top: 10px;
+					margin-bottom: 10px;
+
+					.left-container {
+
+						.friends-list {
+							> li {
+								display: inline-block;
+	    						vertical-align: top;
+	    						margin-right: 5px;
+							}
+						}
+					}
+
+					.right-container {
+						position: absolute;
+					    right: 0px;
+					    top: 0px;
+					}
+					
+				}
+			}
+		}
+	}
+
+	.partners-block {
+		position: absolute;
+		bottom: 0px;
+		width: 100%;
+
+		ul.partners-list {
+			height: 141px;
+		    overflow-x: auto;
+		    white-space: nowrap;
+
+			> li {
+				display: inline-block;
+				cursor: pointer;
+
+				img {
+					height: 127px;
+				}
+			}
+
+		}
+	}
+
+
+	.friend-item-container {
+		cursor: pointer;
+	}
+
+}
+
+

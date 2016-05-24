@@ -1,0 +1,48 @@
+template(name="trajet_page")
+	div.trajet_page
+		header
+			ul
+				li#carburant
+					h2 
+						|{{_ "oil"}}
+					i.picto
+					p
+				li#distance
+					h2 
+						|{{_ "distance"}}
+					i.picto
+					p
+				li#temps
+					h2 
+						|{{_ "time"}}
+					i.picto
+					p
+			div.redaction
+				h1
+					|{{_ "superTrajet"}}
+				p
+					|{{_ "superTrajetDescription"}}
+		article
+			div#itineraire
+				ul.ssmenu
+					li
+						input(type="text", placeholder='{{_ "departure"}}' name="from", id="from")
+					li.sep
+						i.fa.fa-arrow-right
+						i.fa.fa-arrow-down
+					li
+						input(type="text", placeholder='{{_ "arrival"}}' name="to", id="to")
+				div#trajet
+					| {{> googleMap name="exampleMap" options=exampleMapOptions}}
+				ul#itineraireTextuel
+					li
+						| {{_ "noAdresses"}}
+		footer
+			ul.ssmenu
+				li.stations
+					i.fa.fa-tint
+					input(type="range", id="proches", min="0", max="1", class="slider{{#if proches}} bg_green{{/if}}",value="{{proches}}")
+				li.textuel
+					button.vert#showItinerary
+						i.fa.fa-road
+						| {{_ "showItinerary"}}

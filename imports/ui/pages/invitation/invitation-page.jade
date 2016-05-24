@@ -1,0 +1,11 @@
+template(name="invitation_page")
+	div.page.invitation
+		div
+			div.wrapper-invitation
+				div.at-form
+					div.at-pwd-form
+						form#at-pwd-form(role='form', novalidate='', action='#', method='POST')
+							.input
+								input#at-field-password(type='password', name='at-field-password', placeholder='Mot de passe', autocapitalize='none', autocorrect='off')
+							button(type='submit')
+								| S'inscrire

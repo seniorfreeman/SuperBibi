@@ -1,0 +1,185 @@
+@import '../../stylesheets/utils.less';
+nav {
+	
+	width: @largeurNav;
+	right:100%;
+	margin-right: -@largeurNav;
+	height: 100%;
+	z-index: 100;
+	background-color: @whiteSmoke;
+	border-right:1px solid @whiteBorder;
+	color:@grey;
+	padding-top:.75em;
+	div.content {
+		overflow: auto;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		.logo{
+			width: 85%;
+			height: auto;
+			margin: 0 auto;
+			display: block;
+			margin-bottom: 1em;
+		}
+
+		#account {
+			padding:8px;
+			border:0;
+			background:none;
+
+		}
+
+		/* NAV PROFILE */
+		#portrait {
+
+				position: relative;
+				clear : both;
+				margin : 0 auto;
+				width : 145px;
+				height : 145px;
+				border : 1px solid @whiteBorder;
+				border-radius: 100%;
+				overflow: hidden;
+
+				& > div:first-child {
+
+					top:0;
+					left:0;
+					border-radius: 100%;
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					border:8px solid @whiteSmoke;
+					background-position: center center;
+					background-size: cover;
+					
+
+				}
+				
+				& > div:last-child {
+					display: none;
+					.anim(.5s);
+					position: absolute;
+					width: 100%;
+					text-align: center;
+					top: 80%;
+					opacity: 0;
+					margin-top: -10px;
+					z-index: 11;
+					button{
+
+					}
+				}
+
+				&:hover > div:last-child{
+					top:50%;
+					opacity: 1;
+				}
+
+		}
+
+		#adminLists {
+			text-align: center;
+			padding:.25em 0;
+			li {
+				border : 1px solid @whiteBorder;
+				background-position: center center;
+				background-size: cover;
+				margin-top: 5px;
+				@size: 28px;
+				display: inline-block;
+				width: @size;
+				height: @size;
+				font-size: @size;
+				margin-right: @size/4;
+				border-radius: 100%;
+				&:last-child{
+					margin: 0;
+					border:0;
+				}
+			}
+
+			li.add {
+				cursor: pointer;
+			}
+		
+		}
+
+		.ia {
+			width: 90%;
+			margin: 1em auto 2em;
+			display: block;
+			padding: .75em;
+			&:active {
+				padding: .75em;
+			}
+		}
+
+		&.active{
+			.ia {display: none;}
+		}
+
+		ul.menu{
+			li {
+				
+				position: relative;
+				a {
+					padding:1.15em 1em;
+					width: 100%;
+					height: 100%;
+					display: block;
+					&:hover,
+	  				&:active {color:inherit;}
+				}
+
+				i.fa {
+					font-size: 1.4em;
+					margin-right: 1em;
+				}
+
+				span {
+					float: right;
+	    			padding-top: .25em;
+				}
+				&:hover,
+				&.active{
+					a{
+						background-color: @whiteSmokeHover;
+						border-left: 4px solid @red;
+					}
+
+					i.fa{
+						margin-left: -4px;
+					}
+
+				}
+				
+			}
+
+		}
+	}
+
+	footer{
+		background-color: @whiteSmoke;
+		position: absolute;
+		width: 100%;
+		bottom:0;
+		padding: 1em;
+		border-top:1px solid @whiteSmokeHover;
+		clear: both;
+		font-size: .75em;
+	    text-align: center;
+		img{
+			margin-left: .5em;
+		}
+	}
+
+
+	@media screen and (max-width: @min-width-mobile){
+		& {
+			//margin-right: 0;
+		}
+	}
+
+}

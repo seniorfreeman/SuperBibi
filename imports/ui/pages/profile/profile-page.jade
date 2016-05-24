@@ -1,0 +1,87 @@
+﻿template(name="profile_page")
+	div.profile_page
+		header
+			ul
+				li#date
+					h2
+						|{{_ "movingDate"}}
+					i.picto
+					input(type="date",id="dateDemenagement", value="{{formatDate(user.profile.dateDemenagement)}}")
+				li#stress
+					h2
+						|{{_ "stressMode"}}
+					i.picto
+					input(type="range", id="stressMode", min="0", max="1", class="slider{{#if isStressMode}} bg_green{{/if}}",value="{{isStressMode}}")
+			div.redaction
+				h1
+					|{{_ "superProfil"}}
+				p
+					|{{_ "superProfilDescription"}}
+		article
+			ul.moi
+				li
+					label(for='avatar')
+						|{{> avatar user=user name="avatar"  shape="square" size="large"}}
+				li
+					label(for='upload')
+						|{{> upload_bootstrap multiple=false name="upload" callbacks=uploadPictureCallbacks formData=someStuff }}
+				li
+					input(type='text', name='nom', id='nom', placeholder='{{_ "lastNamePlaceholder"}}' value='{{user.profile.nom}}')
+				li
+					input(type='text', name='prenom', id='prenom', placeholder='{{_ "firstNamePlaceholder"}}' value='{{user.profile.prenom}}')
+				li
+					input(type='email', name='email', id='email', placeholder='{{_ "emailPlaceholder"}}' value='{{user.profile.email}}')
+				li
+					input(type='password', name='password', id='password', placeholder='{{_ "passwordPlaceholder"}}' value='{{user.profile.password}}')
+				li
+					input(type='number', name='age', id='age', placeholder='{{_ "agePlaceholder"}}' value='{{user.profile.age}}')
+			ul.monDemenagement
+				li
+					div.squaredThree
+						input(id="squaredThree", type="checkbox", value="{{user.profile.animaux}}", name="checked")
+						label(for="squaredThree")
+					span 
+						|{{_ "animalsLabel"}}
+				li
+					input(type='number', name='enfants', id='enfants', placeholder='{{_ "childrenNumberPlaceholder"}}' value='{{user.profile.enfants}}')
+				li
+					label(for='departAdress') Départ
+					input(type="text",id="departAdress",placeholder="Définir une adresse de départ", value="{{formatDate(user.profile.departAdress)}}")
+				li
+					label(for='distAdress') Arrivé
+					input(type="text",id="distAdress",placeholder="Définir une adresse d'arrivée", value="{{formatDate(user.profile.distAdress)}}")
+				li
+					label(for="typeDeparture") {{_ "stateDepartureLabel"}}
+					select(id='typeDeparture', value='{{user.profile.typeDeparture}}')
+						option(value="Locataire")
+							| {{_ "leaseHolderLabel"}}
+						option(value="Proprietaire")
+							| {{_ "ownerLabel"}}
+
+				li
+					label(for="typeArrival") {{_ "stateArrivalLabel"}}
+					select(id='typeArrival', value='{{user.profile.typeArrival}}')
+						option(value="Locataire")
+							| {{_ "leaseHolderLabel"}}
+						option(value="Proprietaire")
+							| {{_ "ownerLabel"}}
+				li
+					input(type='text', name='autre', id='autre', placeholder="Autre", value='{{user.profile.autre}}')
+		footer
+			ul.ssmenu
+				li
+					button.rouge(type='button', data-action="seDeconnecter")
+						i.fa.fa-sign-out
+						|{{_ "logout"}}
+				li
+					button.rouge(type='button', data-action="unLinkFaceBook")
+						i.fa.fa-chain-broken
+						|{{_"unlinkFacebook"}}
+				li
+					button.rouge(type='button', data-action="deleteProfile")
+						i.fa.fa-times
+						|{{_"deleteAccount"}}
+				li
+					button.vert(type='button', data-action="testNotification")
+						i.fa.fa-align-justify
+						| Tester notifications

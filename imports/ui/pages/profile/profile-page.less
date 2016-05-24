@@ -1,0 +1,52 @@
+.profile_page {
+	article {
+		ul {
+			float: left;
+			padding: 1em;
+			li{
+				position: relative;
+    			padding: .5em 0;
+			}
+			&.monDemenagement {
+				width: 60%;
+				padding-left: 0;
+				li{
+					.squaredThree {
+						position: relative;
+						float: left;
+						& + span{
+						    padding-top: .6em;
+							display: block;
+						}
+					}
+				}	
+			}
+
+			&.moi {
+				width: 40%;
+				// HACK TWBS:BOOTSTRAP pour l'avatar
+				.form-control.upload-control{
+				  .progressBar();
+				}
+				.progress-label{
+					display: none;
+				}
+				.uploadPanel {
+					display: inherit;
+					.btn,
+					.upload-control:first-child{
+						margin: 0;
+						display: inline-block;
+	    				width: auto;
+						border-radius: inherit;
+
+					}
+					.btn.upload-control.start{
+						//display: none;
+					}
+				}
+
+			}
+		}
+	}
+}

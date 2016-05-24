@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>{{emailTitle}}</title>
+    <style type="text/css">
+      body{
+        font-family:Arial,Helvetica,sans-serif;
+        color:#383838;
+        margin: 0;
+        background-color: #ededed;
+      }
+      td{
+      		padding: .5em;
+      }
+      hr {
+        margin: 0;
+        border: 0;
+      }
+      .imageHeader{
+        height: 180px;
+      }
+      hr.content {
+      		border-top:1px solid #cecece;
+      		width: 75%;
+          margin:0 auto 1em;
+      }
+
+      hr.content.image{
+        margin-bottom: 0;
+      }
+
+      #emailContainer{
+      		width: 100%;
+      		max-width: 500px;
+      }
+
+      hr.Trouge { border-top:6px solid #b70000; border-bottom:1px solid #ededed;}
+      hr.Tbleu { border-top:6px solid #395c94; }
+
+    </style>
+  </head>
+  <body style="font-family:Arial,Helvetica,sans-serif; color:#383838; margin: 0;">
+    <hr class="Trouge"/><hr class="Tbleu"/>
+    <table bgcolor="ededed" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" valign="top">
+      <tr>
+        <td align="center" valign="top">
+          <table border="0" cellpadding="20" cellspacing="0" id="emailContainer">
+            <tr>
+              <td align="center" valign="top"><img src="{{path}}images/logo_tiny.png"/></td>
+            </tr>
+            <tr>
+              <td class="imageHeader" align="center" valign="bottom"><img src="{{emailImage}}"/></td>
+            </tr>
+            <tr>
+              <td align="center" valign="top"><img/>
+                <hr class="content image"/>
+              </td>
+            </tr>
+            {{contentHtml}}
+            <tr>
+              <td align="center" valign="top">
+                <p>
+                  <hr class="content"/>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" valign="top">
+                <p><small>Nous contacter • Follow on Facebook • Follow on Twitter</small></p>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" valign="top">
+                <p><img src="{{path}}images/LogoAda_mini_hz_black.jpg"/></p>
+                <p><small>Ada - 22-28 Rue Henri Barbusse 92110 CLICHY<br/>Copyright 2016 © Tout droits réservés</small></p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+

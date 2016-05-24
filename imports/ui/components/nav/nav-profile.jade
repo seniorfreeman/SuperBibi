@@ -1,0 +1,15 @@
+template(name="nav_profile")
+	div(id="portrait")
+		|{{> avatar user=user name="avatar"  shape="circle" size="large"}}
+		div
+			button(type="button")
+				i(class="fa fa-picture-o")
+			button(type="button")
+				i(class="fa fa-times")
+	ul(id="adminLists")
+		<!-- In a loop of authorized admins -->
+		each coMovers
+			li(style="background-image:url('{{picture}}')")
+				|&nbsp;
+		li.add
+			i(class="fa fa-plus-circle")

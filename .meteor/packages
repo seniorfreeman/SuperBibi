@@ -1,0 +1,102 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+# meteor libraries
+meteor-base
+ecmascript
+es5-shim
+check
+tracker
+
+# standard libraries
+jquery
+underscore
+less
+
+# ui
+blaze-html-templates
+reactive-dict
+reactive-var
+aldeed:template-extension
+percolate:momentum
+mizzao:autocomplete
+twbs:bootstrap
+peppelg:bootstrap-3-modal
+
+# data
+mongo
+aldeed:simple-schema
+aldeed:collection2
+dburles:collection-helpers
+reywood:publish-composite
+mdg:validated-method
+mdg:validation-error
+peerlibrary:reactive-publish
+
+# routing
+kadira:flow-router@2.11.0
+kadira:blaze-layout
+arillo:flow-router-helpers
+zimme:active-route
+
+# i18n
+tap:i18n
+
+# accounts
+accounts-password
+useraccounts:unstyled
+useraccounts:flow-routing
+softwarerero:accounts-t9n
+
+# mobile
+crosswalk
+mobile-experience
+chriswessels:hammer
+
+# production
+juliancwirko:postcss@1.0.0-beta.11
+standard-minifier-js
+ddp-rate-limiter
+app-prod-security
+
+# rest apis
+simple:rest-accounts-password
+simple:rest
+
+# testing
+factory
+publication-collector
+stub-collections
+xolvio:cleaner
+dispatch:mocha-phantomjs
+practicalmeteor:mocha@2.1.1-rc.1
+dburles:google-maps
+browser-policy
+accounts-facebook
+service-configuration
+mquandalle:jade
+kadira:debug
+email
+meteorhacks:ssr
+wylio:mandrill
+tomi:upload-server
+tomi:upload-jquery
+utilities:avatar
+bozhao:link-accounts
+momentjs:moment
+percolate:synced-cron
+rzymek:moment-locales
+mizzao:user-status
+servicelocale:googlemaps-api
+session
+chrismbeckett:toastr
+rzymek:fullcalendar
+flowkey:user-location
+meteortoys:allthings
+accounts-ui
+outatime:jwt-simple
+bjwiley2:api-tokens
+drewy:datetimepicker

@@ -1,0 +1,19 @@
+template(name="nav_content")
+	ul(class="menu")
+		if Template.subscriptionsReady
+			each list in todoLists
+				if list.includeHrbefor
+					hr
+				li(id=list._id class="themelink")
+					a(href="/list/{{list._id }}")
+						i(class=list.cssClass)
+						= renderIfJourJ(list.name)
+						span
+							= nestedTodoCount(list) 
+		hr
+		li.progressBar
+			div
+				div(style="width:{{avancement}}%")
+			small {{avancement}} {{_ "progressBarPercentageDone"}}
+	if Template.subscriptionsReady
+		{{init}}

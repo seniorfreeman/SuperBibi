@@ -1,0 +1,24 @@
+<template name="App_body">
+  {{#HammerTouchArea gestureMap=templateGestures}}
+  {{#unless connected}}
+    <div class="notifications">
+      <div class="notification">
+        <span class="icon-sync"></span>
+        <div class="meta">
+          <div class="title-notification">Tentative de connexion</div>
+          <div class="description">Il semble y avoir un problème de connexion</div>
+        </div>
+      </div>
+    </div>
+  {{/unless}}
+  <div id="content-container">
+    {{#momentum plugin="fade"}}
+      {{#if Template.subscriptionsReady}}
+        {{> Template.dynamic template=main}}
+      {{else}}
+        {{> App_loading}}
+      {{/if}}
+    {{/momentum}}
+  </div>
+  {{/HammerTouchArea}}
+</template>
