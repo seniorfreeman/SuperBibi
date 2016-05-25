@@ -5,7 +5,8 @@ import {
 }
 from '../../../api/collections/collections.js';
 import {
-  updateEvent
+  updateEvent,
+  updateTodoDate
 } from '../../../api/collections/methods.js';
 import {
   displayError
@@ -63,15 +64,16 @@ Template.agenda_page.onRendered(function() {
             element.find('.fc-title').after('<br/>' + event.description);
         },
         eventDrop: function(event, delta, revertFunc, jsEvent, ui, view){
-          id = event.id;
-          start = event.start.format();
-          end = event.end.format();
-          title = event.title;
           desc = event.description;
           if(desc){
+            id = event.id;
+            start = event.start.format();
+            end = event.end.format();
+            title = event.title;
             updateEvent.call({eventId:id,start:start,end:end,title:title}, displayError);
           }else {
-            alert('todos')
+            //updateTodoDate.call({todoId:id,start:start}, displayError);
+            alert('todo');
           }
         },
         dayClick(date) {

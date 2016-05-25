@@ -784,3 +784,20 @@ export const deleteEvent= new ValidatedMethod({
     Events.remove({_id:eventId});
   }
 });
+
+export const updateTodoDate= new ValidatedMethod({
+  name: 'todos.updateTodoDate',
+  validate: new SimpleSchema({
+    todoId:{type:String},
+    start:{type:String},
+    //end:{type:String},
+  }).validator(),
+  run({ todoId, start }){
+    var userId = Meteor.userId();
+    if (!userId) {
+      throw new Meteor.Error('accès refusé');
+    }
+
+    Todos.update({_id:todoId},{$set:{createdAt:start,userId:userId}});
+  }
+});

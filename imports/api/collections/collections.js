@@ -652,7 +652,7 @@ Products.attachSchema(Products.schema);
 Documents.attachSchema(Documents.schema);
 Friends.attachSchema(Friends.schema);
 Notifications.attachSchema(Notifications.schema);
-//Todos.attachSchema(Todos.schema);
+Todos.attachSchema(Todos.schema);
 VolumeObjects.attachSchema(VolumeObjects.schema);
 //Rooms.attachSchema(Rooms.schema);
 //RoomObjects.attachSchema(RoomObjects.schema);
