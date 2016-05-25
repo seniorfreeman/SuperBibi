@@ -200,8 +200,6 @@ Template.content_page.helpers({
     }else{
       return listName;
     }
-
-
   },
 });
 Template.content_page.events({
