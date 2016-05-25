@@ -4,6 +4,12 @@ import {
     Lists
 }
 from '../../../api/collections/collections.js';
+import {
+  updateEvent
+} from '../../../api/collections/methods.js';
+import {
+  displayError
+} from '../../lib/errors.js';
 
 import './event-page.js';
 
@@ -24,7 +30,7 @@ Template.agenda_page.onRendered(function() {
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
-
+        editable: true,
         events(start, end, timezone, callback) {
              var todos = Todos.find().map(function(it) {
                  return {
@@ -55,9 +61,19 @@ Template.agenda_page.onRendered(function() {
         eventRender: function(event, element) {
           //$('.fc-content').append('<br/><a id="deleteBtn" href="#">Supprimer</a>');
             element.find('.fc-title').after('<br/>' + event.description);
-        } ,
-
-
+        },
+        eventDrop: function(event, delta, revertFunc, jsEvent, ui, view){
+          id = event.id;
+          start = event.start.format();
+          end = event.end.format();
+          title = event.title;
+          desc = event.description;
+          if(desc){
+            updateEvent.call({eventId:id,start:start,end:end,title:title}, displayError);
+          }else {
+            alert('todos')
+          }
+        },
         dayClick(date) {
             Session.set('eventModal', {
                 type: 'add',
@@ -72,10 +88,6 @@ Template.agenda_page.onRendered(function() {
                 }
             });
         },
-        /*  eventClick: function(event){
-            alert(event.id);
-            return false;
-          }*/
         eventClick(event,e) {
             var actionName=$(e.target).attr('id');
             if(actionName){
