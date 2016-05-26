@@ -33,7 +33,12 @@ Template.agenda_page.onRendered(function() {
         },
         editable: true,
         events(start, end, timezone, callback) {
-             var todos = Todos.find().map(function(it) {
+          $('#agendalist').change(function(){
+            var listId = $('#agendalist option:selected').val();
+            $('#agenda').fullCalendar('refetchEvents');
+          });
+             var listId = $('#agendalist option:selected').val();
+             var todos = Todos.find({list:listId}).map(function(it) {
                  return {
                    id: it._id,
                    title: it.title,
