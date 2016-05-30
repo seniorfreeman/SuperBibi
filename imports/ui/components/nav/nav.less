@@ -8,19 +8,38 @@ nav {
 	z-index: 100;
 	background-color: @whiteSmoke;
 	border-right:1px solid @whiteBorder;
+	border-left:1px solid @whiteBorder;
 	color:@grey;
-	padding-top:.75em;
+	
+
+	#ia {
+		&.active{
+			display: block;
+		}
+		display: none;
+		@taille_bot:35%;
+		position: fixed;
+		width: @taille_bot;
+		top: 50%;
+		left: 50%;
+		margin-left: @taille_bot*-0.5;
+		background: white;
+		padding: 1em;
+	}
+	
 	div.content {
+		
 		overflow: auto;
 		position: absolute;
 		width: 100%;
 		height: 100%;
+		padding-bottom: 3em;
+
 		.logo{
 			width: 85%;
 			height: auto;
-			margin: 0 auto;
+			margin: .75em auto;
 			display: block;
-			margin-bottom: 1em;
 		}
 
 		#account {
@@ -36,8 +55,9 @@ nav {
 				position: relative;
 				clear : both;
 				margin : 0 auto;
-				width : 145px;
-				height : 145px;
+				@taille_portrait:120px;
+				width : @taille_portrait;
+				height : @taille_portrait;
 				border : 1px solid @whiteBorder;
 				border-radius: 100%;
 				overflow: hidden;
@@ -108,7 +128,7 @@ nav {
 
 		.ia {
 			width: 90%;
-			margin: 1em auto 2em;
+			margin: .5em auto .25em;
 			display: block;
 			padding: .75em;
 			&:active {
@@ -121,26 +141,28 @@ nav {
 		}
 
 		ul.menu{
+			padding-bottom: 4em;
 			li {
-				
 				position: relative;
 				a {
-					padding:1.15em 1em;
+					padding:.75em 1em;
 					width: 100%;
 					height: 100%;
 					display: block;
 					&:hover,
+					&:focus,
 	  				&:active {color:inherit;}
 				}
 
 				i.fa {
-					font-size: 1.4em;
+					font-size: 1em;
 					margin-right: 1em;
 				}
 
 				span {
 					float: right;
-	    			padding-top: .25em;
+	    			font-size: .8em;
+					padding-top: 4px;
 				}
 				&:hover,
 				&.active{

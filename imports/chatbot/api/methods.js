@@ -6,51 +6,7 @@ import {_} from 'meteor/underscore';
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 
-import {BotInteractions} from './collections/botInteractions.js';
 import {BotUserQuestions} from './collections/botUserQuestions.js';
-
-export const insertBotInteraction = new ValidatedMethod({
-    name: 'BotInteractions.insert',
-    validate: new SimpleSchema({
-        userId: {type: String}
-    }).validator(),
-    run({userId}) {
-
-        const newBotInteraction = BotInteractions.insert({
-            userId: userId
-        }, (error, result) => {
-            if (error)
-                console.log(error);
-            else {
-                console.info('newBotInteraction successfully inserted : ' + result);
-            }
-        });
-
-    }
-});
-
-export const setCompletedTour = new ValidatedMethod({
-    name: 'BotInteractions.updateTour',
-    validate: new SimpleSchema({
-        userId: {type: String},
-        hasCompletedTour: {type: Boolean}
-    }).validator(),
-    run({userId, hasCompletedTour}) {
-
-        const newBotInteraction = BotInteractions.update({userId: userId}, {
-            $set: {
-                hasCompletedTour: hasCompletedTour
-            }
-        }, (error, result) => {
-            if (error)
-                console.log(error);
-            else {
-                console.info('newBotInteraction successfully inserted : ' + result);
-            }
-        });
-
-    }
-});
 
 export const createUser = new ValidatedMethod({
     name: 'BotInteractions.createUser',
@@ -93,16 +49,47 @@ export const insertBotUserQuestion = new ValidatedMethod({
 });
 
 Meteor.methods({
-    'BotInteractions.profilage.update': (botInteractionId, updatedParam) => {
-        check(botInteractionId, String);
-        check(updatedParam, Object);
+    'AI.methods.setCompletedTour': function () {
+        console.log('should set complete tour');
 
-        BotInteractions.update({_id: botInteractionId}, {$set: updatedParam}, (err, result) => {
-            if (err) {
-                console.error(err.message);
+    },
+    'AI.methods.updateProfile': function (collection, key, value) {
+        const userId = this.userId;
+        const set = {};
+        set[key] = value;
+
+        Meteor.users.update({_id: userId}, {$set: set}, (err) => {
+            if (!err) {
+                console.info('AI.methods.updateProfile succesfully');
             } else {
-                console.log('BotInteractions.profilage.update sucess : ' + result);
+                console.error('AI.methods.updateProfile error : ' + err.message);
             }
+
+        })
+
+    },
+    'AI.methods.updateAskedQuestion': function (questionName) {
+        const userId = this.userId;
+
+        Meteor.users.update({_id: userId}, {$push: {'profile.askedQuestion': questionName}}, (err) => {
+            if (!err) {
+                console.info('AI.methods.updateAskedQuestion succesfully');
+            } else {
+                console.error('AI.methods.updateAskedQuestion error : ' + err.message);
+            }
+        })
+
+    },
+    'AI.methods.syncProfile': function (set) {
+        const userId = this.userId;
+
+        Meteor.users.update({_id: userId}, {$set: set}, (err) => {
+            if (!err) {
+                console.info('AI.methods.syncProfile succesfully');
+            } else {
+                console.error('AI.methods.syncProfile error : ' + err.message);
+            }
+
         })
     }
 });

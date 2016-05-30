@@ -1,39 +1,44 @@
 template(name="amis_page")
 	div.amis_page
 		header
-			div.title-block
-				h2 {{_ 'friendPageTitle'}}
-				h3 {{_ 'friendPageSubTitle'}}
-			div.admin-block
-				div.admin-title {{_ 'friendPageAdminTitle'}}
-				ul.admin-list
+			div.admin-title 
+				span
+					| {{_ 'friendPageAdminTitle'}}
+				ul.icons.admin-list
 					each coMovers
 						{{> admin_friend_item}}
 					li.new
-						div.admin-item-title Ajouter
-						i.fa.fa-plus-circle
+						h2
+							| {{_ "Add"}}
+						i.fa.fa-plus
+			div.redaction
+				div
+					h1 {{_ 'friendPageTitle'}}
+					p {{_ 'friendPageSubTitle'}}
 
+		article
+			div
+				div.mover-friends-block
+					div.mover-friends-title.bras
+						i.picto
+						h2 {{_ 'friendPageMoverFriendsTitle'}} xxxxx
+					ul.mover-friends-list
+						each movers
+							{{> mover_friend_item}}
+					div.inputFriendsMover
+						i.fa.fa-plus
+						{{> inputAutocomplete settings=settings id="newMoverFriend" class="form-control" name="newMoverFriend" placeholder="Entrez un nom, un mail, ou choisissez un ami" }}
+						
 
-		div.friends-block
-			div.mover-friends-block
-				div.mover-friends-title
-					div.mover-friends-image
-					h2 {{_ 'friendPageMoverFriendsTitle'}} 28 décembre
-				ul.mover-friends-list
-					each movers
-						{{> mover_friend_item}}
-					{{> inputAutocomplete settings=settings id="newMoverFriend" class="form-control" name="newMoverFriend" placeholder="Entrez un nom, un mail, ou choisissez un ami" }}
-					
+				div.task-friends-block
+					div.task-friends-title.participantsBig
+						i.picto
+						h2 {{_ 'friendPageTaskFriendsTitle'}}
+					ul.task-friends-list
+						each todos
+							{{> task_item}}
 
-			div.task-friends-block
-				div.task-friends-title
-					div.task-friends-image
-					h2 {{_ 'friendPageTaskFriendsTitle'}}
-				ul.task-friends-list
-					each todos
-						{{> task_item}}
-
-		div.partners-block
+		footer.partners-block
 			ul.partners-list
 				each partners
 					{{> partner_item}}
@@ -41,17 +46,16 @@ template(name="amis_page")
 
 template(name="admin_friend_item")
 	li
-		div.admin-item-title
+		h2.admin-item-title
 			if isOk
 				i.fa.fa-star
 			if isNotOk
 				i.fa.fa-star-o
 			if pending
 				i.fa.fa-star-half-o
-			span {{name}} {{mail}}
+			| {{#if name}} {{name}} {{else}} {{mail}} {{/if}}
 		img.avatar-image(src='{{picture}}', alt='avatar')
-		div
-			button Retirer
+		button.small {{_ "remove"}}
 
 template(name="mover_friend_item")
 	li
@@ -59,25 +63,20 @@ template(name="mover_friend_item")
 		img.avatar-image(src='{{picture}}', alt='avatar')
 		span {{name}} {{mail}}
 		if isMailOrInvitation
-			span.answer - {{state}}
-		button.delete
+			small.answer - {{state}}
+		if isPending
+			button.resend.small {{_ "relaunchInvitation"}}
+		button.delete.small
 			i.fa.fa-lg.fa-times
 
 template(name="task_item")
 	li
-		div.left-container
-			div.task {{title}}	
-			ul.friends-list
-				each friends
-					li {{name}}{{mail}}
-		div.right-container
-			a.go-to-task.btn(href="/list/{{list}}/todo/{{_id}}") Aller à la tâche
-
-template(name="partner_item")
-	li
-		a(href='{{url}}')
-			div.partner-title {{title}}
-			img.partner-image(src='{{picture}}', alt='')
+		a.go-to-task.btn.small(href="/list/{{list}}/todo/{{_id}}") {{_ "goToTask"}}
+		h3.task 
+			|• {{title}}	
+		ul.friends-list
+			each friends
+				li {{name}}{{mail}}
 
 template(name='friend_item')
 	div.friend-item-container
@@ -85,6 +84,3 @@ template(name='friend_item')
 		span.friend-name {{name}}
 
 template(name='friend_no_match')
-
-template(name='add_co_mover_modal')
-	{{> modals inputAutocomplete=true modalTitle="Nouveau co-déménageur" modalDescription="" autocompleteSettings=settings inputLabel="Entrez un nom, un mail, ou choisissez un ami" cancelBtnLabel="Annuler" validBtnLabel="Ajouter"}}

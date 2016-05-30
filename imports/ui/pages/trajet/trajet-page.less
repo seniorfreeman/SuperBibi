@@ -1,5 +1,22 @@
 .trajet_page {
-
+	footer{
+		bottom:0;
+		text-align: right;
+	}
+	.minissMenu{
+		&,
+		&.sep{
+			width: 100%;
+			input{margin-bottom: 0;}
+			i.fa-arrow-down{
+				display: inline-block;
+			}
+			i.fa-arrow-right{
+				display: none;
+			}
+		}
+	}
+	
 	article {
 		
 		padding-bottom: @Softfooter_height;
@@ -15,17 +32,7 @@
 				ul.ssmenu {
 					width: 50%;
 					li{
-						&,
-						&.sep{
-							width: 100%;
-							input{margin-bottom: 0;}
-							i.fa-arrow-down{
-								display: inline-block;
-							}
-							i.fa-arrow-right{
-								display: none;
-							}
-						}
+						.minissMenu();
 					}
 				}
 			}
@@ -56,11 +63,47 @@
 				overflow-y:auto;
 				padding: 1em 0 3em;
 				li {
+					
+					i{
+						background-image: url('https://maps.gstatic.com/mapfiles/api-3/images/maneuvers.png');
+						background-repeat: no-repeat;
+						background-position: top center;
+						float: left;
+						display: inline-block;
+						width: 1em;
+						height: 1em;
+						margin-right: 1em;
+					}
+
+					i.none{background-image: none;}
+					i.ferry{background-position:0 -614px}
+					i.ferry-train{background-position:0 -566px}
+					i.merge{background-position:0 -143px}
+					i.straight{background-position:0 -534px}
+					i.fork-left{background-position:0 -550px}
+					i.ramp-left{background-position:0 -598px}
+					i.roundabout-left{background-position:0 -197px}
+					i.turn-left,
+					i.keep-left{background-position:0 -413px}
+					i.turn-sharp-left{background-position:0 0}
+					i.turn-slight-left{background-position:0 -378px}
+
+					i.fork-right{background-position:0 -499px}
+					i.ramp-right{background-position:0 -429px}
+					i.roundabout-right{background-position:0 -232px}
+					i.turn-right,
+					i.keep-right{background-position:0 -483px}
+					i.turn-sharp-right{background-position:0 -582px}
+					i.turn-slight-right{background-position:0 -51px}
+
+
 					line-height: 1.5em;
-					padding:1em 1em .5em;
+					padding: .25em 1em 1em 1em;
+
 					div {
-						text-align: right;
-						padding: 1em;
+						&.timing{
+							text-align: left;
+						}
 					}
 				}
 
@@ -94,7 +137,18 @@
 			}
 
 		}
-
+	
+	}
+	@media screen and (max-width: @min-width-mobile) {
+		
+		article > div{
+			ul.ssmenu{
+				padding: 0;
+				li{
+					.minissMenu();
+				}
+			}
+		}
 	}
 
 }

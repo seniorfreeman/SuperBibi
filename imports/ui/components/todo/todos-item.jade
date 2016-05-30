@@ -1,8 +1,8 @@
 template(name='Todos_item')
 	form(action='#', id='{{currentTodo._id}}')
 		.squaredThree
-			input#squaredThree(type='checkbox', value='None',data='{{currentTodo._id}}', name='checked')
-			label(for='squaredThree')
+			input(type='checkbox',id="squaredThree{{currentTodo._id}}" value='None',data='{{currentTodo._id}}', name='itemChecked')
+			label(for='squaredThree{{currentTodo._id}}')
 		input(type='text', placeholder='{{_ currentTodo.title}}', value='{{currentTodo.title}}')
 		span
 			select(id="todolist", data="{{currentTodo._id}}")
@@ -14,8 +14,8 @@ template(name='Todos_item')
 						else									
 								option(value='{{list._id}}')
 									= renderIfJourJ(list.name)
-			if currentTodo.prioritaire
-				.star.active
+			if currentTodo.priority
+				.star.activepeioritaiez
 					i.fa.fa-star-o
 					i.fa.fa-star
 			else

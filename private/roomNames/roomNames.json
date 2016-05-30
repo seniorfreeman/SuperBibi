@@ -1,0 +1,16 @@
+{
+  "roomNames": [
+  	{
+  		"title": "Salon",
+      "value": "salon"
+  	},
+    {
+      "title": "Cuisine",
+      "value": "cuisine"
+    },
+    {
+      "title": "Chambre",
+      "value": "chambre"
+    }
+  ]
+}

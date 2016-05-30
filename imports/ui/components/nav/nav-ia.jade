@@ -1,8 +1,8 @@
 template(name="nav_ia")
-    div
-        textarea(id='ia-area' rows="4" cols="50")
-        input(id='ia-input', style='width: 70%;')
-        button(id='ia-send', style='width: 30%;float: right;') Send
-    button(type="submit",class="ia vert")
+    form(id="ia" class="tour-step-1 tour-step-2")
+        textarea(id='ia-area', type="text", disabled="disabled")
+        input(id='ia-input', type="text", autocomplete="off")
+        button(id="ia-send",type="submit") sub
+    button(type="submit", class="ia vert tour-step-1", id="call-ia")
         i(class="fa fa-comment")
-        | Joindre SuperBiBi
+        | {{_ "connectIa"}}

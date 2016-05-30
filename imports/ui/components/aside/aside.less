@@ -23,7 +23,7 @@ aside {
 		display: flex; /* contexte sur le parent */
 		padding: 1em .5em 2em;
 		border-bottom:1px solid @whiteSmokeHover;
-
+		height: 12%;
 		.squaredThree{
 			margin-top:5px;
 			position: relative;
@@ -51,37 +51,30 @@ aside {
 	}
 
 	article {
-		padding-bottom: 3em;
+		padding-bottom: 6em;
+		overflow: auto;
+    	height: 88%;
 
 		& > ul {
 		
 			& > li {
 				
 				padding: .5em 0;
-				@reduction:-10px;
+				
 				clear:both;
 				border-bottom:1px solid @whiteSmokeHover;
-
-				span.picto {
-			
-					display: block;
-					float: left;
-					width: @taille_menu;
+				i.picto {
 					height: 49px;
-					background-image: url(../images/Ada_Glyphs_Icons.png);
-					background-repeat: no-repeat;
-
 				}
-
 				h2 {
-					text-transform: uppercase;
 					margin: 1.25em 0;
 					float: left;
 				}
 				
 				.slider{
 					float: right;
-					margin-top: .75em;
+					margin-top: 1em;
+					margin-right: 1em;
 				}
 				
 				ul {
@@ -152,7 +145,7 @@ aside {
 						float: right;
 						margin: 0;
 						height: 7em;
-						overflow: hidden;
+						overflow: auto;
 						line-height: 1.9em;
     					padding-top: .15em;
 						background-image: url(../images/aside_rpt_txt_area.png);
@@ -165,12 +158,7 @@ aside {
 
 				}
 				
-				&.echeance span.picto {background-position:@taille_menu*-3 0+@reduction;}
-				&.notifier span.picto {background-position:@taille_menu*-6 @taille_menu*-1+@reduction;}
-				&.participants span.picto {background-position:@taille_menu*-7 @taille_menu*-1+@reduction;}
-				&.conseils span.picto {background-position:@taille_menu*-5 @taille_menu*-1+@reduction;}
-				&.shopping span.picto {background-position:@taille_menu*-4 @taille_menu*-1+@reduction;}
-				&.videos span.picto {background-position:@taille_menu*-8 @taille_menu*-1+@reduction;}
+				
 				&.videos {
 					
 					iframe {
@@ -179,6 +167,8 @@ aside {
 						height: 180px;
 					}
 				}
+
+				&.fichiers,
 				&.shopping {
 					padding-bottom: 0;
 					ul li {
@@ -190,6 +180,8 @@ aside {
 							margin: .5em 0;
 						    width: 195px;
 						    float: left;
+    						padding-bottom: .5em;
+    						padding-left: .5em;
 						}
 						p.price{
 							width: inherit;
@@ -197,9 +189,10 @@ aside {
 							clear: right;
     						float: right;
 						}
+						a.btn,
 						button{
 							position: absolute;
-							bottom: .5em;
+							bottom: .7em;
 							right: .5em;
 							font-size: 1em;
 							font-weight: normal;
@@ -233,58 +226,6 @@ aside {
 			}
 
 		}
-
-		/*
-		ul li.shopping div,
-		& > ul > li:not(.shopping){
-			padding: .75em 1em;
-
-			i.fa{
-				font-size: 1.5em;
-				margin-right: .5em;
-				min-width: 24px;
-			}
-			.slider{
-				float: right;
-			}
-
-		}
-		
-		& > ul:not(.whiteGroup) > li:not(.shopping){
-			border-bottom:1px solid @whiteSmokeHover;
-			padding: 1.25em 1em;
-		}
-
-		& > ul li.shopping ul li {
-			padding: 0;
-			background-color: @white;
-			border-bottom:1px solid @whiteSmokeHover;
-			padding: .5em;
-			img {
-				float: left;
-			}
-		}
-
-		ul li.shopping div{
-			padding: 1em;
-		}
-		
-		p,span{
-			padding : .5em;
-		}
-		
-		li span {
-			width: 100px;
-			margin-bottom: .5em;
-		}
-
-		li button,
-		li span {
-			clear: right;
-			float: right;
-		}
-
-		*/
 		
 		ul.whiteGroup {
 		
@@ -325,6 +266,9 @@ aside {
 		.bckBtn {
 			display: none;
 			float: left;
+			right: inherit;
+    		top: inherit;
+    		position: inherit;
 			padding: .45em 1em .55em;
 		}
 	}

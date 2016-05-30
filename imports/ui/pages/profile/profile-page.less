@@ -1,5 +1,10 @@
 .profile_page {
+	footer{
+		text-align: right;
+		bottom: 0;
+	}
 	article {
+		padding-bottom: 58px;
 		ul {
 			float: left;
 			padding: 1em;
@@ -46,6 +51,21 @@
 					}
 				}
 
+			}
+
+		}
+		@media screen and (max-width: @min-width-mobile){
+			ul {
+				&.moi,
+				&.monDemenagement {
+					width: 100%;
+					padding:0 .5em;
+				}
+				&.moi li{
+					&:first-child{
+						float: left;
+					}
+				}
 			}
 		}
 	}

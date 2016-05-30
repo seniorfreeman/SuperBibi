@@ -1,4 +1,117 @@
 template(name="dossier_page")
 	div.dossier_page
 		h1
-			| Page dossier à venir
+			| {{_ "folderSectionTitle"}}
+		table.my-documents
+			tr
+				td
+				td
+				td {{_ "folderSectionRightTitle"}}
+			tr.addressChange
+				td.arrow
+					a(href='#')
+						i.fa.fa-chevron-right
+				td 
+					div {{_ "addressChange"}}
+					textarea(rows='10', cols='50').address-change-textarea
+						if addressChangeContent
+							{{addressChangeContent}}
+						else
+							{{_ "addressChangeDefault"}}
+				td 
+					{{> cssToggleSwitch addressChangeToggleData}}
+					button.download {{_ "download"}}
+			tr.dayOff
+				td.arrow
+					a(href='#')
+						i.fa.fa-chevron-right
+				td 
+					div {{_ "dayOff"}}
+					textarea(rows='10', cols='50').day-off-textarea
+						if dayOffContent
+							{{dayOffContent}}
+						else
+							{{_ "dayOffDefault"}}
+				td 
+					{{> cssToggleSwitch dayOffToggleData}}
+					button.download {{_ "download"}}
+			tr.neighboors
+				td.arrow
+					a(href='#')
+						i.fa.fa-chevron-right
+				td 
+					div {{_ "neighboors"}}
+					textarea(rows='10', cols='50').neighboors-textarea
+						if neighboorsContent
+							{{neighboorsContent}}
+						else
+							{{_ "neighboorsDefault"}}
+				td 
+					{{> cssToggleSwitch neighboorsToggleData}}
+					button.download {{_ "download"}}
+		button.my-documents-download
+			| {{_ "downloadFolder"}}
+
+
+		h2.roadmap-title
+			| {{_ "roadmapSectionTitle"}}
+
+		table.roadmap
+			tr
+				td
+				td
+				td {{_ "roadmapSectionRightTitle"}}
+			tr
+				td.arrow
+					a(href='#')
+						i.fa.fa-chevron-right
+				td 
+					div {{_ "waterAndFood"}}
+					textarea(rows='10', cols='50').water-and-food-textarea
+						if waterAndFoodContent
+							{{waterAndFoodContent}}
+						else
+							{{_ "waterAndFoodDefault"}}
+				td 
+					{{> cssToggleSwitch waterAndFoodToggleData}}
+			tr
+				td.arrow
+					a(href='#')
+						i.fa.fa-chevron-right
+				td 
+					div {{_ "music"}}
+					textarea(rows='10', cols='50').music-textarea
+						if musicContent
+							{{musicContent}}
+						else
+							{{_ "musicDefault"}}
+				td 
+					{{> cssToggleSwitch musicToggleData}}
+			tr
+				td.arrow
+					a(href='#')
+						i.fa.fa-chevron-right
+				td 
+					div {{_ "stopWaterAndElectricity"}}
+					textarea(rows='10', cols='50').stop-water-and-electricity-textarea
+						if stopWaterAndElectricityContent
+							{{stopWaterAndElectricityContent}}
+						else
+							{{_ "stopWaterAndElectricityDefault"}}
+				td 
+					{{> cssToggleSwitch stopWaterAndElectricityToggleData}}
+			tr
+				td.arrow
+					a(href='#')
+						i.fa.fa-chevron-right
+				td 
+					div {{_ "gasUp"}}
+					textarea(rows='10', cols='50').gas-up-textarea
+						if gasUpContent
+							{{gasUpContent}}
+						else
+							{{_ "gasUpDefault"}}
+				td 
+					{{> cssToggleSwitch gasUpToggleData}}
+		button(href='{{roadmapUri}}').roadmap-download
+			| {{_ "downloadRoadmap"}}

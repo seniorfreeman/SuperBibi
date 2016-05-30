@@ -22,7 +22,7 @@ describe('Lists_show_page', () => {
   const listId = Random.id();
 
   beforeEach(() => {
-    StubCollections.stub([Todos, Lists]);
+    StubCollections.stub([Todo, List]);
     Template.registerHelper('_', key => key);
     sinon.stub(FlowRouter, 'getParam', () => listId);
     sinon.stub(Meteor, 'subscribe', () => ({

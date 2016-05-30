@@ -1,7 +1,9 @@
 template(name="event_page")
   div.modal.fade
     div
-      +header modalTitle=modalTitle modalDescription=modalDescription
+      //- +header modalTitle=modalTitle modalDescription=modalDescription
+      header
+        |{{_ "Add Modal Title"}}
       section
         article
           ul
@@ -27,7 +29,9 @@ template(name="event_page")
 template(name="edit_event_page")
   div.modal.fade
     div
-      +header modalTitle=modalTitle modalDescription=modalDescription
+      //- +header modalTitle=modalTitle modalDescription=modalDescription
+      header
+        |{{_ "Edit Modal Title"}}
       section
         article
           ul

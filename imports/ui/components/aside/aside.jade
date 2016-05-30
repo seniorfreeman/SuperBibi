@@ -1,13 +1,14 @@
+
 template(name="aside")
 	aside
 		header
 			div(class="squaredThree")
-				input(type="checkbox", value="None", id="todoEffectue", name="check")
-				label(for="squaredThree")
+				input(type="checkbox", value="None", id="todoAsideEffectue{{currentTodo._id}}",data='{{currentTodo._id}}', name="asideChecked")
+				label(for="todoAsideEffectue{{currentTodo._id}}")
 			textarea(placeholder="Titre de votre tache", id="todoTitle")
 					| {{currentTodo.title}}
-			if currentTodo.prioritaire
-				.star.active(id="prioritaireEdit")
+			if currentTodo.priority
+				.star.active(id="prioritaire")
 					i.fa.fa-star-o
 					i.fa.fa-star
 			else
@@ -18,66 +19,101 @@ template(name="aside")
 		article
 			ul(class="whiteGroup")
 				li.echeance
-					span.picto
-					input(type="date", id="todoEcheance",placeholder="Définir une échéance" value="{{formatDate(currentTodo.echeance)}}")
+					i.picto
+					input(type="date", id="todoEcheance",placeholder="Définir une échéance" value="{{formatDate(getDeadLineDate)}}")
 			ul
 				li.notifier
-					span.picto
+					i.picto
 					h2
-						| Etre notifié de cette tâche
-					input(type="range", id="allowNotification", min="1", max="2", class="slider bg-green", value="{{allowNotification}}")
+						| {{_ "taskNotificationLabel"}}
+					input(type="range", id="allowNotification", min="0", max="1", class="slider{{#if allowNotification}} bg-green{{/if}}", value="{{allowNotification}}")
 					br.clearFix
 				
 				li.participants
-					span.picto
+					i.picto
 					h2
-						| Participants
+						| {{_ "taskParticipants"}}
 					ul
 						each friends
 							{{> todo_friend}}
 					div.addParticipant
 						span
 							i.fa.fa-plus
-						{{> inputAutocomplete settings=settings id="newParticipant" class="form-control" name="newParticipant" placeholder="Entrez un nom, un mail, ou choisissez un ami" }}
+						{{> inputAutocomplete settings=settings id="newParticipant" class="form-control" name="newParticipant" placeholder=taskParticipantAutocomplete }}
 						i.clearFix
 				
 				li.conseils
-					span.picto
+					i.picto
 					h2
-						| Conseils / Notes 
+						| {{_ "taskAdvices"}}
 					textarea(placeholder="Vos notes", id="conseils")
-						| {{currentTodo.conseils}}
+						| {{currentTodo.advise}}
 					i.clearFix
-				
+
+				if currentTodo.files
+					li.fichiers
+						i.picto
+						h2
+							| {{_ "taskFiles"}}
+						ul
+							each file in currentTodo.files
+								li
+									p 
+										| file.title
+									button(type="button",id="{{file._id}}") {{_ "taskAddFilesToDocs"}} 
+									br(class="clearFix")
+				li.shopping
+					i.picto
+					h2
+						| {{_ "taskServices"}}
+					ul
+						li
+							img(src="../../../IMG/hb_logo.png", alt="")
+							p 
+								| Besoin d'un espace de stockage ?
+							a.btn.small(href="http://www.homebox.fr/",target="_blank") {{_ "taskSeeService"}} 
+							br(class="clearFix")
+								
 				if currentTodo.products
 					li.shopping
-						span.picto
+						i.picto
 						h2
-							| Achats / Services recommandés
+							| {{_ "taskServices"}}
 						ul
-							each product in currentTodo.products
+							each product in getProducts
 								li
 									img(src="{{product.imageUrl}}", alt="")
 									p 
 										| {{product.description}}
-									p.price {{product.price}} € 
-									button(type="button",id="{{product._id}}") Ajouter au panier
+									if product.price
+										p.price {{product.price}} € 
+									if product.apiProductId
+										button(type="button",id="{{product._id}}")
+											| {{#unless product.altCallToActionText}}{{_ "taskAddToCart"}} {{else}}{{product.altCallToActionText}}{{/unless}}
+									else
+										a.btn.small(href="{{product.href}}",target="_blank") 
+											| {{#unless product.altCallToActionText}}{{_ "taskSeeService"}} {{else}}{{product.altCallToActionText}}{{/unless}}
 									br(class="clearFix")
+							
+
 				if currentTodo.videos		
 					li.videos
-						span.picto
+						i.picto
 						h2
-							| Vidéo / tutoriel
+							| {{_ "taskVideos"}}
 						ul
-							each video in currentTodo.videos
+							each video in getVideos
 								li
-									iframe(width="560", height="315", src="{{video}}", frameborder="0", allowfullscreen)
+
+										iframe(width="560", height="315", src="{{video.url}}", frameborder="0", allowfullscreen)
+
+										img(src="{{video.url}}")
 		footer
 			button(type="button" ,class="bckBtn")
 				i.fa.fa-step-backward
 			button(type="button" id="deleteTodo" data="{{currentTodo._id}}")
 				i(class="fa fa-times")
-				| Supprimer la tâche
+				| {{_ "taskDelete"}}
 
 template(name='todo_friend')
 	li
@@ -87,6 +123,8 @@ template(name='todo_friend')
 			if isMailOrInvitation
 				small
 					|- {{state}}
-		button
+		button.delete
 			i.fa.fa-times
+		if isPending
+			button.resend Relancer
 		br.clearFix

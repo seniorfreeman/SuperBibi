@@ -1,4 +1,4 @@
-import {FBInvitFriends} from '../../api/collections/collections.js';
+import {FBInvitFriends} from '../../api/collections/profile/profile.js';
 
 import { Session } from 'meteor/session'
 import { HTTP } from 'meteor/http'

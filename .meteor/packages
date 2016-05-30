@@ -23,8 +23,9 @@ reactive-var
 aldeed:template-extension
 percolate:momentum
 mizzao:autocomplete
-twbs:bootstrap
 peppelg:bootstrap-3-modal
+matb33:bootstrap-modals
+matb33:bootstrap-modal-js
 
 # data
 mongo
@@ -86,17 +87,23 @@ tomi:upload-server
 tomi:upload-jquery
 utilities:avatar
 bozhao:link-accounts
-momentjs:moment
 percolate:synced-cron
 rzymek:moment-locales
 mizzao:user-status
 servicelocale:googlemaps-api
 session
 chrismbeckett:toastr
-rzymek:fullcalendar
 flowkey:user-location
+jeremy:geocomplete
 meteortoys:allthings
 accounts-ui
 outatime:jwt-simple
 bjwiley2:api-tokens
+kostanos:meteor-css-toggle-switch
+mrt:external-file-loader
+guzmonne:filesaverjs
+msavin:mongol
+benjaminrh:event-hooks
+momentjs:moment
+rzymek:fullcalendar
 drewy:datetimepicker

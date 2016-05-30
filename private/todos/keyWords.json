@@ -1,0 +1,112 @@
+[
+ {
+   "ID":1,
+   "Key words":"place, stationnement, parking, réserver, réservation, bloquer, mairie, préfecture, municipale, ville, rue, garer, demande, formulaire, autorisation, chargement, départ, adresse",
+   "FIELD3":""
+ },
+ {
+   "ID":2,
+   "Key words":"place, stationnement, parking, réserver, réservation, bloquer, mairie, préfecture, municipale, ville, rue, garer, demande, formulaire, autorisation, déchargement, arrivée, adresse",
+   "FIELD3":""
+ },
+ {
+   "ID":3,
+   "Key words":"prime, primes, allocation, allocations, droit, droits, aide, aides, employeur, caf, état, indemnité, cadeau, congés, coup de pouce, argent, dédommagement, faciité",
+   "FIELD3":""
+ },
+ {
+   "ID":4,
+   "Key words":"jour de congé, employeur, ressources humaines, demande, service paye, administration, repos, vacances, break, temps libre, temps, disponibilité, dispo",
+   "FIELD3":""
+ },
+ {
+   "ID":5,
+   "Key words":"voisins, voisin, note, mot, lettre, interphone, sonnette, paillasson, affichage, affichette, politesse,",
+   "FIELD3":""
+ },
+ {
+   "ID":6,
+   "Key words":"voisins, voisin, note, mot, lettre, interphone, sonnette, paillasson, affichage, affichette, politesse,",
+   "FIELD3":""
+ },
+ {
+   "ID":7,
+   "Key words":"état des lieux, remise des clés, clés, agence, propriétaire, locataire, bailleur, inventaire, état appartement, état du bien, constat, évaluation, bilan, fin de bail, rupture de bail, rendre, restituer, restitution,",
+   "FIELD3":""
+ },
+ {
+   "ID":8,
+   "Key words":"Etiquettes, boite à lettres, boite aux lettres, interphone, sonnette, autocollant, sticker, nom, identification, prénom, porte, appartement, numéro d'appartement, numéro d'interphone,parlophone",
+   "FIELD3":""
+ },
+ {
+   "ID":9,
+   "Key words":"Relever, compteur, compteurs, ancien, appartement, logement, domicile, maison, eau, électricité, gaz, edf, gdf, engie, bleu ciel, direct énergie, grdf, erdf, énergie, consommation, solde, relevé, état",
+   "FIELD3":""
+ },
+ {
+   "ID":10,
+   "Key words":"Transférer, souscrire, changer, change abonnement, Energie, contrat, souscription, transfert, suppression, portage, annulation, résiliation, inscription, création, nouveau, renouvellement, annuler, résilier, eau, électricité, gaz, edf, gdf, engie, bleu ciel, direct énergie, grdf, erdf, suez, enie, fournisseur, compteurs, compteur, relevé",
+   "FIELD3":""
+ },
+ {
+   "ID":11,
+   "Key words":"Actualiser, dossier, animal, actualisation, vétérinaire, site internet, fichier, central, identification, puce, transfert, adresse, registre, animal de compagnie, chat, chien, animaux, mise à jour, carnet, santé, véto, nac",
+   "FIELD3":""
+ },
+ {
+   "ID":12,
+   "Key words":"Envoyer, envoi, lettre, préavis, départ, poster, déposer, remettre, écrire, rédiger, recommandé, recommandée avec accusé de réception, Lettre RAR, courrier RAR, courrier, délai, période, signification, congé, préalable, avis, bail, fin, bailleur, locataire, propriétaire, agence",
+   "FIELD3":""
+ },
+ {
+   "ID":13,
+   "Key words":"inscrire, listes, électorales, inscription, registre, mairie, ville, état civil, recensement, bureau de vote, vote, voter, élection, transfert, transférer, carte électeur,",
+   "FIELD3":""
+ },
+ {
+   "ID":14,
+   "Key words":"Résilier, souscrire, abonnements, fournisseurs, transférer, changer,supprimer, annuler, résiliation, transfert, changement, annulation, renouvellement, suppression, renouveler, s'abonner, contracter, contrat, abonnement, assurance, portable, téléphone, internet, télévision, box, satellite, adsl, cable, fibre, presse, magazine, journal, sfr, bouygues, orange, free, numéricable, telecom, telco, fai, canal, netflix, bouquet,",
+   "FIELD3":""
+ },
+ {
+   "ID":15,
+   "Key words":"Souscrire, assurance, habitation, contracter, contrat, maison, appartement, logement, domicile, assurer,",
+   "FIELD3":""
+ },
+ {
+   "ID":16,
+   "Key words":"Prévoir, suivi, courrier, souscrire, faire suivre, suivre, papier, nouvelle adresse, la poste, enveloppes, lettres",
+   "FIELD3":""
+ },
+ {
+   "ID":17,
+   "Key words":"Informer, organisme,s changement d'adresse, avertir, aviser, notifier, signifier, prévenir, alerter, administrations, institutions, services publics, caisses, mutuelles, banques, impôts, cpam, sécurité sociale, assurance maladie, assurance retraite, carte grise, nouvelle adresse, garde, enfants, babysitter, nounou, centre aéré, grands parents, famille, momes, gosses,",
+   "FIELD3":""
+ },
+ {
+   "ID":18,
+   "Key words":"inscription, enfants, crèche, école, étudier, comparer, inscrire, mairie, services sociaux, services scolaires, jeune, adolescent, bébé, nourrisson, assistante maternelle, maternelle, école primaire, lycée, collège,",
+   "FIELD3":""
+ },
+ {
+   "ID":19,
+   "Key words":"Prévenir, employeur, date, déménagement, avertir, informer, aviser, ressources humaines, RH, supérieur, hiérarchique, chef, boss, patron, directeur, N+1, entreprise, jour, journée, congé, boite, travail, arrêt, boulot",
+   "FIELD3":""
+ },
+ {
+   "ID":20,
+   "Key words":"Récupérer, caution, ancien, propriétaire, rendre, restituter, rembourser, créditer, chèque, montant, argent, gage, bailleur, agence,",
+   "FIELD3":""
+ },
+ {
+   "ID":21,
+   "Key words":"Fixer, date, état des lieux d'entrée, remise, clés, agenda, prévoir, programmer, logement, appartement, maison, habitation, rendez-vous, agence, bailleur, propriétaire, rdv, entrée",
+   "FIELD3":""
+ },
+ {
+   "ID":22,
+   "Key words":"garde meuble, Homebox, box a louer, location box, home box, garde meubles, garde meuble paris, box stockage, prix garde meuble, box de stockage, self stockage, location de box, garde meuble lyon, espace de coworking, location garde meuble, tarif garde meuble, garde meuble pas cher, box de rangement, garde meuble toulouse, garde meuble marseille, location de bureau, garde meuble bordeaux, garde meuble nantes, louer un box, garde meuble lille, garde meuble nice, garde meuble montpellier, garde meuble brest, location box stockage, garde meuble grenoble, self-storage, self stock, garde meuble ile-de-france, box à louer, box rangement, box location, homebox.fr, ",
+   "FIELD3":"ntes"
+ }
+]

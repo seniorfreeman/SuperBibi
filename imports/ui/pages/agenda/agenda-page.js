@@ -1,13 +1,12 @@
 import {
-    Todos,
+    Todo,
     Events,
-    Lists
+    List
 }
-from '../../../api/collections/collections.js';
+from '../../../api/collections/todo/todo.js';
 import {
-  updateEvent,
-  updateTodoDate
-} from '../../../api/collections/methods.js';
+  updateEvent
+} from '../../../api/collections/todo/methods.js';
 import {
   displayError
 } from '../../lib/errors.js';
@@ -23,7 +22,7 @@ Template.agenda_page.onCreated(function agendaPageOnCreated() {
     this.subscribe('lists.all');
 });
 Template.agenda_page.onRendered(function() {
-    console.log(Events.find().count());
+    //console.log(Events.find().count());
     var calendar = $('#agenda').fullCalendar({
         lang: 'fr',
         header: {
@@ -34,16 +33,17 @@ Template.agenda_page.onRendered(function() {
         editable: true,
         events(start, end, timezone, callback) {
           $('#agendalist').change(function(){
-            var listId = $('#agendalist option:selected').val();
+            //var listId = $('#agendalist option:selected').val();
             $('#agenda').fullCalendar('refetchEvents');
           });
              var listId = $('#agendalist option:selected').val();
-             var todos = Todos.find({list:listId}).map(function(it) {
+             var todos = Todo.find({list:listId}).map(function(it) {
+                var todoStart = moment(it.createdAt).add(it.deadline,'days');
                  return {
                    id: it._id,
                    title: it.title,
-                   start: it.createdAt,
-                   end: it.echeance,
+                   start: todoStart,
+                   //end: it.echeance,
                    allDay: false,
                    source: it,
                    backgroundColor: 'green',
@@ -101,7 +101,7 @@ Template.agenda_page.onRendered(function() {
                   event: event._id
               });
               Modal.show("delete_alert_modal", {
-                  title: 'delete',
+                  title: 'Supprimer un événement',
                   description: 'êtes-vous sûr(e) de vouloir supprimer cet événement ?',
                   event: event
               });
@@ -121,7 +121,7 @@ Template.agenda_page.onRendered(function() {
 
     });
     Tracker.autorun(() => {
-        Todos.find().fetch();
+        Todo.find().fetch();
         Events.find().fetch();
         $('#agenda').fullCalendar('refetchEvents');
     });
@@ -129,7 +129,7 @@ Template.agenda_page.onRendered(function() {
 Template.agenda_page.helpers({
 
     listDropDown: function(){
-      return Lists.find({system:false});
+      return List.find({system:false});
     },
 
     onEventClicked: function() {

@@ -1,6 +1,6 @@
 import { Accounts } from 'meteor/accounts-base';
 
-Accounts.emailTemplates.siteName = 'SuperBiBi';
+Accounts.emailTemplates.siteName = 'Mon Super Déménagement';
 
 Accounts.emailTemplates.from = Accounts.emailTemplates.siteName + ' <no-reply@epicea.com>';
 

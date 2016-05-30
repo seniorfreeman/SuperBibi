@@ -32,19 +32,18 @@ import {
 import '../todo/listTodo.js';
 import './nav-content.jade'
 import {
-    Lists
-} from '../../../api/collections/collections.js'
+    List
+} from '../../../api/collections/todo/todo.js'
 import {
-    Typologies
-} from '../../../api/collections/collections.js'
-import {
-    Todos
-} from '../../../api/collections/collections.js'
+    Todo
+} from '../../../api/collections/todo/todo.js'
+import {Moving} from '../../../api/collections/moving/moving.js';
 
 Template.nav_content.onCreated(function navContentOnCreated() {
     this.todolistRnd = null;
     this.autorun(() => {
         this.subscribe('lists.all');
+        Meteor.subscribe('UserMoving');
     });
 });
 Template.nav_content.onRendered(function navContentOnRendered() {
@@ -53,17 +52,14 @@ Template.nav_content.onRendered(function navContentOnRendered() {
             listRenderHold.release();
         }
     });
-    $(function() {
-        // your code goes here
-    });
 });
 Template.nav_content.helpers({
     todoLists: function() {
-        return Lists.find();
+        return List.find();
     },
   avancement: function(){
-    const total=Todos.find().count();
-    const effectue =Todos.find({"dateFin" : { $exists : true, $ne : null }}).count();
+    const total=Todo.find().count();
+    const effectue =Todo.find({"endDate" : { $exists : true, $ne : null }}).count();
     if(total>0){
       return Math.round((effectue/total)*100);
       }
@@ -72,36 +68,36 @@ Template.nav_content.helpers({
     }
   },
     init: function() {
-        $("a:contains('Divers')").trigger('click')
-        FlowRouter.go($("a:contains('Divers')").attr('href'));
 
-
-        $('#list').val($("a:contains('Divers')").parent().attr('id'))
+        var firstToTrigger = $('nav ul.menu li:first a');
+        firstToTrigger.trigger('click')
+        FlowRouter.go(firstToTrigger.attr('href'));
+        $('#list').val(firstToTrigger.parent().attr('id'));
 
     },
     nestedTodoCount: function(list) {
         var result;
         if (!list.system) {
-            result = Todos.find({
+            result = Todo.find({
                 list: list._id,
-                dateFin: null
+                endDate: null
             }).count();
         } else {
             switch (list.name) {
                 case "Mes priorités":
-                    result = Todos.find({
-                        prioritaire: true,
-                        dateFin: null
+                    result = Todo.find({
+                        priority: true,
+                        endDate: null
                     }).count();
                     break;
                 case "Tout":
-                    result = Todos.find({
-                        "dateFin": null
+                    result = Todo.find({
+                        "endDate": null
                     }).count();
                     break;
                 case "Effectués":
-                    result = Todos.find({
-                        "dateFin": {
+                    result = Todo.find({
+                        "endDate": {
                             $exists: true,
                             $ne: null
                         }
@@ -112,13 +108,13 @@ Template.nav_content.helpers({
         return result;
     },
     todoPrio: function() {
-        return Todos.find().count();
+        return Todo.find().count();
     },
     allTodoCount: function() {
-        return Todos.find().count();
+        return Todo.find().count();
     },
     allTodoDoneCount: function() {
-        return Todos.find({
+        return Todo.find({
             rang: 0
         }).count();
     },
@@ -129,14 +125,21 @@ Template.nav_content.helpers({
 
         if (listName == "Jour J") {
             if (!Meteor.user()) return "Jour J";
-            demenagementDate = Meteor.user().profile.dateDemenagement;
-            if (demenagementDate) {
-                month = moment.utc(demenagementDate).format("MMM");
-                day = moment.utc(demenagementDate).format("DD");
-                return day + " " + month;
-            } else {
+            moving=Moving.findOne({_id:Meteor.user().profile.movingId});
+            if(moving){
+                demenagementDate = moving.movingDate;
+                if (demenagementDate) {
+                    month = moment.utc(demenagementDate).format("MMM");
+                    day = moment.utc(demenagementDate).format("DD");
+                    return day + " " + month;
+                } else {
+                    return "Jour J";
+                }
+            }
+            else{
                 return "Jour J";
             }
+
         } else {
             return listName;
         }
@@ -155,6 +158,5 @@ Template.nav_content.events({
         }else {
             $("#prioritaireEdit").removeClass("active");
         }
-        $('body').removeClass('soft').removeClass('aside');
     }
 });

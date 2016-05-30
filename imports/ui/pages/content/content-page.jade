@@ -2,9 +2,9 @@ template(name="content_page")
 	section#content_page
 		header
 			ul.menu
-				li.profil
+				li(class="profil tour-step-2")
 					a(href="#",class="{{#if currentUser}}profileShow{{else}}loginShow{{/if}}")
-						span.picto
+						i.picto
 							|&nbsp;
 						div
 							h2
@@ -13,7 +13,7 @@ template(name="content_page")
 								| {{#if currentUser}}{{else}}{{_ 'Login'}}{{/if}}
 				li.volume
 					a(href="#",class="volumeShow")
-						span.picto
+						i.picto
 							|&nbsp;
 						div
 							h2
@@ -22,7 +22,7 @@ template(name="content_page")
 								| non-estimé
 				li.trajet
 					a(href="#",class="trajetShow")
-						span.picto
+						i.picto
 						div
 							h2
 								| MON TRAJET
@@ -32,7 +32,7 @@ template(name="content_page")
 								| Départ &gt; Arrivée
 				li.agenda
 					a(href="#",class="agendaShow")
-						span.picto
+						i.picto
 						div
 							h2
 								| MON AGENDA
@@ -40,7 +40,7 @@ template(name="content_page")
 								| Mes grandes dates
 				li.dossier
 					a(href="#",class="dossierShow")
-						span.picto
+						i.picto
 						div
 							h2
 								| MON DOSSIER
@@ -51,7 +51,7 @@ template(name="content_page")
 						div
 							h2
 								span
-									|J-
+									|J
 								span(id="jourRef")
 									| {{nbJourRestant}}
 							span(id="dateDem")
@@ -64,7 +64,7 @@ template(name="content_page")
 							span
 							span.sep
 								span
-						span.picto
+						i.picto
 						div
 							h2
 								| MON MATERIEL
@@ -76,7 +76,7 @@ template(name="content_page")
 							span
 							span.sep
 								span
-						span.picto
+						i.picto
 						div
 							h2
 								| MON CAMION
@@ -88,7 +88,7 @@ template(name="content_page")
 							span
 							span.sep
 								span
-						span.picto
+						i.picto
 						div
 							h2
 								| MES AMIS

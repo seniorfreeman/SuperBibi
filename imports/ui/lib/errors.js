@@ -5,8 +5,7 @@ export const displayError = (error) => {
     // It would be better to not alert the error here but inform the user in some
     // more subtle way
     //alert(TAPi18n.__(error.error)); // eslint-disable-line no-alert
-    toastr.options.positionClass= "toast-top-center";
-    toastr.error(TAPi18n.__(error.error), TAPi18n.__("error"));
+    toastr.error(TAPi18n.__(error.error) + ' ['+ TAPi18n.__(error.message)+']', TAPi18n.__("error"));
   }
 };
 

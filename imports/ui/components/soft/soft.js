@@ -31,9 +31,4 @@ Template.soft.helpers({
     }
   },
 });
-Template.soft.events({
-  'click  .bckBtn': function(event) {
-    event.preventDefault();
-    $("body").removeClass("soft");
-  },
-});
+Template.soft.events({});

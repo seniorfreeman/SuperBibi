@@ -8,14 +8,6 @@ body {
 		height: 100%;
 		padding-right: @largeurNav;
 
-		.bckBtn {
-			position: absolute;
-			right: .5em;
-			top:.5em;
-			display: block;
-			padding: .45em 1em .55em;
-			z-index: 1000;
-		}
 
 		& > div {
 			position: relative;
@@ -25,33 +17,39 @@ body {
 			header {
 				
 				height: @Softheader_height;
-				border-bottom:2px solid @whiteBorder;
+				border-bottom:1px solid @whiteBorder;
 				background-color: @whiteSmoke;
 				position: absolute;
+				
 				width: 100%;
 				z-index: 101;
 				
-				img {
-					float: right;
-				}
 				& > div {
 					padding: 1em;
 					&:not(.redaction){
-						width: 70%;
+						width: 65%;
 						background: @white;
 						height: 100%;
-						right: 0;
-						position: absolute;
+						float: right;
 					}
 					&.redaction{
-						width: 30%;
-						position: absolute;
+						
+						height: 100%;
+    					position: relative;
 						bottom:0;
+						display: table;
+						
+						div {
+							display: table-cell;
+    						vertical-align: bottom;
+						}
 					}
 				}
 
-
-				&  > ul {
+				& > div:not(.redaction){
+					border-left:1px solid @whiteBorder;
+				}
+				ul.icons {
 					
 					float: right;
 					height: 100%;
@@ -59,22 +57,51 @@ body {
 
 					li {
 
-						border-right:1px solid @whiteBorder;
 						display: block;
 						float: left;
 						height: 100%;
 						text-align: center;
-						
-
+						width: 130px;
+						&:hover {
+							cursor:pointer;
+							button{
+								opacity: 1;
+								margin-top: .5em;
+							}
+						}
+						&:before {
+							.anim();
+						    display: block;
+						    width: 1px;
+						    height: 40%;
+						    background-color: @whiteBorder;
+						    content: close-quote;
+						    float: right;
+						    margin-top: 40%;
+						}
+						&:last-child:before{
+							display: none;
+						}
+						button{
+							margin-top: 0;
+							opacity: 0;
+							.anim();
+						}
 						h2 {
-							text-transform: uppercase;
-							color:@grey;
-							padding: .5em;
+							&.b{
+								font-weight: bold;
+							}
+							font-weight: normal;
+							padding:.6em .5em;
 							background-color: @white;
+							border-bottom:1px solid @whiteBorder;
+							span{
+								display: none;
+							}
 						}
 
 						p {
-							padding: 0 1em;
+							padding: 0 .5em;
 							margin-top: 0;
 							font-size: 1.25em;
 							font-weight: 100;
@@ -82,20 +109,10 @@ body {
 						}
 
 						i.picto {
-							margin: 0 auto;
-							width: 64px;
-							height: 64px;
-							display: block;
-							background-image: url(../images/Ada_Glyphs_Icons.png);
+							margin-right: auto;
+							margin-left: auto;
+							float:none;
 						}
-
-						@he:64px;
-						&#carburant i.picto {background-position: @he*-1 @he*-2;}
-						&#distance i.picto {background-position: @he*-2 @he*-2;}
-						&#temps i.picto {background-position: @he*-3 @he*-2;}
-						&#bras i.picto {background-position: @he*-3 @he*-1;}
-						&#date i.picto {background-position: @he*-3 0;}
-						&#stress i.picto {background-position: 0 @he*-2;}
 
 					}
 
@@ -117,57 +134,40 @@ body {
 					overflow-x:hidden;
 					overflow-y:auto;
 				}
-				
-				/*
-				ul {
-
-					position: absolute;
-					top:0;
-					left:0;
-					width: 100%;
-
-					li {
-
-						display: inline-block;
-						width:18%;
-						padding: 1em;
-						background: @whiteSmoke;
-						border-radius: 0 0 10px 10px;
-						margin: 0 1% 1%;
-						.anim();
-						&:hover,
-						&.active{
-							background-color: @blue;
-							color:@white;
-						}
-					}
-				}
-
-				div {
-					padding: 3em;
-				
-					img {
-						margin: 3em auto;
-						display: block;
-					}
-				
-				}
-				*/
+		
 			}
 
 			footer {
 				background-color: @white;
 				z-index: 110;
 				position: absolute;
-				bottom: 0;
 				left: 0;
 				width:100%;
-				text-align: right;
+				padding: 1em;
 				ul.ssmenu{
-					padding: 1em;
 					li{
 						display: inline;
 						margin-right: .5em;
+					}
+				}
+				ul.partners-list{
+					li{
+						width: 50%;
+						padding: .5em;
+						&:first-child{
+							padding-left: 0;
+						}
+						&:last-child{
+							padding-right: 0;
+						}
+						.partner-title{
+							padding-bottom: .5em;
+						}
+						img{
+							width: 100%;
+							height: auto;
+							max-width: 320px;
+						}
 					}
 				}
 			}
@@ -180,11 +180,55 @@ body {
 		section#soft {
 			left: 0;
 			@media screen and (max-width: @min-width-mobile){
+
 				z-index: 101;
 				padding-right: 0;
 				background: @whiteSmokeHover;
 				.bckBtn {
 					display: block;
+				}
+				& > div {
+					footer{
+						ul.ssmenu li{
+							width: 100%;
+							display: block;
+							margin: 0 0 1px 0;
+							button {
+								width: 100%;
+								text-align: left;
+							}
+						}
+
+						ul.partners-list li {
+							width: 100%;
+							img{
+								max-width: inherit;
+							}
+						}
+					}
+					header{
+						height: auto;
+    					position: relative;
+    					.redaction{display: none;}
+    					h2 span {
+							display: inline;
+						}
+    					ul.icons {
+    						width: 100%;
+    						li{
+
+    							text-align: left;
+    							width: 100%;
+								
+								button,
+								i,
+    							p,
+    							&:before{
+    								display: none;
+    							}
+    						}
+    					}
+    				}
 				}
 			}
 

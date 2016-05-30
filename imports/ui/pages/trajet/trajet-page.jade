@@ -1,27 +1,31 @@
 template(name="trajet_page")
 	div.trajet_page
 		header
-			ul
-				li#carburant
+			ul.icons
+				li.carburant
 					h2 
 						|{{_ "oil"}}
+						span
 					i.picto
 					p
-				li#distance
+				li.distance
 					h2 
 						|{{_ "distance"}}
+						span
 					i.picto
 					p
-				li#temps
+				li.temps
 					h2 
 						|{{_ "time"}}
+						span
 					i.picto
 					p
 			div.redaction
-				h1
-					|{{_ "superTrajet"}}
-				p
-					|{{_ "superTrajetDescription"}}
+				div
+					h1
+						|{{_ "superTrajet"}}
+					p
+						|{{_ "superTrajetDescription"}}
 		article
 			div#itineraire
 				ul.ssmenu

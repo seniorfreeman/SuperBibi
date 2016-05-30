@@ -19,10 +19,18 @@ import './upload-config.js';
 //
 import './mails/index.js';
 
-import './syncedCron.js';
 //
-import './volumeObjects/index.js';
+import './volumeObjects.js';
+
+//
+import './roomNames.js';
 
 Meteor.startup( function() {
-  //process.env.HTTP_FORWARDED_COUNT=1;
+  process.env.HTTP_FORWARDED_COUNT=1;
+
+  
+  Meteor.call('importProducts', function (error, result) {console.log(error);});
+  Meteor.call('importVideos', function (error, result) {console.log(error);});
+  
+ 
 });

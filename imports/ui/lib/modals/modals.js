@@ -3,7 +3,12 @@ import './modals.jade'
 import './header.jade'
 import './inputAndTextarea.jade'
 import './inputAutocomplete.jade'
+import './input.jade'
+import './textarea.jade'
+import './textReadOnly.jade'
 import './footer.jade'
+
+import './modalOverrides.jade'
 
 
 /**
@@ -47,12 +52,28 @@ import './footer.jade'
 		});
 
 	NB: Pour fermer la modale, executez Modal.hide();
+
+
+template(name='modalAlert')
+	{{> modals modalTitle="couuou" inputAndTextarea=false inputAutocomplete=false validBtnLabel="ok"}}
+
+	window.alert = function(mes){
+		Modal.show('modalAlert');
+		console.log(mes);
+	}
+
+	Template.modalAlert.events({
+	'click footer button.vert': function(event, template) {
+	  Modal.hide();
+	}
+	});
+
+	Template.modalAlert.helpers({});
+
+
 **/
 
-Template.modals.onCreated(function() {
 
-});
+Template.modals.onCreated(function(){});
 
-Template.modals.helpers({
-  
-});
+Template.modals.helpers({});

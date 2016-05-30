@@ -1,11 +1,11 @@
 import {
     Events
-} from '../../../api/collections/collections.js';
+} from '../../../api/collections/todo/todo.js';
 import {
   addEvent,
   updateEvent,
   deleteEvent
-} from '../../../api/collections/methods.js';
+} from '../../../api/collections/todo/methods.js';
 import {
   displayError
 } from '../../lib/errors.js';
@@ -99,9 +99,16 @@ Template.event_page.events({
     start=$('#start').val();
     end=$('#end').val();
     title=$('#title').val();
-    addEvent.call({start:start,end:end,title:title}, displayError);
-    Modal.hide();
-    $('#agenda').fullCalendar('refetchEvents');
+    console.log("start: " + start);
+    console.log("end:" + end);
+    if(!moment(start).isBefore(end)){
+      Modal.hide();
+      alert("Veuillez vérifier la date fin de l'événement");
+    }else{
+      addEvent.call({start:start,end:end,title:title}, displayError);
+      Modal.hide();
+      $('#agenda').fullCalendar('refetchEvents');
+    }
   }
 });
 Template.edit_event_page.events({

@@ -16,23 +16,26 @@ import './todos-item.jade';
 import {
   insert,
   makeFinished,
-  updateText,
+  updateTitle,
   updateList,
-} from '../../../api/collections/methods.js';
+} from '../../../api/collections/todo/methods.js';
 import '../aside/aside.js'
-import {Lists} from '../../../api/collections/collections.js';
+import {List,Todo} from '../../../api/collections/todo/todo.js';
+import {Moving} from '../../../api/collections/moving/moving.js';
 import {
   displayError
 } from '../../lib/errors.js';
 Template.Todos_item.onCreated(function todosItemOnCreated() {
   this.autorun(() => {
-    this.subscribe('lists.all');
+    this.subscribe('lists.all',window.localStorage.getItem('guestId'));
+
+  Meteor.subscribe('UserMoving');
   });
 });
 
 Template.Todos_item.helpers({
   currentTodo() {
-    return Template.instance().data;
+    return Todo.findOne({_id:Template.instance().data._id});
   },
   checkedClass(todo) {
     return todo.checked && 'checked';
@@ -41,7 +44,7 @@ Template.Todos_item.helpers({
     return editing && 'editing';
   },
   listDropDown: function(){
-    return Lists.find({system:false});
+    return List.find({system:false});
   },
   isListSelected(list){
     return list._id==this.list;
@@ -50,11 +53,18 @@ Template.Todos_item.helpers({
 
     if(listName=="Jour J"){
       if(!Meteor.user()) return "Jour J";
-      demenagementDate=Meteor.user().profile.dateDemenagement;
+       moving=Moving.findOne({_id:Meteor.user().profile.movingId});
+       if(moving){
+       demenagementDate = moving.movingDate;
       if(demenagementDate){
-      month=moment.utc(demenagementDate).format("MMM");
-      day=moment.utc(demenagementDate).format("DD");
-       return day+" "+month;
+          month=moment.utc(demenagementDate).format("MMM");
+          day=moment.utc(demenagementDate).format("DD");
+           return day+" "+month;
+           }
+           else{
+            return "Jour J";
+           }
+
       }
       else{
         return "Jour J";
@@ -99,25 +109,30 @@ Template.Todos_item.events({
   'keyup input[type=text]': _.throttle(function todosItemKeyUpInner(event) {
     var todoId = $(event.target).parents('form:first').attr('id');
     //$('aside header textarea').val(event.target.value);
-    updateText.call({
+    updateTitle.call({
       todoId: todoId,
-      text: event.target.value,
+      title: event.target.value,
     }, displayError);
   }, 300),
 
   'click input[type=checkbox]' (event) {
-    //event.stopPropagation();
-    const $currentTodo = $(event.target).attr('data');
-    makeFinished.call({
-      todoId: this._id
-    });
+    
+    if($(event.target).attr('name')=="itemChecked"){
+      const $currentTodo =$(event.target).attr('data'); 
+      makeFinished.call({
+        todoId: $currentTodo
+      });
+    }
+  },
+  'click checkbox'(event){
+      alert($(event.target).attr('data'));
   },
   'change #todolist' (event) {
     //event.stopPropagation();
     const $currentTodo = $(event.target).attr('data');
     const val=$(event.target).val();
     updateList.call({
-      todoId: this._id,
+      todoId: $currentTodo,
       list:val
     });
   },

@@ -20,19 +20,35 @@ Meteor.startup(function(){
     schedule: function(parser) {
       // parser is a later.parse object
       return parser.text('at 9:00 pm');
-      //return parser.text('every 1 mins');
     },
     job: function() {
-
-      console.log('==============> démarrage du cron notification');
-      Meteor.call('sendNotificationForAllUsers');
-      console.log('==============> Fin du cron notification');
+    
+      Meteor.user().forEach(function(user){
+        Meteor.call('sendMailNotification', user);
+      });
 
       return ;
     }
 
   });
+/*
+  SyncedCron.add({
+    name: 'Récupérer moyenne de carburant',
+    schedule: function(parser) {
+      // parser is a later.parse object
+      return parser.text('every 20 seconds');
+    },
+    job: function() {
+      console.log('lancement get carburant')
+       Meteor.http.call("GET", "http://donnees.roulez-eco.fr/opendata/jour')",function(error, results){
+        console.log(results);
+          return "Carburant Done";
+       });
 
+      
+    }
+  });
+*/
   SyncedCron.start();
 
 });

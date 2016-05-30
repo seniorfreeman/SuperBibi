@@ -1,0 +1,15 @@
+template(name="franchise_page")
+	div.franchises
+		input(type="search", placeholder='{{_ "franchiseSearchPlaceholder"}}')
+
+template(name="franchise_usersFind")
+	table
+		tr
+		each user in usersFind
+			td
+				{{user.firstName}}
+			td
+				{{user.lastName}}
+			td
+			each email in user.emails
+				{{email.address}}

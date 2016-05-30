@@ -1,6 +1,8 @@
 template(name="footer")
 	footer
-		button.rouge(type='button')
-			{{cancelBtnLabel}}
-		button.vert(type='button')
-			{{validBtnLabel}}
+		if cancelBtnLabel
+			button.rouge(type='button')
+				{{cancelBtnLabel}}
+		if validBtnLabel
+			button.vert(type='button')
+				{{validBtnLabel}}

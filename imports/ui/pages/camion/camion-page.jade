@@ -3,41 +3,58 @@ template(name="camion_page")
 		header
 			div#agence
 				h2
+					| &nbsp;
 				p
+					| &nbsp;
+					br
+					| &nbsp;
 				ul
 					li
-						button
+						button.openingTimes(disabled="disabled")
 							i.fa.fa-clock-o
 							|{{_ "openingTimes"}}
-						button
+					li
+						button.websiteOffice(target="_blank",disabled="disabled")
 							i.fa.fa-external-link
 							|{{_ "websiteOffice"}}
-						button
+					li
+						button.changeOffice
 							i.fa.fa-retweet
 							|{{_ "changeOffice"}}
+			ul.icons
+				li.camion
+					h2
+						|{{_ "stillHaveTruck"}}
+					i.picto
+					input(type="range", id="stillHaveTruck", min="0", max="1", class="slider{{#if stillHaveTruck}} bg_green{{/if}}",value="{{stillHaveTruck}}")
 
 			div.redaction
-				h1
-					|{{_ "superCamion"}}
-				p
-					|{{_ "superCamionDescription"}}
+				div
+					h1
+						|{{_ "superCamion"}}
+					p
+						|{{_ "superCamionDescription"}}
 		article
 			div
 				ul.offres
 					each camion in listCamion 
 						li
-							h3
-								| {{camion.categorie}}
-							p
-								| {{camion.modele}}
-							span.prix
-								| {{camion.prix}}€
-							span.rond
-								span
+							a(href="{{camion.url}}", target="_blank")
+								h3
+									| {{camion.categorie}}
+								p
+									| {{camion.modele}}
+								span.prix
+									| {{camion.prix}}€
+								span.rond
+									span
 
-							img(src="{{camion.img_big}}")
-							button.vert(type="button", href="{{camion.url}}", target="_blank")
-								i.fa.fa-road
-								|{{_ "chooseThatTruck"}}
+								img(class="camion", src="{{camion.img_big}}")
+								button.vert(type="button")
+									i.fa.fa-road
+									|{{_ "chooseThatTruck"}}
 		footer
 			|{{_ "superCamionLegals"}}
+
+template(name='schedules_modal')
+	{{> modals textReadOnly=true modalTitle="Nouveau co-déménageur" modalDescription="" textValue=adaSchedules validBtnLabel="Fermer"}}

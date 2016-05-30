@@ -1,33 +1,31 @@
+import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { $ } from 'meteor/jquery';
 import { _ } from 'meteor/underscore';
-import {
-  ReactiveDict
-} from 'meteor/reactive-dict';
+import { ReactiveDict } from 'meteor/reactive-dict';
 import {
   insert,
   makeFinished,
-  updateStressMode,
-  updatePrioritaire,
-  updateText,
+  updatePriority,
+  updateTitle,
   updateAllowNotification,
   updateConseils,
   updateEcheance,
   deleteTodo,
   addTodoFriend,
   removeTodoFriend
-} from '../../../api/collections/methods.js';
-import {
-  displayError
-} from '../../lib/errors.js';
-import {Lists} from '../../../api/collections/collections.js';
-import {Todos} from '../../../api/collections/collections.js';
-import {Products} from '../../../api/collections/collections.js';
-import './aside.jade';
+} from '../../../api/collections/todo/methods.js';
 
-import {FBInvitFriends} from '../../../api/collections/collections.js';
+import { displayError } from '../../lib/errors.js';
+import {List} from '../../../api/collections/todo/todo.js';
+import {Todo} from '../../../api/collections/todo/todo.js';
+import {Product} from '../../../api/collections/todo/todo.js';
+import {Moving} from '../../../api/collections/moving/moving.js';
+import {FBInvitFriends} from '../../../api/collections/profile/profile.js';
 import {validateEmail} from '../../lib/errors.js';
+
+import './aside.jade';
 
 Template.aside.onCreated(function asideOnCreated() {
   this.getListId = () => FlowRouter.getParam('_id');
@@ -36,19 +34,22 @@ Template.aside.onCreated(function asideOnCreated() {
     this.getTodoId ();
     this.subscribe('lists.all');
     this.subscribe('todos.inList', this.getListId());
+    this.subscribe('MovingData');
   });
 
 });
 
 Template.aside.helpers({
     currentTodo: function() {
-      return  Todos.findOne({_id:FlowRouter.getParam('_idTodo')});
+      var k = Todo.findOne({_id:FlowRouter.getParam('_idTodo')});
+      // console.log(k)
+      return k;
     },
     getProduct(id){
-      return Products.find(id);
+      return Product.find(id);
     },
     allowNotification: function() {
-      todo= Todos.findOne({_id:FlowRouter.getParam('_idTodo')});
+      todo= Todo.findOne({_id:FlowRouter.getParam('_idTodo')});
       if(!todo) return 2;
       if(todo.allowNotification){
         return 1;
@@ -63,10 +64,54 @@ Template.aside.helpers({
       return Meteor.absoluteUrl()
     },
     friends: function(){
-      var todo= Todos.findOne({_id:FlowRouter.getParam('_idTodo')});
+      var todo= Todo.findOne({_id:FlowRouter.getParam('_idTodo')});
       if(todo) {
         return todo.friends;
       }
+    },
+    taskParticipantAutocomplete: function() {
+      return TAPi18n.__('taskParticipantAutocomplete');
+    },
+    getDeadLineDate:function(){
+      var todo= Todo.findOne({_id:FlowRouter.getParam('_idTodo')});
+      var user=Meteor.user();
+
+      if(todo) {
+          if(user && user.profile.movingId){
+              moving=Moving.findOne({_id:user.profile.movingId})
+              if(todo.deadline){
+                  return moment(moving.movingDate).add(todo.deadline, 'days').format('YYYY-MM-DD')
+              }
+              else{
+                  return moment(new Date()).add(todo.deadline, 'days').format('YYYY-MM-DD');
+              }
+          }
+          else{
+            return  moment(new Date()).format('YYYY-MM-DD');
+          }
+        return todo.friends;
+      }
+      else{
+        return  moment(new Date()).format('YYYY-MM-DD');
+      }
+    },
+    getProducts:function(){
+     var todo= Todo.findOne({_id:FlowRouter.getParam('_idTodo')});
+     
+      if(todo) {
+        products=todo.productsId;
+        return Product.find({_id:{$in:{products}}});
+      }
+
+    },
+    getVideos:function(){
+     var todo= Todo.findOne({_id:FlowRouter.getParam('_idTodo')});
+     
+      if(todo) {
+        videos=todo.videosId;
+        return Video.find({_id:{$in:{videos}}});
+      }
+
     },
     settings: function() {
       return {
@@ -87,10 +132,9 @@ Template.aside.helpers({
   });
 Template.aside.events({
   "click #allowNotification": function(event, template) {
-    var todoId=FlowRouter.getParam('_idTodo');
-    const allow=$(event.target).val()==1?true:false;
-    if(allow)
-    {
+    var todoId = FlowRouter.getParam('_idTodo');
+    const allow = $(event.target).val() ? true : false;
+    if(allow){
         $(event.target).addClass("bg_green");
     }else{
       $(event.target).removeClass("bg_green");
@@ -104,7 +148,7 @@ Template.aside.events({
     $(event.target).parent().toggleClass('active');
     var prio=$(event.target).parent().hasClass('active')
     var todoId=FlowRouter.getParam('_idTodo');
-    updatePrioritaire.call({todoId:todoId,prioritaire:prio});
+    updatePriority.call({todoId:todoId,priority:prio});
   },
   "change #todoEcheance": function(event, template) {
     var todoId=FlowRouter.getParam('_idTodo');
@@ -125,14 +169,14 @@ Template.aside.events({
   }, 300),
   'keyup #todoTitle': _.throttle(function todostiTleKeyUpInner(event) {
     var todoId=FlowRouter.getParam('_idTodo');
-    updateText.call({
+    updateTitle.call({
       todoId: todoId,
-      text: event.target.value,
+      title: event.target.value,
     }, displayError);
   }, 300),
   'click #deleteTodo':function(event){
       var todoId=$(event.target).attr('data');
-      Todos.remove(todoId);
+      Todo.remove(todoId);
       deleteTodo.call({
         todoId: todoId
       }, displayError);
@@ -152,9 +196,10 @@ Template.aside.events({
     if (event.keyCode == 13 && input.val() != '' && template.$('.addParticipant .-autocomplete-container').children().length == 0) {
         event.stopPropagation();
         if(validateEmail(input.val())) {
-          addTodoFriend.call({todoId: FlowRouter.getParam('_idTodo'), mail: input.val()}, function (error, result) { 
+          Modal.show('invit_message_modal', {mode: 'todoFriend', todoId: FlowRouter.getParam('_idTodo'), mail: input.val()});
+          /*addTodoFriend.call({todoId: FlowRouter.getParam('_idTodo'), mail: input.val()}, function (error, result) { 
             template.$('.addParticipant input').val('');
-          });
+          });*/
         }
         else {
           addTodoFriend.call({todoId: FlowRouter.getParam('_idTodo'), name: input.val()}, function (error, result) { 
@@ -163,16 +208,29 @@ Template.aside.events({
         }
         return false;
     }
-  }
+  },
+  'click input[type=checkbox]' (event) {
+    
+    if($(event.target).attr('name')=="asideChecked"){
+      const $currentTodo =$(event.target).attr('data'); 
+      makeFinished.call({
+        todoId: $currentTodo
+      });
+      event.stopPropagation();
+    }
+  },
 });
 
 
 /* ---------------------------- Todo Friend ---------------------------- */
 
 Template.todo_friend.events({
-  "click button": function(event, template) {
+  "click button.delete": function(event, template) {
     removeTodoFriend.call({todoId: FlowRouter.getParam('_idTodo'), name: template.data.name, mail: template.data.mail, invite_token: template.data.invite_token}, function (error, result) { 
     });
+  },
+  "click button.resend": function(event, template) {
+    Modal.show('invit_message_modal', {mode: 'todoFriend', mail: template.data.mail, todoId: FlowRouter.getParam('_idTodo'), resend: true});
   }
 });
 
@@ -193,6 +251,9 @@ Template.todo_friend.helpers({
     else if(this.state == "pending") {
       return TAPi18n.__('pending');
     }
+  },
+  isPending: function() {
+    return this.state == "pending";
   }
 });
 

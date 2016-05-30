@@ -7,6 +7,7 @@ import { Meteor } from 'meteor/meteor';
 import '../../ui/layouts/app-body.js';
 import '../../ui/pages/root-redirector.js';
 import '../../ui/pages/home-page.js';
+import '../../ui/franchises/franchises-template.js';
 import '../../ui/pages/app-not-found.js';
 
 // Import to override accounts templates
@@ -18,6 +19,7 @@ FlowRouter.route('/List/:_id', {
     BlazeLayout.render('App_body', { main: 'home_page' });
   },
 });
+
 FlowRouter.route('/List/:_id/todo/:_idTodo', {
   name: 'Todo.show',
   action(params, queryParams) {
@@ -26,14 +28,23 @@ FlowRouter.route('/List/:_id/todo/:_idTodo', {
     $('aside article').parents('form:first').attr('id', params._idTodo);
   },
 });
-
+// MISE A DISPOSITION DE LA ROUTE POUR LES FRANCHISES
+// ACCES IFRAME VIA LEXTRANET
+FlowRouter.route('/franchises', {
+  name: 'franchises',
+  action() {
+    BlazeLayout.render('franchise_page');
+  },
+});
+// 
 FlowRouter.route('/content/:page', {
   name: 'side',
+  subscriptions: function(params) {
+    if(params.page=='profile'){
+      this.register('Moving', Meteor.subscribe('MovingData'));
+    }
+  },
   action() {
-    Meteor.call("getGuestLocation", function(error, result){
-              data=JSON.parse(result.content);
-              Session.set("locationData", data);
-          });
     BlazeLayout.render('App_body', { main: 'home_page' });
     $('body').removeClass('aside').toggleClass('soft', true);
   },
@@ -97,8 +108,6 @@ FlowRouter.notFound = {
     if ( !Meteor.userId() ) redirect('/');
   },
 };
-
-
 // FlowRouter.triggers.enter([AccountsTemplates.ensureSignedIn], {
 //     except: [ 'atSignUp', 'atForgotPwd', 'atResetPwd', 'atVerifyEmail']
 // });

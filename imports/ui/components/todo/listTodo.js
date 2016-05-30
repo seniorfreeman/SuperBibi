@@ -4,10 +4,9 @@ import {Mongo} from 'meteor/mongo';
 import {ReactiveDict} from 'meteor/reactive-dict';
 import {Tracker} from 'meteor/tracker';
 import {$} from 'meteor/jquery';
-import {Lists} from '../../../api/collections/collections.js';
-import {Todos} from '../../../api/collections/collections.js';
-import {Typologies} from '../../../api/collections/collections.js';
-import {Typographies} from '../../../api/collections/collections.js';
+import {List} from '../../../api/collections/todo/todo.js';
+import {Todo} from '../../../api/collections/todo/todo.js';
+//import {Typographies} from '../../../api/collections/collections.js';
 import {displayError} from '../../lib/errors.js';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import {TAPi18n} from 'meteor/tap:i18n';
@@ -17,9 +16,9 @@ import './listTodo.jade'
 Template.listTodo.onCreated(function listTodoOnCreated() {
   this.getListId = () => FlowRouter.getParam('_id');
   this.autorun(() => {
-    this.subscribe('Typologies.all',this.getListId());
-    this.subscribe('lists.all');
-    this.subscribe('todos.inList', this.getListId());
+    
+    this.subscribe('lists.all',window.localStorage.getItem('guestId'));
+    this.subscribe('todos.inList', this.getListId(),window.localStorage.getItem('guestId'));
   });
 });
 Template.listTodo.onRendered(function listTodoOnRendered() {
@@ -33,19 +32,45 @@ Template.listTodo.helpers({
   list() {
     const instance = Template.instance();
     const listId = instance.getListId();
-    return Lists.findOne(listId);
+    return List.findOne(listId);
   },
   isEmptyList(list,typo){
     var result=[];
     if(list.system){
       switch (list.name)
       {
-          case "Mes priorités":result=Todos.find({prioritaire: true,dateFin:null,typologie:typo._id},{sort:{list:1}});break;
-          case "Tout":result=Todos.find({typologie:typo._id,dateFin:null},{sort:{list:1}});break;
-          case "Effectués":result=Todos.find({typologie:typo._id,"dateFin" : { $exists : true, $ne : null }},{sort:{list:1}});break;
+          case "Mes priorités":
+                  switch (typo){
+                     case "AVANT":result=Todo.find({priority: true,endDate:null,deadline:{$lt:0}});break;
+                     case "JourJ":result=Todo.find({priority: true,endDate:null,deadline:0});break;
+                     case "APRES":result=Todo.find({priority: true,endDate:null,deadline:{$gt:0}});break;
+                     case "NonDate":result=Todo.find({priority: true,endDate:null,deadline:null});break;
+                  }
+            break;
+          case "Tout":
+                switch (typo){
+                     case "AVANT":result=Todo.find({endDate:null,deadline:{$lt:0}});break;
+                     case "JourJ":result=Todo.find({endDate:null,deadline:0});break;
+                     case "APRES":result=Todo.find({endDate:null,deadline:{$gt:0}});break;
+                     case "NonDate":result=Todo.find({endDate:null,deadline:null});break;
+                  }
+            break;
+          case "Effectués":
+                switch (typo){
+                     case "AVANT":result=Todo.find({endDate:{ $exists : true, $ne : null },deadline:{$lt:0}});break;
+                     case "JourJ":result=Todo.find({endDate:{ $exists : true, $ne : null },deadline:0});break;
+                     case "APRES":result=Todo.find({endDate:{ $exists : true, $ne : null },deadline:{$gt:0}});break;
+                     case "NonDate":result=Todo.find({endDate:{ $exists : true, $ne : null },deadline:null});break;
+                  }
+            break;
       }
     }else{
-      result= Todos.find({list:list._id,dateFin:null,typologie:typo._id});
+        switch (typo){
+           case "AVANT":result=Todo.find({list:list._id,endDate:null,deadline:{$lt:0}});break;
+           case "JourJ":result=Todo.find({list:list._id,endDate:null,deadline:0});break;
+           case "APRES":result=Todo.find({list:list._id,endDate:null,deadline:{$gt:0}});break;
+           case "NonDate":result=Todo.find({list:list._id,endDate:null,deadline:null});break;
+        }
     }
 
     return result.count()>0?true:false;
@@ -53,32 +78,55 @@ Template.listTodo.helpers({
   currenTodoListTypo: function(list,typo){
     var result;
     if(list.system){
-      switch (list.name)
+       switch (list.name)
       {
-          case "Mes priorités":result=Todos.find({prioritaire: true,dateFin:null,typologie:typo._id},{sort:{list:1}});break;
-          case "Tout":result=Todos.find({typologie:typo._id,dateFin:null},{sort:{list:1}});break;
-          case "Effectués":result=Todos.find({typologie:typo._id,"dateFin" : { $exists : true, $ne : null }},{sort:{list:1}});break;
+          case "Mes priorités":
+                  switch (typo){
+                     case "AVANT":result=Todo.find({priority: true,endDate:null,deadline:{$lt:0}});break;
+                     case "JourJ":result=Todo.find({priority: true,endDate:null,deadline:0});break;
+                     case "APRES":result=Todo.find({priority: true,endDate:null,deadline:{$gt:0}});break;
+                     case "NonDate":result=Todo.find({priority: true,endDate:null,deadline:null});break;
+                  }
+            break;
+          case "Tout":
+                switch (typo){
+                     case "AVANT":result=Todo.find({endDate:null,deadline:{$lt:0}});break;
+                     case "JourJ":result=Todo.find({endDate:null,deadline:0});break;
+                     case "APRES":result=Todo.find({endDate:null,deadline:{$gt:0}});break;
+                     case "NonDate":result=Todo.find({endDate:null,deadline:null});break;
+                  }
+            break;
+          case "Effectués":
+                switch (typo){
+                     case "AVANT":result=Todo.find({endDate:{ $exists : true, $ne : null },deadline:{$lt:0}});break;
+                     case "JourJ":result=Todo.find({endDate:{ $exists : true, $ne : null },deadline:0});break;
+                     case "APRES":result=Todo.find({endDate:{ $exists : true, $ne : null },deadline:{$gt:0}});break;
+                     case "NonDate":result=Todo.find({endDate:{ $exists : true, $ne : null },deadline:null});break;
+                  }
+            break;
       }
     }else{
-      result= Todos.find({list:list._id,dateFin:null,typologie:typo._id});
+        switch (typo){
+           case "AVANT":result=Todo.find({list:list._id,endDate:null,deadline:{$lt:0}});break;
+           case "JourJ":result=Todo.find({list:list._id,endDate:null,deadline:0});break;
+           case "APRES":result=Todo.find({list:list._id,endDate:null,deadline:{$gt:0}});break;
+           case "NonDate":result=Todo.find({list:list._id,endDate:null,deadline:null});break;
+        }
     }
 
     return result;
-  },
-  listTypologies() {
-    return Typologies.find();
   },
   currentTodoList: function(list) {
     var result;
     if(list.system){
       switch (list.name)
       {
-          case "Mes priorités":result=Todos.find({prioritaire: true,dateFin:null},{sort:{list:1}});break;
-          case "Tout":result=Todos.find({dateFin:null},{sort:{list:1}});break;
-          case "Effectués":result=Todos.find({"dateFin" : { $exists : true, $ne : null }},{sort:{list:1}});break;
+          case "Mes priorités":result=Todo.find({priority: true,endDate:null});break;
+          case "Tout":result=Todo.find({endDate:null});break;
+          case "Effectués":result=Todo.find({"endDate" : { $exists : true, $ne : null }});break;
       }
     }else{
-      result= Todos.find({list:list._id,dateFin:null});
+      result= Todo.find({list:list._id,endDate:null});
     }
 
     return result;

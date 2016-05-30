@@ -55,13 +55,9 @@ Template.App_body.events({
   'click nav'(event) {
     if($('body').hasClass("soft")){
       $('body').removeClass('soft');
+      FlowRouter.go('App.home');
     }
   },  
-  'click .js-logout'() {
-    Meteor.logout();
-    FlowRouter.go('App.home');
-    document.location.reload(true);
-  },
   'click .section'(){
     if($('body').not('.aside')) return false;
     $('body').removeClasse('aside');

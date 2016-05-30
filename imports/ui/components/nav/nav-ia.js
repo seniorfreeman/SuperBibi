@@ -27,7 +27,11 @@ Template.nav_ia.onRendered(() => {
 });
 
 Template.nav_ia.events({
-    "click #ia-send": function (event, template) {
+    "click #call-ia": function (event, template) {
+        $('#ia').toggleClass('active');
+    },
+    "submit #ia": function (event, template) {
+        event.preventDefault();
         Chatbot.processAnswer($('#ia-input').val());
     }
 

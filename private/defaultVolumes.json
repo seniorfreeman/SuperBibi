@@ -1,0 +1,468 @@
+{
+  "1": [
+    {
+      "title": "Cusine",
+      "volumeObjects": [
+        {
+          "title": "Réfrigérateur",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Petit électroménager",
+          "volume": 0.5,
+          "quantity": 2
+        },
+        {
+          "title": "Table 2/4 personnes",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Chaises",
+          "volume": 0.25,
+          "quantity": 4
+        },
+        {
+          "title": "Table à repasser",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Aspirateur",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Four micro-ondes",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Commode",
+          "volume": 0.5,
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "title": "Salon",
+      "volumeObjects": [
+        {
+          "title": "Clic clac",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Meuble TV",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Penderie",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Etagères",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Table basse",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "TV",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Tableau/cadre",
+          "volume": 0.05,
+          "quantity": 2
+        },
+        {
+          "title": "Lampe trépied",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Table de chevet",
+          "volume": 0.25,
+          "quantity": 1
+        },
+        {
+          "title": "Lampe de chevet",
+          "volume": 0.10,
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "title": "Salle de bain",
+      "volumeObjects": [
+        {
+          "title": "Lave-linge",
+          "volume": 1,
+          "quantity": 1
+        }
+      ]
+    }
+  ],
+  "2": [
+    {
+      "title": "Cusine",
+      "volumeObjects": [
+        {
+          "title": "Réfrigérateur haut",
+          "volume": 1,
+          "quantity": 1
+        },
+        {
+          "title": "Petit électroménager",
+          "volume": 0.5,
+          "quantity": 2
+        },
+        {
+          "title": "Table 2/4 personnes",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Chaises",
+          "volume": 0.25,
+          "quantity": 2
+        },
+        {
+          "title": "Table à repasser",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Aspirateur",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Lave-vaisselle",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Four",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Poubelle",
+          "volume": 0.5,
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "title": "Salon",
+      "volumeObjects": [
+        {
+          "title": "Lampe trépied",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Meuble TV",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Canapé 3 places",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Etagères",
+          "volume": 0.5,
+          "quantity": 2
+        },
+        {
+          "title": "Table basse",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "TV",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Tableau/cadre",
+          "volume": 0.5,
+          "quantity": 2
+        },
+        {
+          "title": "Fauteuil",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Tapis",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Chaises",
+          "volume": 0.5,
+          "quantity": 4
+        },
+        {
+          "title": "Table",
+          "volume": 0.5,
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "title": "Salle de bain",
+      "volumeObjects": [
+        {
+          "title": "Lave-linge",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Sèche-linge",
+          "volume": 0.5,
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "title": "Chambre",
+      "volumeObjects": [
+        {
+          "title": "Commode",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Armoire 2 portes",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Lit 2 places",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Tables de chevet",
+          "volume": 0.5,
+          "quantity": 2
+        },
+        {
+          "title": "Lampes de chevet",
+          "volume": 0.5,
+          "quantity": 2
+        }
+      ]
+    }
+  ],
+  "3": [
+    {
+      "title": "Cusine",
+      "volumeObjects": [
+        {
+          "title": "Réfrigérateur haut",
+          "volume": 1,
+          "quantity": 1
+        },
+        {
+          "title": "Petit électroménager",
+          "volume": 0.5,
+          "quantity": 2
+        },
+        {
+          "title": "Table 2/4 personnes",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Chaises",
+          "volume": 0.5,
+          "quantity": 2
+        },
+        {
+          "title": "Table à repasser",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Aspirateur",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Lave-vaisselle",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Four",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Poubelle",
+          "volume": 0.5,
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "title": "Salon",
+      "volumeObjects": [
+        {
+          "title": "Lampe trépied",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Meuble TV",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Canapé 3 places",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Etagères",
+          "volume": 0.5,
+          "quantity": 2
+        },
+        {
+          "title": "Table basse",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "TV",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Tableau/cadre",
+          "volume": 0.5,
+          "quantity": 2
+        },
+        {
+          "title": "Fauteuil",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Tapis",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Chaises",
+          "volume": 0.5,
+          "quantity": 4
+        },
+        {
+          "title": "Table",
+          "volume": 0.5,
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "title": "Salle de bain",
+      "volumeObjects": [
+        {
+          "title": "Lave-linge",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Sèche-linge",
+          "volume": 0.5,
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "title": "Chambre 1",
+      "volumeObjects": [
+        {
+          "title": "Commode",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Armoire 2 portes",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Lit 2 places",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Tables de chevet",
+          "volume": 0.5,
+          "quantity": 2
+        },
+        {
+          "title": "Lampes de chevet",
+          "volume": 0.5,
+          "quantity": 2
+        }
+      ]
+    },
+    {
+      "title": "Chambre 2",
+      "volumeObjects": [
+        {
+          "title": "Commode",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Armoire 2 portes",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Lit 2 places",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Tables de chevet",
+          "volume": 0.5,
+          "quantity": 2
+        },
+        {
+          "title": "Lampes de chevet",
+          "volume": 0.5,
+          "quantity": 2
+        },
+        {
+          "title": "Bureau",
+          "volume": 0.5,
+          "quantity": 1
+        },
+        {
+          "title": "Chaise de bureau",
+          "volume": 0.5,
+          "quantity": 1
+        }
+      ]
+    }
+  ]
+}

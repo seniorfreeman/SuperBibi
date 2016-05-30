@@ -40,11 +40,11 @@ if (Meteor.isClient) {
 
     describe('when logged out', () => {
       it('has all public lists at homepage', () => {
-        assert.equal(Lists.find().count(), 3);
+        assert.equal(List.find().count(), 3);
       });
 
       it('renders the correct list when routed to', done => {
-        const list = Lists.findOne();
+        const list = List.findOne();
         FlowRouter.go('Lists.show', { _id: list._id });
 
         afterFlushPromise()
@@ -53,7 +53,7 @@ if (Meteor.isClient) {
           })
           .then(() => waitForSubscriptions())
           .then(() => {
-            assert.equal(Todos.find({ listId: list._id }).count(), 3);
+            assert.equal(Todo.find({ listId: list._id }).count(), 3);
           })
           .nodeify(done);
       });

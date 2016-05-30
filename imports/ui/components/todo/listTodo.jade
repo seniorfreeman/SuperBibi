@@ -1,13 +1,43 @@
 template(name="listTodo")
 		if list
-			each typo in listTypologies
-				if isEmptyList list typo
-					div.labelHr
-						hr.forte
-						label {{typo.name}} 
-						hr.forte
-					ul.itemList(id="itemList")
-						each todo in currenTodoListTypo list typo
-							li(class="task.theme")
-								| {{> Todos_item todo}}
+			if isEmptyList list "AVANT"
+				div.labelHr
+					hr.forte
+					label 
+						|AVANT 
+					hr.forte
+				ul.itemList(id="itemList")
+					each todo in currenTodoListTypo list "AVANT"
+						li(class="task.theme")
+							| {{> Todos_item todo}}
+			if isEmptyList list "JourJ"
+				div.labelHr
+					hr.forte
+					label 
+						|Jour J 
+					hr.forte
+				ul.itemList(id="itemList")
+					each todo in currenTodoListTypo list "JourJ"
+						li(class="task.theme")
+							| {{> Todos_item todo}}
+			if isEmptyList list "APRES"
+				div.labelHr
+					hr.forte
+					label 
+						|APRES 
+					hr.forte
+				ul.itemList(id="itemList")
+					each todo in currenTodoListTypo list "APRES"
+						li(class="task.theme")
+							| {{> Todos_item todo}}
+			if isEmptyList list "NonDate"
+				div.labelHr
+					hr.forte
+					label 
+						| Non Daté 
+					hr.forte
+				ul.itemList(id="itemList")
+					each todo in currenTodoListTypo list "NonDate"
+						li(class="task.theme")
+							| {{> Todos_item todo}}
 		

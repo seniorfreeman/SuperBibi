@@ -2,21 +2,14 @@ import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
 import { TAPi18n } from 'meteor/tap:i18n';
 
-import { Todos } from '../../../api/collections/collections.js';
-import { Lists } from '../../../api/collections/collections.js';
-import { Notifications } from '../../../api/collections/collections.js';
-import { Rooms } from '../../../api/collections/collections.js';
-import { RoomObjects } from '../../../api/collections/collections.js';
+import { Todo } from '../../../api/collections/todo/todo.js';
+import { List } from '../../../api/collections/todo/todo.js';
+import { Room } from '../../../api/collections/room/room.js';
+import { RoomObject } from '../../../api/collections/room/room.js';
 
 Meteor.startup(function() {
 
   Meteor.methods({
-    sendNotificationForAllUsers: function(){
-      Meteor.users.find().forEach(function(user){
-
-        Meteor.call('sendMailNotification', user);
-      });
-    },
     sendMailNotification: function(currentUser) {
       console.log('sendMailNotification');
 
@@ -24,7 +17,7 @@ Meteor.startup(function() {
       /*
       var todos = [];
       var notifSent=[];
-      Todos.find({}, {
+      Todo.find({}, {
         _id: 1
       }).forEach(function(doc) {
         doc['notification']=[];
@@ -33,7 +26,7 @@ Meteor.startup(function() {
           notifSent.push(ntf_id);
         });
           if(doc['notification'].length>0){
-            list=Lists.findOne(doc.list);
+            list=List.findOne(doc.list);
             url=Meteor.absoluteUrl()+"List/"+list.name+"/"+list._id+"/todo/"+doc._id;
             doc["url"]=url;
             todos.push(doc);
@@ -41,31 +34,27 @@ Meteor.startup(function() {
           }
       });
       */
+      
+      var todos = [];
 
-      var lists=[];
-      Lists.find().forEach(function(lst){
-        var currentTodos=[];
-        Todos.find({ownerId:user._id,dateFin:null,list:lst._id}).forEach(function(todo){
-          currentTodos.push({
-              title:todo.title
-             ,todoUrl:Meteor.absoluteUrl()+"List/"+lst.name+"/"+lst._id+"/todo/"+todo._id
-          });
-        });
-        if(currentTodos.length>0){
-          lists.push({
-                      listName:lst.name
-                     ,listUrl:Meteor.absoluteUrl()+"List/"+lst.name+"/"+lst._id
-                     ,todosItem:currentTodos
-                   });
-        }
+      Todo.find({ownerId:user._id}).forEach(function(todo){
+        var t = todo;
+        var list = List.findOne(t.list);
+          t.url = Meteor.absoluteUrl()+"List/"+list.name+"/"+list._id+"/todo/"+todo._id;
+          t.listName = list.name
+          t.listUrl = Meteor.absoluteUrl()+"List/"+list.name+"/"+list._id,
+
+        todos.push(t);
+
       });
-      if(!lists.length) return;
+
+      if(!todos.length) return;
 
       // CONTENT ---------------------------------------------------------------------------------------------------------
-
+      
       SSR.compileTemplate('tasksList', Assets.getText('mailsTemplates/tasksList.html'));
 
-      var email = user.services.facebook ? user.services.facebook.email : user.emails[0].address;
+      var email = user.services ? user.services.facebook.email : user.emails[0].address;
 
       const titre = user.prenom ? user.prenom : email.substring(0, email.indexOf('@'));
       const path = Meteor.absoluteUrl();
@@ -78,65 +67,69 @@ Meteor.startup(function() {
         callToActionLink  : path + "#MAPAGEDENOTIF",
         callToActionText  : TAPi18n.__('notificationsActionText'),
         path              : path,
-        todos             : lists
+        todos             : todos
       });
-
+    
       // FOOTER ---------------------------------------------------------------------------------------------------------
-
+      
       SSR.compileTemplate('corp', Assets.getText('mailsTemplates/corp.html').replace('{{contentHtml}}', contentHtml));
       var corp = SSR.render("corp", {
         path  : path,
         emailImage    : path+"emages/headNotifications.png",
-        emailTitle    : TAPi18n.__('seeYouSoonTitle')
+        emailTitle    : TAPi18n.__('seeYouSoonTitle'),
+        addressAda    : TAPi18n.__('addressAda'),
+        copyrightAda    : TAPi18n.__('copyrightAda')
       });
 
       Email.send({
         to      : email,
-        from    : "SuperBibi <no-reply@epicea.com>",
+        from    : "Mon Super Déménagement <no-reply@epicea.com>",
         subject : TAPi18n.__('notificationsTitle'),
         html    : corp
       });
 
     },
-
+    
     sendMailAdieu : function (currentUser){
 
       const path = Meteor.absoluteUrl();
-
+      
       const user = currentUser;
-
+      
       var email = user.services.facebook ? user.services.facebook.email : user.emails[0].address;
       // CONTENT ---------------------------------------------------------------------------------------------------------
 
       SSR.compileTemplate('seeYouSoon', Assets.getText('mailsTemplates/seeYouSoon.html'));
-
+      
       var contentHtml = SSR.render("seeYouSoon", {
           emailWelcome  : user.tutoiement ? TAPi18n.__('salut') : TAPi18n.__('bonjour'),
           emailTitle    : TAPi18n.__('seeYouSoonTitle'),
           emailContent  : TAPi18n.__('seeYouSoonContent'),
         });
-
+      
       // CORP ---------------------------------------------------------------------------------------------------------
 
       SSR.compileTemplate('corp', Assets.getText('mailsTemplates/corp.html').replace('{{contentHtml}}', contentHtml));
       var corp = SSR.render("corp", {
           path  : path,
-          emailImage    : path + "emages/headSeeYouSoon.png",
-          emailTitle    : TAPi18n.__('seeYouSoonTitle')
+          emailImage    : path + "emages/headSeeYouSoon.png",        
+          emailTitle    : TAPi18n.__('seeYouSoonTitle'),
+          addressAda    : TAPi18n.__('addressAda'),
+          copyrightAda    : TAPi18n.__('copyrightAda')
       });
 
       Email.send({
         to      : email,
-        from    : "SuperBibi <no-reply@epicea.com>",
+        from    : "Mon Super Déménagement <no-reply@epicea.com>",
         subject : TAPi18n.__('seeYouSoonTitle'),
         html    : corp
       });
-
+      
     },
-    sendMailRequestToAFriend : function (mail, todo){
+    sendMailRequestToAFriend : function (mail, message, todo){
 
       /*
-      // DEV :
+      // DEV : 
         const friend = {
           "email" : "cstephan@epicea.com"
         }
@@ -146,7 +139,7 @@ Meteor.startup(function() {
 
         }
       */
-
+      console.log("sendMailRequestToAFriend")
       const path = Meteor.absoluteUrl();
       const user = Meteor.user();
       var url;
@@ -154,20 +147,20 @@ Meteor.startup(function() {
 
       if(todo) {
         task = todo.title;
-        url = "http://localhost:3000/user/" + user._id + "/mailResponse/" + mail + "/todo/" + todo._id;
+        url = path + "user/" + user._id + "/mailResponse/" + mail + "/todo/" + todo._id;
       }
-      else if(!isCoMover) {
+      else {
         task = TAPi18n.__('helpToMove');
-        url = "http://localhost:3000/user/" + user._id + "/mailResponse/" + mail;
+        url = path + "user/" + user._id + "/mailResponse/" + mail;
       }
       // CONTENT ---------------------------------------------------------------------------------------------------------
 
       SSR.compileTemplate('yesOrNo', Assets.getText('mailsTemplates/yesOrNo.html'));
       // const user = currentUser ? currentUser : Meteor.user();
-
+      
       var contentHtml = SSR.render("yesOrNo", {
           emailWelcome  : user.profile.tutoiement ? TAPi18n.__('salut') : TAPi18n.__('bonjour'),
-          emailTitle    : user.profile.prenom + " " + TAPi18n.__('yesOrNoTitle'),
+          emailTitle    : user.profile.firstName + " " + TAPi18n.__('yesOrNoTitle'),
           emailContent1  : TAPi18n.__('yesOrNoContent1'),
           emailContent2  : TAPi18n.__('yesOrNoContent2'),
           task: task,
@@ -175,30 +168,33 @@ Meteor.startup(function() {
           yesOrNoCallToActionTextNegative    : TAPi18n.__('yesOrNoCallToActionTextNegative'),
           callToActionLinkPositive           : url+"?rep=true",
           callToActionLinkNegative           : url+"?rep=false",
-          prenom: user.profile.prenom
+          prenom: user.profile.firstName,
+          message: message
         });
-
+      
       // CORP ---------------------------------------------------------------------------------------------------------
 
       SSR.compileTemplate('corp', Assets.getText('mailsTemplates/corp.html').replace('{{contentHtml}}', contentHtml));
       var corp = SSR.render("corp", {
           path  : path,
           emailImage    : path + "emages/headYesOrNo.png",          
-          emailTitle    : user.profile.prenom + " " + TAPi18n.__('yesOrNoTitle')
+          emailTitle    : user.profile.firstName + " " + TAPi18n.__('yesOrNoTitle'),
+          addressAda    : TAPi18n.__('addressAda'),
+          copyrightAda    : TAPi18n.__('copyrightAda')
       });
-
-      Email.send({
+      var res = Email.send({
         to      : mail,
-        from    : "SuperBibi <no-reply@epicea.com>",
-        subject : user.profile.prenom + " " + TAPi18n.__('yesOrNoTitle'),
+        from    : user.profile.firstName + " " + user.profile.lastName + "<no-reply@epicea.com>",
+        subject : user.profile.firstName + " " + TAPi18n.__('yesOrNoTitle'),
         html    : corp
       });
       
     },
-    sendInvitationMail: function(mail) {
+    sendInvitationMail: function(mail, message) {
       const path = Meteor.absoluteUrl();
       const user = Meteor.user();
-      var urlNegative = "http://localhost:3000/user/" + user._id + "/mailResponse/" + mail + "/coMover?rep=false";
+  
+      var urlNegative = path+"user/" + user._id + "/mailResponse/" + mail + "/coMover?rep=false";
 
       var jwt = require('jwt-simple');
       var sevenDaysHours = 7 * 24;
@@ -208,14 +204,14 @@ Meteor.startup(function() {
       var secret = mail;
       var token = jwt.encode(payload, secret);
 
-      var urlPositive = "http://localhost:3000/signin/" + token + "?mail=" + mail;
+      var urlPositive = path+"signin/" + token + "?mail=" + mail;
       // CONTENT ---------------------------------------------------------------------------------------------------------
 
       SSR.compileTemplate('invitation', Assets.getText('mailsTemplates/invitation.html'));
       // const user = currentUser ? currentUser : Meteor.user();
       var contentHtml = SSR.render("invitation", {
           emailWelcome  : user.profile.tutoiement ? TAPi18n.__('salut') : TAPi18n.__('bonjour'),
-          emailTitle    : user.profile.prenom + " " + TAPi18n.__('yesOrNoTitle'),
+          emailTitle    : user.profile.firstName + " " + TAPi18n.__('yesOrNoTitle'),
           emailContent1  : TAPi18n.__('yesOrNoContent1'),
           emailContent2  : TAPi18n.__('yesOrNoContent2'),
           task: TAPi18n.__('helpToManage'),
@@ -223,7 +219,8 @@ Meteor.startup(function() {
           yesOrNoCallToActionTextNegative    : TAPi18n.__('yesOrNoCallToActionTextNegative'),
           callToActionLinkPositive           : urlPositive,
           callToActionLinkNegative           : urlNegative,
-          prenom: user.profile.prenom
+          prenom: user.profile.firstName,
+          message: message
         });
       // CORP ---------------------------------------------------------------------------------------------------------
 
@@ -231,13 +228,15 @@ Meteor.startup(function() {
       var corp = SSR.render("corp", {
           path  : path,
           emailImage    : path + "emages/headYesOrNo.png",          
-          emailTitle    : user.profile.prenom + " " + TAPi18n.__('yesOrNoTitle')
+          emailTitle    : user.profile.firstName + " " + TAPi18n.__('yesOrNoTitle'),
+          addressAda    : TAPi18n.__('addressAda'),
+          copyrightAda    : TAPi18n.__('copyrightAda')
       });
       console.log('envoi du mail a ' + mail)
       Email.send({
         to      : mail,
-        from    : "SuperBibi <no-reply@epicea.com>",
-        subject : user.profile.prenom + " " + TAPi18n.__('yesOrNoTitle'),
+        from    : user.profile.firstName + " " + user.profile.lastName + "<no-reply@epicea.com>",
+        subject : user.profile.firstName + " " + TAPi18n.__('yesOrNoTitle'),
         html    : corp
       });
     },
@@ -246,9 +245,9 @@ Meteor.startup(function() {
       const user = Meteor.user();
       var email = (user.services && user.services.facebook) ? user.services.facebook.email : user.emails[0].address;
 
-      var rooms = Rooms.find({userId:user._id}).map(function(room) {
-        room.objects = RoomObjects.find({roomId: room._id});
-        room.totalVolume = RoomObjects.find({roomId: room._id}).fetch().map(item => item.volume).reduce((a, b) => a + b, 0);
+      var rooms = Room.find({userId:user._id}).map(function(room) {
+        room.objects = RoomObject.find({roomId: room._id});
+        room.totalVolume = RoomObject.find({roomId: room._id}).fetch().map(item => item.volume).reduce((a, b) => a + b, 0);
         return room;
       });
 
@@ -267,11 +266,13 @@ Meteor.startup(function() {
           path  : path,
           emailImage    : path + "emages/headVerify.png",          
           emailTitle    : TAPi18n.__('valuationMailTitle'),
+          addressAda    : TAPi18n.__('addressAda'),
+          copyrightAda    : TAPi18n.__('copyrightAda')
       });
       
       Email.send({
         to      : email,
-        from    : "SuperBibi <no-reply@epicea.com>",
+        from    : "Mon Super Déménagement <no-reply@epicea.com>",
         subject : TAPi18n.__('valuationMailTitle'),
         html    : corp
       });

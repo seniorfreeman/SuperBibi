@@ -2,74 +2,105 @@
 	position: relative;
     height: 100%;
 	
+	header {
 	
-	header .title-block {
-		float: left;
-		width: 40%;
-	}
-
-	header .admin-block {
-		float: right;
-		height: calc(~"100% + 80px");
-    	width: 60%;
-
     	.admin-title {
+    	
     		text-align: center;
-    	}
+    		padding: .25em 0 0 !important;
+    		position: relative;
 
-    	.admin-list {
-    		height: calc(~"100% - 16px");
-    		overflow-x: auto;
+    		& > span{
+    			font-weight: bold;
+    			text-transform: uppercase;
+    		}
+	    	
+	    	ul.icons {
+	    		border-left: 0 !important;
+	    		background-color: @whiteSmoke;
+				height: 80% !important;
+			    position: absolute;
+			    bottom: 0;
+			    width: 100%;
+			    text-align: center;
+	    		li {
+					width: 100px !important;
+					display: inline-block !important;
+					float:none !important;
+					@taille_admins:65px;			
+					overflow: hidden;
+					&:not(.new):hover{
+						h2{
+							margin-top: -1.5em;
+						}
+					}
+					h2 {
+						font-size: .8em;
+						.anim();
+						border:0 !important;
+						background-color: inherit !important;
+					}
 
-    		> li {
-	    		display: inline-block;
-	    		vertical-align: top;
-	    		margin-left: 15px;
-	    		margin-right: 15px;
-	    		cursor: pointer;
-	    		height: 100%;
-
-	    		img {
-	    			height: 50px;
-				    width: 50px;
-				    border-radius: 50%;
-				    float: inherit !important;
-				    display: block;
-				    margin-left: auto;
-				    margin-right: auto;
-	    		}
-
-	    		button {
-	    			display: block;
-	    		}
-	    	}
-
-	    	> li.new {
-	    		cursor: pointer;
-
-	    		img {
-	    			height: 30px;
-				    width: 30px;
-	    		}
-	    	}
-    	} 
-	}
-
-	.friends-block {
-		height: calc(~"100% - 140px");
-		 padding-top: 137px;
-
-		.mover-friends-block {
-			height: 100%;
-			overflow-y: auto;
-			display: inline-block;
-    		width: 50%;
-    		vertical-align: top;
-    		padding: 20px 20px 20px 20px;
-
-			h2 {
-				display: inline-block;
+					img {
+						display: block;
+						margin:0 auto;
+						width: @taille_admins;
+						height: @taille_admins;
+						border-radius: 100%;
+						&:before{
+							border: 1px solid @grey;
+							width: 72px;
+							height: 72px;
+							display: block;
+							content: "";
+							position: absolute;
+							background: red;
+						}
+					}
+					
+					&.new {
+						opacity: 0.5;
+						.anim();
+						&:hover{
+							opacity: 1;
+						}
+						cursor: pointer;
+						i{
+							font-size: 2em;
+							width: 1.5em;
+							height: 1.5em;
+							padding: .25em;
+							margin-top: .25em;
+							color:@grey;	
+							border:1px solid @grey;
+							border-radius: 100%;
+						}
+					}
+				}
 			}
+		}
+	}
+	article {
+		padding-bottom: 13em;
+		h2 {
+			font-size: 1.25em;
+			padding: .25em 10em .5em 0;
+    		line-height: 1.4em;
+    		font-weight: 100;
+		}
+		i.picto {
+			margin-right: .5em;
+		}
+		ul {
+			clear:both;
+		}
+		.mover-friends-block,
+		.task-friends-block{
+			width: 50%;
+			float: left;
+			padding: 4em 2em;
+		}
+		.mover-friends-block {
 
 			.mover-friends-image {
 				display: inline-block;
@@ -81,8 +112,17 @@
 			}
 
 			.mover-friends-list {
-
+				
 				> li {
+					> i.fa{
+						font-size: 1.2em;
+					}
+					> i.fa-check{
+						color:@green;
+					}
+					> i.fa-times{
+						color:@red;
+					}
 					margin-top: 10px;
 					margin-bottom: 10px;
 					height: 35px;
@@ -92,92 +132,90 @@
 		    			height: 30px;
 					    width: 30px;
 					    border-radius: 50%;
+					    margin: 0 2em 0 1em;
+		    		}
+
+		    		button.delete {
+		    			display: none;
+		    		}
+		    		&:hover button.delete{
+		    			display: inline;
 		    		}
 
 				}
 
+			}
+			.inputFriendsMover{
+				position: relative;
+				i {
+					position: absolute;
+					color:@grey;
+					padding: .8em 1em .8em 3em;
+				}
+				#newMoverFriend{
+					border:0;
+					background-color: inherit;
+					width: 100%;
+    				padding-left: 7em;
+				}
 				.-autocomplete-container {
 					border: none !important;
 				}
-
 			}
 		}
 
 		.task-friends-block {
-			height: 100%;
-			overflow-y: auto;
-			display: inline-block;
-    		width: 49%;
-    		vertical-align: top;
-    		padding: 20px 20px 20px 20px;
-
-			h2 {
-				display: inline-block;
-			}
-
-			.task-friends-image {
-				display: inline-block;
-				background-position: -446px -64px;
-				width: 64px;
-			    height: 64px;
-			    background-image: url(/images/Ada_Glyphs_Icons.png);
-			    background-repeat: no-repeat;
-			}
 
 			.task-friends-list {
+				
 				> li {
 					position: relative;
-				    margin-top: 10px;
-					margin-bottom: 10px;
+				  	padding: 1em 2em 1em 1em;
 
-					.left-container {
+				  	&:hover {
+				  		background-color: @white;
+				  	}
 
-						.friends-list {
-							> li {
-								display: inline-block;
-	    						vertical-align: top;
-	    						margin-right: 5px;
-							}
+					.friends-list {
+						> li {
+
+							display: inline-block;
+							vertical-align: top;
+							margin-right: 5px;
 						}
 					}
 
-					.right-container {
-						position: absolute;
-					    right: 0px;
-					    top: 0px;
+					.btn {
+						float: right;
 					}
-					
+				
 				}
 			}
 		}
+		
+	}
+	
+	footer {
+		bottom:0;
+		
 	}
 
-	.partners-block {
-		position: absolute;
-		bottom: 0px;
-		width: 100%;
-
-		ul.partners-list {
-			height: 141px;
-		    overflow-x: auto;
-		    white-space: nowrap;
-
-			> li {
-				display: inline-block;
-				cursor: pointer;
-
-				img {
-					height: 127px;
-				}
+	@media screen and (max-width: @min-width-mobile) {
+		article {
+			h2{
+				padding-right: 0;
 			}
-
+			.mover-friends-block,
+			.task-friends-block {
+				width: 100%;
+				float: none;
+				padding: 1em;
+			}
 		}
-	}
+		
 
-
-	.friend-item-container {
-		cursor: pointer;
 	}
+	
 
 }
 

@@ -1,6 +1,4 @@
-import { Todos } from '../collections.js';
-import { Notifications } from '../collections.js';
-import { Typologies } from '../collections.js';
+import {List, Todo,Video,File,Product } from '../todo/todo.js';
 
 
 Meteor.startup(function() {
@@ -41,45 +39,6 @@ Meteor.startup(function() {
             console.log(result.data);
 
         },
-        createTodo: function(doc){
-
-                guestId=Meteor.call("getConnectionIP");;
-                typologie=Typologies.findOne({name:"Non daté"});
-                if(!Meteor.userId()){
-                    doc['guestId']=guestId;
-                }
-                else {
-                    dateDem=Meteor.user().profile.dateDemenagement
-
-                    typologie=Typologies.findOne({name:"Pour le jour J"});
-                    var now = moment();
-                    var dem = moment(dateDem);
-
-                    if (now < dem) {
-                      typologie=Typologies.findOne({name:"Avant"});
-                    } else{
-                      typologie=Typologies.findOne({name:"Après"});
-                    }
-
-                }
-
-                doc.typologie= typologie._id
-                Todos.insert(doc,function(error,result){
-                    if(error)throw new Meteor.Error("Créate Tod failed:"+error);
-                    else {
-                        const todo=Todos.findOne({_id:result}) ;
-                        if(!todo.ownerId) return;
-                        const notifText="Une Tâche intitulée :"+title +", vient d’être créer à la date du :"+ moment().utc( todo.createdAt, "YYYY-MM-DD" ).format('YYYY-MM-DD');
-                        Notifications.insert({
-                            todoId:todo._id,
-                            status:'Added',
-                            text:notifText,
-                            userId:todo.ownerId
-                        });
-                    }
-                });
-
-            },
             getOffres:function(departLocation){
                 var reponse = [];
                     resultat= Meteor.http.call("POST", "http://www.ada.fr/api/json/offres",
@@ -103,18 +62,30 @@ Meteor.startup(function() {
                     };
                     return resultat;
             },
-        getGuestLocation:function(){
-            var ip = this.connection.clientAddress;
-                if (ip === '127.0.0.1') {
-                    try {
-                        this.unblock();
-                        ip = Meteor.http.call("Get",'https://ip.appspot.com/').content;
-                    } catch(e) {
-                        throw new Meteor.Error('[user-location] Couldn\'t get user IP');
-                    }
+            getAgenceInformations: function(id) {
+              var reponse = [];
+              resultat= Meteor.http.call("GET", "http://www.ada.fr/api/json/agence?agence=" + id,
+                { 
+                  params :{
+                  },
+                  headers: { 'Content-Type': 'application/x-www-form-urlencoded'
+                  }
                 }
-            var location =Meteor.http.call("Get",'http://freegeoip.net/json/'+ip);
-            return location;
+              );
+              return resultat;
+            },
+        getGuestLocation:function(){
+            // var ip = this.connection.clientAddress;
+            //     if (ip === '127.0.0.1') {
+            //         try {
+            //             this.unblock();
+            //             ip = Meteor.http.call("Get",'https://ip.appspot.com/').content;
+            //         } catch(e) {
+            //             throw new Meteor.Error('[user-location] Couldn\'t get user IP');
+            //         }
+            //     }
+            // var location =Meteor.http.call("Get",'http://freegeoip.net/json/'+ip);
+            // return location;
         },
         getAccessToken : function() {
             try {
@@ -132,6 +103,9 @@ Meteor.startup(function() {
               throw new Meteor.Error('user not found');
             }
 
+            if(user.profile.adminUserId)
+                user = Meteor.users.findOne({_id: user.profile.adminUserId});
+
             var friends = user.profile.movers;
             var founded = false;
             var idx;
@@ -146,46 +120,15 @@ Meteor.startup(function() {
                 friends[idx].state = "accepted";
               else
                 friends[idx].state = "refused";
-              Meteor.users.update({_id: userId}, { $set: { 'profile.movers': friends } },
+              Meteor.users.update({_id: user._id}, { $set: { 'profile.movers': friends } },
                 function(error,result){
                   if(error)
                     throw error;
               });
             }
         },
-        getGuestLocation:function(){
-            var ip = this.connection.clientAddress;
-                if (ip === '127.0.0.1') {
-                    try {
-                        this.unblock();
-                        ip = Meteor.http.call("Get",'https://ip.appspot.com/').content;
-                    } catch(e) {
-                        throw new Meteor.Error('[user-location] Couldn\'t get user IP');
-                    }
-                }
-            var location =Meteor.http.call("Get",'http://freegeoip.net/json/'+ip);
-            return location;
-        },
-        deleteAllTodosSession:function(){
-            var gusetIp= this.connection.clientAddress;
-            Todos.remove({guestId:gusetIp})
-        },
-        recoverTodosSession:function(){
-            var gusetIp= this.connection.clientAddress;
-            var userId=Meteor.userId();
-            if(userId){
-                try {
-                       Todos.updateMany(
-                          { guestId:gusetIp},
-                          { $set: { ownerId : userId, guestId:null} }
-                       );
-                    } catch (e) {
-                         throw new Meteor.Error(e);
-                    }
-            }
-		},
         confirmTodoFriend : function(userId, mail, todoId, confirm) {
-            var todo = Todos.findOne({_id: todoId});
+            var todo = Todo.findOne({_id: todoId});
             if(todo) {
               var friends = todo.friends;
               var founded = false;
@@ -201,7 +144,7 @@ Meteor.startup(function() {
                   friends[idx].state = "accepted";
                 else
                   friends[idx].state = "refused";
-                Todos.update({_id: todoId}, { $set: { friends: friends } },
+                Todo.update({_id: todoId}, { $set: { friends: friends } },
                   function(error,result){
                     if(error)
                       throw error;
@@ -217,6 +160,9 @@ Meteor.startup(function() {
             if(!user) {
               throw new Meteor.Error('user not found');
             }
+
+            if(user.profile.adminUserId)
+                user = Meteor.users.findOne({_id: user.profile.adminUserId});
 
             var coMovers = user.profile.coMovers;
             var founded = false;
@@ -248,8 +194,7 @@ Meteor.startup(function() {
                 }
             });
         },
-
-        getConnectionIP: function () {
+       getConnectionIP: function () {
 
            // No need to make others wait
            this.unblock();
@@ -266,5 +211,114 @@ Meteor.startup(function() {
            return (prox) ? ipSource : ipPublic;
 
        },
+       importProducts:function(){
+            try {
+                console.log('=====>Import Product');
+                allProducts = JSON.parse(Assets.getText("todos/products.json"));
+                Product.remove({});
+                for(var index in allProducts) {
+                  Product.insert({
+                    importId:allProducts[index].ID,
+                    title:allProducts[index].title ,
+                    description:allProducts[index].description ,
+                    apiProductId:allProducts[index].apiProductId,
+                    altCallToActionText:allProducts[index].altCallToActionText,
+                    imageUrl:allProducts[index].image_url,
+                    href:allProducts[index].href
+                  })
+                 }
+              }
+              catch(e) {
+                console.log(e)
+              }
+       },
+       importVideos:function(){
+              try {
+                console.log('=====>Import Video');
+                allVideos = JSON.parse(Assets.getText("todos/videos.json"));
+                Video.remove({});
+                for(var index in allVideos) {
+                  Video.insert({
+                    importId:allVideos[index].ID,
+                    title:allVideos[index].title ,
+                    url:allVideos[index].media_url 
+                  })
+                 }
+              }
+              catch(e) {
+                console.log(e)
+              }
+       },
+       importKeyWords:function(){
+        
+       },
+       importTodos:function(guestId){
+          try {
+           
+            console.log('=====>Import Todo');
+
+                allTodos = JSON.parse(Assets.getText("todos/Todos.json"));
+                console.log('=====>Import Todo['+allTodos.length+']');
+                 Todo.remove({guestId:guestId})
+                for(var index in allTodos) {
+                  list=List.findOne({'name': {'$regex': allTodos[index].list,$options:'i'}});
+                  
+                  Ids=[];
+                  videosId=[];
+                  productId=[];
+                  if(allTodos[index].videosId && allTodos[index].videosId!=""){
+                    Ids=allTodos[index].videosId.toString().split(' ');
+                    videosId=Video.find({importId:{$in:{Ids}}},{_id:1});
+                  }
+                  
+                  if(allTodos[index].videosId && allTodos[index].videosId!=""){
+                    Ids=allTodos[index].productsId.toString().split(' ');
+                    productId=Video.find({importId:{$in:{Ids}}},{_id:1});
+                  }
+
+                  if(list) {
+                    
+                      doc={
+                        active          :Boolean(allTodos[index].active)
+                        ,name         :allTodos[index].name
+                        ,list         :list._id
+                        ,theme          :allTodos[index].theme
+                        ,rentingType      :allTodos[index].rentingType
+                        ,movingID       :null
+                        ,essential        :false
+                        ,priority       :Boolean(allTodos[index].priority)
+                        ,allowNotification    :false
+                        ,title          :allTodos[index].name
+                        ,advise         :allTodos[index].advise
+                        ,productsId       :productId
+                        ,filesId        :[]
+                        ,videosId       :videosId
+                        ,friendsId        :[]
+                        ,stresstype       :Boolean(allTodos[index].stressType)
+                        ,deadline       :allTodos[index].deadline
+                        ,reactiveCity     :allTodos[index].reactiveCity
+                        ,ownerId        :null
+                        ,guestId        :guestId
+                    };
+                    
+                      Todo.insert(doc,function(error,result){if(error)condole.log(error);})
+                      
+                }
+                else{
+                  console.log('Error=====>'+allTodos[index].list);
+                 }
+                }
+               
+              }
+              catch(e) {
+                console.log('Error=====>'+e);
+              }
+       },
+       restoreDataToConnected:function(guestId,userId){
+            Todo.update({guestId:guestId},{$set:{ownerId:userId,guestId:null}},{multi:true});
+       },
+       eventsOnHooksInit : function(){},
     });
 });
+
+

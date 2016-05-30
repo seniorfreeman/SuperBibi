@@ -1,10 +1,11 @@
 <template name="Auth_page">
   <div class="page auth">
-    <div >
+    <div>
       <div class="wrapper-auth">
         {{> atForm}}
       </div>
     </div>
+    <a class="btn bckBtn" href="./">{{_ "backToApp"}}</a>
   </div>
 </template>
 
@@ -29,7 +30,7 @@
 <template name="override-atTitle">
   <img src="/images/logo_centre.png" alt="" class="logo">
   <!--<h1 class="title-auth">{{title}}</h1>-->
-  <p class="subtitle-auth">Inscrivez-vous et<br> découvrez SuperBibi</p>
+  <p class="subtitle-auth">{{_ "discoverApp"}}</p>
 </template>
 
 <template name="override-atError">

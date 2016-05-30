@@ -1,22 +1,29 @@
 import './amis-page.jade';
+import '../../components/partner-item.jade';
 
+import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session'
-import {Todos} from '../../../api/collections/collections.js';
-import {Movers} from '../../../api/collections/collections.js';
-import {CoMovers} from '../../../api/collections/collections.js';
-import {FBInvitFriends} from '../../../api/collections/collections.js';
-import {Partners} from '../../../api/collections/collections.js';
+import {Todo} from '../../../api/collections/todo/todo.js';
+import {Movers} from '../../../api/collections/profile/profile.js';
+import {CoMovers} from '../../../api/collections/profile/profile.js';
+import {FBInvitFriends} from '../../../api/collections/profile/profile.js';
+import {Partners} from '../../../api/collections/global/global.js';
 import {validateEmail} from '../../lib/errors.js';
+
+
+
 import {
   addFriend,
   removeFriend,
+  addTodoFriend,
   addCoMover,
   removeCoMover
-} from '../../../api/collections/methods.js';
+} from '../../../api/collections/profile/methods.js';
 import { HTTP } from 'meteor/http'
 
 /*----------------------- Page Amis --------------------------*/
 Template.amis_page.onCreated(function() {
+  Meteor.subscribe('userData');
   Meteor.subscribe('movers');
   Meteor.subscribe('coMovers');
   Meteor.subscribe('partners');
@@ -39,9 +46,10 @@ Template.amis_page.events({
     if (event.keyCode == 13 && input.val() != '' && template.$('.-autocomplete-container').children().length == 0) {
         event.stopPropagation();
         if(validateEmail(input.val())) {
-          addFriend.call({mail: input.val()}, function (error, result) { 
+          Modal.show('invit_message_modal', {mode: 'friend', mail: input.val()});
+          /*addFriend.call({mail: input.val()}, function (error, result) { 
             template.$('input').val('');
-          });
+          });*/
         }
         else {
           addFriend.call({name: input.val()}, function (error, result) { 
@@ -51,7 +59,7 @@ Template.amis_page.events({
         return false;
     }
   },
-  'click .admin-block li.new': function(event, template) {
+  'click li.new': function(event, template) {
     Modal.show('add_co_mover_modal');
   }
 });
@@ -59,7 +67,7 @@ Template.amis_page.events({
 
 Template.amis_page.helpers({
 	todos: function() {
-		return Todos.find();
+		return Todo.find();
 	},
   coMovers: function() {
     return CoMovers.find();
@@ -68,7 +76,7 @@ Template.amis_page.helpers({
     return Movers.find();
   },
   partners: function() {
-    return Partners.find();
+    return Partners.find({id:1});
   },
   settings: function() {
     return {
@@ -95,19 +103,9 @@ Template.amis_page.helpers({
 
 /*----------------------- Co-déménagé --------------------------*/
 
-Template.admin_friend_item.onRendered(function() {
-	this.$('button').hide();
-});
-
 Template.admin_friend_item.events({
-	'mouseover > li': function(event, template) {
-    template.$('button').show();
-  },
-  'mouseout > li': function(event, template) {
-    template.$('button').hide();
-  },
   'click button': function(event, template) {
-    removeCoMover.call({name: template.data.name, mail: template.data.mail, invite_token: template.data.invite_token}, function (error, result) { 
+    removeCoMover.call({name: template.data.name, mail: template.data.mail, invite_token: template.data.invite_token, id: template.data.id}, function (error, result) { 
     });
   }
 });
@@ -131,20 +129,14 @@ Template.admin_friend_item.helpers({
 
 /*----------------------- Déménageur --------------------------*/
 
-Template.mover_friend_item.onRendered(function() {
-	this.$('button').hide();
-});
-
 Template.mover_friend_item.events({
-	'mouseover > li': function(event, template) {
-      template.$('button').show();
-    },
-    'mouseout > li': function(event, template) {
-      template.$('button').hide();
-    },
-    'click button': function(event, template) {
+    'click button.delete': function(event, template) {
       removeFriend.call({name: template.data.name, mail: template.data.mail, invite_token: template.data.invite_token}, function (error, result) { 
       });
+    },
+    'click button.resend': function(event, template) {
+      //Meteor.call('sendMailRequestToAFriend', template.data.mail, function(error, result) {});
+      Modal.show('invit_message_modal', {mode: 'friend', mail: template.data.mail, resend: true});
     }
 });
 
@@ -165,6 +157,9 @@ Template.mover_friend_item.helpers({
     else if(this.state == "pending") {
       return TAPi18n.__('pending');
     }
+  },
+  isPending: function() {
+    return this.state == "pending";
   }
 });
 
@@ -178,21 +173,7 @@ Template.mover_friend_item.helpers({
 
 /*----------------------- Participant aux tâches --------------------------*/
 
-Template.task_item.onRendered(function() {
-	this.$('.go-to-task').hide();
-});
-
-Template.task_item.events({
-	'mouseover > li': function(event, template) {
-      template.$('.go-to-task').show();
-    },
-    'mouseout > li': function(event, template) {
-      template.$('.go-to-task').hide();
-    }
-});
-
-Template.task_item.helpers({
-});
+Template.task_item.helpers({});
 
 /*--------------------------------------------------------*/
 
@@ -201,73 +182,6 @@ Template.task_item.helpers({
 
 /*----------------------- Partenaire --------------------------*/
 
-Template.partner_item.onRendered(function() {
-	
-});
-
-/*--------------------------------------------------------*/
-
-
-/*----------------------- Modal nouveau co-déménageur --------------------------*/
-
-Template.add_co_mover_modal.onRendered(function() {
-    Session.set('add_co_mover_modal_input_facebook', null);
-    Session.set('add_co_mover_modal_input', null);
-});
-
-Template.add_co_mover_modal.helpers({
-  settings: function() {
-    return {
-    position: 'bottom',
-    limit: 10,
-    rules: [
-      {
-        // token: '',
-        collection: FBInvitFriends,
-        field: 'name',
-        matchAll: false,
-        template: Template.friend_item,
-        noMatchTemplate: Template.friend_no_match
-      }
-    ]
-    };
-  }
-});
-
-Template.add_co_mover_modal.events({
-  'click footer button.rouge': function(event, template) {
-    Modal.hide();
-  },
-  'click footer button.vert': function(event, template) {
-    var fbFriend = Session.get('add_co_mover_modal_input_facebook');
-    if(fbFriend != null) {
-      addCoMover.call({name: fbFriend.name, picture: fbFriend.picture.data.url, invite_token: fbFriend.id}, function (error, result) { 
-        Modal.hide();
-      });
-    }
-    else {
-      var input = template.$('input');
-      if(validateEmail(input.val())) {
-        addCoMover.call({mail: input.val()}, function (error, result) { 
-          Modal.hide();
-        });
-      }
-      else {
-        addCoMover.call({name: input.val()}, function (error, result) { 
-          Modal.hide();
-        });
-      }
-    }
-  },
-  "autocompleteselect input": function(event, template, doc) {
-    Session.set('add_co_mover_modal_input_facebook', doc)
-    Session.set('add_co_mover_modal_input', template.$('input').val());
-  },
-  'keyup input': function(event, template) {
-    if(template.$('input').val() != Session.get('add_co_mover_modal_input')) {
-      Session.set('add_co_mover_modal_input_facebook', null);
-    }
-  }
-});
+Template.partner_item.onRendered(function() {});
 
 /*--------------------------------------------------------*/

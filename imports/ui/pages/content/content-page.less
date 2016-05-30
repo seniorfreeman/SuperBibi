@@ -12,6 +12,7 @@
 				    text-align: center;
 				    height: auto;
 				    top: inherit;
+				    padding-left: 0;
 				    span {
 				    	display: none;
 				    }
@@ -20,17 +21,18 @@
 				    }
 
 				}
-				.picto {
+				i.picto {
 					float: none;
 					margin-left: auto;
     				margin-right: auto;
+    				height: 50px;
 				}
 			}
 		}
 		
 		ul.essentiels li {
-			.picto {
-				background-position-y: -74px !important;
+			i.picto {
+				background-position-y: -68px !important;
 			}
 		}
 
@@ -60,10 +62,10 @@ body {
 		width: 100%;
 		left:0;
 		height: 100%;
-		overflow-y: auto;
-		
 		background-color: @whiteSmokeHover;
+
 		header {
+		
 			ul.essentiels,
 			ul.menu {
 				
@@ -92,16 +94,7 @@ body {
 						height: 100%;
 						position: absolute;
 					
-						span.picto {
-					
-							display: block;
-			    			float: left;
-							width: @taille_menu;
-							height: @taille_menu;
-							background-image: url(../images/Ada_Glyphs_Icons.png);
-							background-repeat: no-repeat;
-
-						}
+						
 						
 						& > div{
 					
@@ -112,19 +105,12 @@ body {
 					
 						    h2 {
 						    	margin: 1.2em 0 .35em;
-						    	color:@grey;
 						    }
 					
 						}
 						
 					}
-
-					&.volume a span.picto{background-position: 0 0;}
-					&.profil a span.picto{background-position: (@taille_menu*-1) 0;}
-					&.trajet a span.picto{background-position: (@taille_menu*-2) 0;}
-					&.agenda a span.picto{background-position: (@taille_menu*-3) 0;}
-					&.dossier a span.picto{background-position: (@taille_menu*-4) 0;}
-					&.date a div{
+					&.date div{
 						
 						margin-left: 0;
 						text-align: center;
@@ -158,9 +144,7 @@ body {
 							background: @white;
 						}
 					}
-					&.materiel a span.picto{background-position: 0 @taille_menu*-1;}
-					&.camion a span.picto{background-position: (@taille_menu*-1) @taille_menu*-1;}
-					&.amis a span.picto{background-position: (@taille_menu*-2) @taille_menu*-1;}
+
 				}
 			}
 
@@ -189,7 +173,7 @@ body {
 
 						}
 						
-						span.picto{
+						i.picto{
 							float: right;
 							margin-top: .25em;
 							margin-right: 1em;
@@ -222,13 +206,16 @@ body {
 					}
 
 				}
-
 			}
 		}
 		
 		article {
+
+			height: calc(~"100% - 140px");
+			overflow-y: auto;
 			padding: 1em .5em 2em;
 	    	clear: both;
+	    	
 	    	.labelHr {
 				width: 50%;
 				margin-right: auto;
@@ -239,6 +226,7 @@ body {
 					font-weight: normal;
 				}
 	    	}
+
 	    	li {
 	    		position: relative;
 	    		height: 40px;
@@ -318,8 +306,8 @@ body {
 						}
 					}
 				}
-
 			}
+
 		}
 
 		@media screen and (max-width: @min-width-mobile){

@@ -1,4 +1,5 @@
 import './trajet-page.jade';
+
 Template.trajet_page.onCreated(function trajetPageOnCreated() {
     // We can use the `ready` callback to interact with the map API once the map is ready.
     GoogleMaps.ready('exampleMap', function(map) {
@@ -9,43 +10,54 @@ Template.trajet_page.onCreated(function trajetPageOnCreated() {
         });
 
     });
-
-
+    
 });
 
 Template.trajet_page.onRendered(function() {
+    /*this.autorun(function () {
+        if (GoogleMaps.loaded()) {
+          $("input")
+            .geocomplete()
+            .bind("geocode:result", function(event, result){
+            console.log(result);
+          });
+        }
+    });
+    */
     GoogleMaps.load({
-        key: 'AIzaSyAjem3CRhH2iX0QCCdO5ed1lF2kLeHrOZ8'
+        key : 'AIzaSyAjem3CRhH2iX0QCCdO5ed1lF2kLeHrOZ8'
     });
 
+    if (Meteor.user()){
+        $('input#from').val(Meteor.user().profile.address);
+    }
+    
 });
 
 Template.trajet_page.helpers({
     exampleMapOptions: function() {
-
-            // Make sure the maps API has loaded
-            if (GoogleMaps.loaded()) {
-                // Map initialization options
-                 return {
-                    center: new google.maps.LatLng(45.75801, 4.8001016)
-                    , zoom: 8
-                    , test: new google.maps.DirectionsRenderer({})
-                    , streetViewControl: false
-                    , mapTypeControl: false
-                };
-            }
-
+        // Make sure the maps API has loaded
+        if (GoogleMaps.loaded()) {
+            // Map initialization options
+             return {
+                center: new google.maps.LatLng(45.75801, 4.8001016)
+                , zoom: 8
+                , test: new google.maps.DirectionsRenderer({})
+                , streetViewControl: false
+                , mapTypeControl: false
+            };
+        }
 
     },
     getDepartureLocation:function(){
         if(Meteor.user()){
             return Meteor.user().profile.departAdress;
         }else {
-            result=""
-            location= Meteor.call("getGuestLocation", function(error, result){
-                data=JSON.parse(result.content);
-                $('#from').val(data.country_name+','+ data.city + data.zip_code);
-            });
+            // result=""
+            // location= Meteor.call("getGuestLocation", function(error, result){
+            //     data=JSON.parse(result.content);
+            //     $('#from').val(data.country_name+','+ data.city + data.zip_code);
+            // });
             return result;
         }
     },
@@ -53,7 +65,7 @@ Template.trajet_page.helpers({
         if(Meteor.user()){
             return Meteor.user().profile.distAdress;
         }else {
-        return "";
+            return "";
 
         }
     },
@@ -64,9 +76,8 @@ Template.trajet_page.events({
     'click #showItinerary' : function(){
         $("#itineraire").toggleClass('itineraire');
     },
-    'blur input#to': function() {
-        if (document.getElementById('to').value.length < 3)
-            return false;
+    'change input#to': function() {
+        
             // var markerArray = [];
 
             // Instantiate a directions service.
@@ -84,22 +95,17 @@ Template.trajet_page.events({
             var stepDisplay = new google.maps.InfoWindow;
 
             // Display the route between the initial start and end selections.
-            calculateAndDisplayRoute(
-                directionsDisplay, directionsService, markerArray, stepDisplay, map);
+            calculateAndDisplayRoute(directionsDisplay, directionsService, markerArray, stepDisplay, map);
             // Listen to change events from the start and end lists.
             var onChangeHandler = function() {
-                calculateAndDisplayRoute(
-                    directionsDisplay, directionsService, markerArray, stepDisplay, map);
+                calculateAndDisplayRoute(directionsDisplay, directionsService, markerArray, stepDisplay, map);
             };
 
             document.getElementById('from').addEventListener('change', onChangeHandler);
             document.getElementById('to').addEventListener('change', onChangeHandler);
         
     },
-    'blur input#from': function() {
-
-        if (document.getElementById('from').value.length > 3)
-            return false;
+    'change input#from': function() {
 
             for (var i = 0; i < markerArray2.length; i++) {
                 markerArray2[i].setMap(null);
@@ -120,11 +126,10 @@ Template.trajet_page.events({
                 attachInstructionText(stepDisplay, marker, text, map)
             });
 
-        if ((document.getElementById('to').value.length < 3)) 
-                    return false;
-        for (var i = 0; i < markerArray2.length; i++) {
-            markerArray2[i].setMap(null);
-        }
+        if ((document.getElementById('to').value.length < 3)) return false;
+            for (var i = 0; i < markerArray2.length; i++) {
+                markerArray2[i].setMap(null);
+            }
     
     },
     'click input#proches': function() {
@@ -192,13 +197,13 @@ function calculateAndDisplayRoute(directionsDisplay, directionsService,
         if(status == 'OK'){
             
             var rep = response.routes[0].legs[0];
-            $("#distance p").html(rep.distance.text);
+            $(".distance p,.distance h2 span").html(rep.distance.text);
             
-            var prix = Math.round((rep.distance.value / 1000 / 100 * 6)*100)/100; 
-            $('#carburant p').html(prix + ' € ');
+            var prix = Math.round(rep.distance.value / 1000 * 6)/100; 
+            $('.carburant p,.carburant h2 span').html(prix + ' € ');
             
             var temps = rep.duration.text;
-            $('#temps p').html(temps);
+            $('.temps p,.temps h2 span').html(temps);
             
             // 'Le coût en carburant reste une estimation de 6€ par 100km : ' +             // Meteor.call('getPrixcarburant', function(error, responseprix) {
             //     xmlDoc = $.parseXML(responseprix.content );
@@ -229,16 +234,26 @@ function showSteps(directionResult, markerArray, stepDisplay, map) {
     // Also attach the marker to an array so we can keep track of it and remove it
     // when calculating new routes.
     var myRoute = directionResult.routes[0].legs[0];
-    var itineraire;
+    
+    var itineraire="";
+
     for (var i = 0; i < myRoute.steps.length; i++) {
-        itineraire += "<li>" +myRoute.steps[i].instructions + '</li>';
-        var marker = markerArray[i] = markerArray[i] || new google.maps.Marker;
+
+        var manoeuvre = myRoute.steps[i].maneuver ?  myRoute.steps[i].maneuver : 'none';
+        var time = Math.round(myRoute.steps[i].duration.value/60);
+        var plurals = time > 1 ? " minutes" : " minute";
+        var timeRedac = "<div class='timing'> pendant " + time + plurals + "</div>";
+        if(!time) timeRedac = "";
+
+        itineraire += "<li><i class=" + manoeuvre + "></i>" + myRoute.steps[i].instructions + timeRedac + "</li>";
+        var marker = markerArray[i] || new google.maps.Marker;
         marker.setMap(map);
         marker.setPosition(myRoute.steps[i].start_location);
 
-        attachInstructionText(
-            stepDisplay, marker, myRoute.steps[i].instructions, map);
+        attachInstructionText(stepDisplay, marker, myRoute.steps[i].instructions, map);
+   
     }
+
     $('#itineraireTextuel').html(itineraire);
 }
 

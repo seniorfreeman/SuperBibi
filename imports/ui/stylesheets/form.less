@@ -88,6 +88,9 @@ select {
     border:1px solid @whiteBorder;
     background-color: @whiteSmokeHover;
   }
+  input{
+    display: none;
+  }
 
   & + span{
     // position: absolute;
@@ -113,7 +116,6 @@ select {
 }
 
 .slider {
-  margin-right: 1em;
   .anim();
   -webkit-appearance: none;
   background: @whiteSmoke url('../images/check_option_neg.png');
@@ -123,7 +125,10 @@ select {
   padding:1px 6px 1px 2px;
   border-radius:4px;
   box-shadow:0px 0px 3px 0px @grey inset, 0px 1px 3px 0px @grey inset;
-
+  
+  &::-moz-range-track {
+      background: none;
+  }
   &:active {
       cursor: -webkit-grabbing;
   }

@@ -3,22 +3,48 @@
 /* INTERFACE */
 
 	//A
+	"Add" : "Ajouter"
 	//B
-	"bonjour" : "Bonjour"
+	, "bonjour" : "Bonjour"
+	, "buy" : "Acheter"
+	, "backToApp" : "Revenir"
+	, "book" : "Réserver"
 	//C
+	, "connectIa" : "Joindre IA"
 	//D
+	, "discoverApp" : "Inscrivez-vous et découvrez Mon Super Déménagement.fr"
 
-
+	//F
+	, "franchiseSearchPlaceholder" : "Rechercher un inscrit"
+	, "invite" : "Inviter des amis"
 	//L
 	, "logout" : "Se déconnecter"
 	, "login" : "Se connecter"
 	// P
 	, "progressBarPercentageDone" : "% de tâches éfféctuées"
-
+	// R
+	, "remove" : "Retirer"
 	// S
 	, "salut" : "Salut"
 
+	// T
+	, "taskAddToCart": "Ajouter au panier"
+	, "taskSeeService" : "Voir le service"
+
+	, "taskAddFilesToDocs" : "Editer et ajouter à mon dossier"
+	, "taskAdvices" : "Conseils / Notes "
+	, "taskDelete" : "Supprimer la tâche"
+	, "taskFiles" : "Fichiers relatifs"
+	, "taskParticipants" : "Participants"
+	, "taskNotificationLabel" : "Etre notifié de cette tâche"
+	, "taskParticipantAutocomplete" : "Entrez un nom, un mail, ou choisissez un ami"
+	, "taskServices" : "Achats / Services recommandés"
+	, "taskVideos" : "Vidéo / tutoriel"
+
 /* EMAILS */
+
+	, "addressAda" : "Ada - 22-28 Rue Henri Barbusse 92110 CLICHY"
+	, "copyrightAda" : "Copyright 2016 © Tout droits réservés"
 	//H
 	, "helpToMove": "L'aider à déménager"
 	, "helpToManage": "Organiser votre déménagement"
@@ -32,12 +58,12 @@
 	, "pwdRebuildActionText" : "Suivez le guide en 2 clics"
 
 	// S
-	, "seeYouSoonTitle" : "... vous partez? #bibiPasSuperContent"
+	, "seeYouSoonTitle" : "... vous partez? #PasSuperContent"
 	, "seeYouSoonContent" : "Nous vous confirmons la bonne désactivation de votre compte, mais ici tout le monde vous pleure déjà. :( #pasSuperCool"
 
 	// V
 	, "verifyActionText" : "Vérifier mon compte"
-	, "verifyContent" : "Bienvenue sur Super Bibi !\n Pendant que tu prépares ton profil, penses à finaliser la validation de ton compte pour que nous sachions que c’est bien toi."
+	, "verifyContent" : "Bienvenue sur Mon Super Déménagement  !\n Pendant que tu prépares ton profil, penses à finaliser la validation de ton compte pour que nous sachions que c’est bien toi."
 	, "verifyTitle" : "Certifier votre compte !"
 	, "valuationMailContent": "Test du contenu du mail d'estimation"
 	, "valuationMailTitle": "Test du contenu du titre du mail d'estimation"
@@ -59,7 +85,7 @@
 	, "firstNamePlaceholder" : "Prénom"
 	, "lastNamePlaceholder" : "Nom"
 	, "leaseHolderLabel" : "Locataire"
-	, "movingDate" : "Date de déménagement"
+	, "movingDate" : "Déménagement"
 	, "ownerLabel" : "Propriétaire"
 	, "passwordPlaceholder" : "Password"
 	, "stateDepartureLabel" : "Vous partez d'un bien en tant que :"
@@ -76,23 +102,9 @@
 	, "superCamionLegals" : "Les prix s’entendent pour un conducteur ayant un an de permis au moins"
 	, "superCamion" : "Des supers camions"
 	, "superCamionDescription" : "avec les super prix d'Ada.fr"
+	, "stillHaveTruck" : "J'ai mon camion"
 	, "websiteOffice" : "Le site de l'agence"
 
-/* CUBAGE */
-	// B
-   , "boxes": "Cartons"
-   	// C
-   , "carVolume": "Volume Camion"
-   	// N
-   , "nbArms": "Nombre de bras"
-   	// S
-   , "scotch": "Scotch"
-	// V
-   , "volumePageTitle": "Super estimation des volumes de mon déménagement"
-   , "volumePageSubTitle": "Tous ces chiffres sont à titre informatif"
-   , "volumeTotal": "Volume total"
-   , "valuationTitle": "Soumettez votre estimation à un professionnel du déménagement et commencez à emballer sans risques"
-   , "valuationButton": "Soumettre mon estimation"
 
 /* MES AMIS */
 	, "arms" : "bras"
@@ -111,29 +123,66 @@
 
 /* CUBAGE */
 	// B
-   , "boxes": "Cartons"
-   	// C
-   , "carVolume": "Volume Camion"
-   	// N
-   , "nbArms": "Nombre de bras"
-   	// S
-   , "scotch": "Scotch"
+	, "boxes": "Cartons"
+		// C
+	, "carVolume": "Volume Camion"
+	// L
+	, "labelNewRoom" : "Tapez une nouvelle pièce"
+
+		// N
+	, "nbArms": "Nombre de bras"
+		// S
+	, "scotch": "Scotch"
 	// V
-   , "volumePageTitle": "Super estimation des volumes de mon déménagement"
-   , "volumePageSubTitle": "Tous ces chiffres sont à titre informatif"
-   , "volumeTotal": "Volume total"
-   , "valuationTitle": "Soumettez votre estimation à un professionnel du déménagement et commencez à emballer sans risques"
-   , "valuationButton": "Soumettre mon estimation"
+
+	, "volumePageTitle": "Super estimation des volumes de mon déménagement"
+	, "volumePageSubTitle": "Tous ces chiffres sont à titre informatif"
+	, "volumeTotal": "Volume total"
+	, "volumeEstime":"estimés"
+	, "volumeMetrics":" m³"
+	, "volumeTotalRoom" : "Total pièce:"
+	, "valuationTitle": "Soumettez votre estimation à un professionnel du déménagement et commencez à emballer sans risques"
+	, "valuationButton": "Soumettre mon estimation"
 
 /* AMIS */
 	// F
-   , "friendPageTitle": "Mes super amis"
-   , "friendPageSubTitle": "Tous ces chiffres sont à titre informatif"
-   , "friendPageAdminTitle": "Mes super co-déménagés"
-   , "friendPageMoverFriendsTitle": "Ma super équipe de déménageurs du"
-   , "friendPageTaskFriendsTitle": "Les participants à mes tâches"
+	, "friendPageTitle": "Mes super amis"
+	, "friendPageSubTitle": "Tous ces chiffres sont à titre informatif"
+	, "friendPageAdminTitle": "Mes super co-déménagés"
+	, "friendPageMoverFriendsTitle": "Ma super équipe de déménageurs du"
+	, "friendPageTaskFriendsTitle": "Les participants \n à mes tâches"
+	// G
+	, "goToTask" : "Allez à la tâche"
+	// R
+	, "relaunchInvitation" : "Relancer"
 
+/* FICHIERS */
+	, "addressChange": "Lettre de notification de changement d'adresse"
+	, "addressChangeDefault": "Phrase à remplir dans en.i18n.json"
+	, "dayOff": "Lettre de demande de jour de congé déménagement"
+	, "dayOffDefault": "Phrase à remplir dans en.i18n.json"
+	, "download": "Télécharger"
+	, "downloadFolder": "Télécharger mon Super dossier"
+	, "downloadRoadmap": "Télécharger ma Super feuille de route"
+	, "gasUp": "Refaire le plein de mon camion"
+	, "gasUpDefault": "Phrase à remplir dans en.i18n.json"
+	, "folderSectionTitle": "Mes super documents"
+	, "folderSectionRightTitle": "Dans mon super dossier"
+	, "music" : "Prévoir de la musique"
+	, "musicDefault" : "Phrase à remplir dans en.i18n.json"
+	, "neighboors": "Petit mot pour prévenir mes voisins de mon déménagement"
+	, "neighboorsDefault": "Phrase à remplir dans en.i18n.json"
+	, "roadmapSectionTitle": "Ma super feuille de route pour le jour J"
+	, "roadmapSectionRightTitle": "Dans ma super feuille de route"
+	, "stopWaterAndElectricity": "Fermer l'eau et l'électricité en partant"
+	, "stopWaterAndElectricityDefault": "Phrase à remplir dans en.i18n.json"
+	, "waterAndFood" : "Prévoir de l'eau et de quoi grignoter pour tout le monde"
+	, "waterAndFoodDefault" : "Phrase à remplir dans en.i18n.json"
 
+/* MODALE D'INVITATION */
+	, "defaultMessageCoMover" : "..."
+	, "defaultMessageFriend" : "..."
+	, "defaultMessageTodoFriend" : "..."
 
 /* GLOBAL */
 	, "pending": "en attente"
@@ -141,7 +190,9 @@
 	, "refused": "refusé"
 
 	/* AGANDA */
-	,"Event Starts": "Début"
-	,"Event End": "Fin"
-	,"Event Title": "Titre"
+		,"Event Starts": "Début"
+		,"Event End": "Fin"
+		,"Event Title": "Titre"
+		,"Add Modal Title": "Ajouter un événement"
+		,"Edit Modal Title": "Editer un événement"
 }

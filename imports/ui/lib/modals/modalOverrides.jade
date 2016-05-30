@@ -1,0 +1,8 @@
+template(name='alert_modal')
+	{{> modals modalTitle=title modalDescription=modalDescription validBtnLabel="OK"}}
+
+template(name='confirm_modal')
+	{{> modals modalTitle=title modalDescription=modalDescription cancelBtnLabel="Annuler" validBtnLabel="OK"}}
+
+template(name='prompt_modal')
+	{{> modals modalTitle=title modalDescription=modalDescription input=true inputLabel=inputLabel cancelBtnLabel="Annuler" validBtnLabel="OK"}}

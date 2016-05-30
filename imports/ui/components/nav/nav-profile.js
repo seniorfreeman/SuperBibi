@@ -1,6 +1,6 @@
 import './nav-profile.jade';
 import { Meteor } from 'meteor/meteor'
-import {CoMovers} from '../../../api/collections/collections.js';
+import {CoMovers} from '../../../api/collections/profile/profile.js';
 
 Template.nav_profile.onCreated(function() {
 	Meteor.subscribe('coMovers');

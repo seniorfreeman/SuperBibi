@@ -1,18 +1,18 @@
 import { Meteor } from 'meteor/meteor';
-import { Lists } from '../collections.js';
-import { Todos } from '../collections.js';
-import { Typologies } from '../collections.js';
-import { Links } from '../collections.js';
-import { Products } from '../collections.js';
-import { Documents } from '../collections.js';
-import {Friends} from '../collections.js';
-import {Notifications} from '../collections.js';
-import {Uploads} from '../collections.js';
-import {Events} from '../collections.js';
-import {VolumeObjects} from '../collections.js';
-import {Rooms} from '../collections.js';
-import {RoomObjects} from '../collections.js';
-import {Partners} from '../collections.js';
+import { List} from '../todo/todo.js';
+import { Todo } from '../todo/todo.js';
+import { Video } from '../todo/todo.js';
+import {File } from '../todo/todo.js';
+import {Events} from '../todo/todo.js';
+import { Product } from '../todo/todo.js';
+import { Moving,Address } from '../moving/moving.js';
+import {Uploads} from '../upload/upload.js';
+import {VolumeObjects} from '../global/global.js';
+import {RoomNames} from '../global/global.js';
+import {Room} from '../room/room.js';
+import {RoomObject} from '../room/room.js';
+import {Partners} from '../global/global.js';
+
 
 Meteor.publish('eventList', function () {
     events=Events.find({userId: this.userId});
@@ -21,30 +21,37 @@ Meteor.publish('eventList', function () {
 });
 Meteor.publish("userData", function () {
   if (this.userId) {
-    return Meteor.users.find({_id: this.userId},
-                             {fields: {'services': 1, 'others': 1}});
+    const user = Meteor.users.findOne({_id: this.userId});
+    var ids = [];
+    for(var idx in user.profile.coMovers) {
+      var id = user.profile.coMovers[idx].id;
+      if(id)
+        ids.push(user.profile.coMovers[idx].id);
+    }
+    return Meteor.users.find({$or: [{_id: user._id},{_id: { "$in": ids }}]},
+                             {fields: {'profile': 1, 'others': 1}});
   } else {
     this.ready();
   }
 });
-Meteor.publishComposite('lists.all', function() {
+Meteor.publishComposite('lists.all', function(guestId) {
   const user = Meteor.users.findOne({_id: this.userId});
 
   return {
     find() {
-      return Lists.find();
+      return List.find();
     },
 
     children: [{
       find(list) {
         if(this.userId){
           if(user.profile.adminUserId)
-            return Todos.find({$and:[{ownerId:user.profile.adminUserId},{list:list._id}]});
+            return Todo.find({$and:[{ownerId:user.profile.adminUserId},{list:list._id}]});
           else
-            return Todos.find({$and:[{ownerId:user._id},{list:list._id}]})
+            return Todo.find({$and:[{ownerId:user._id},{list:list._id}]})
         }
         else {
-          return Todos.find({$and:[{ownerId:null},{guestId:this.connection.clientAddress},{list:list._id}]})
+          return Todo.find({$and:[{ownerId:null},{guestId:guestId},{list:list._id}]})
         }
       },
     }],
@@ -52,40 +59,36 @@ Meteor.publishComposite('lists.all', function() {
 
 });
 
-Meteor.publish('typologies.all', function() {
-  return Typologies.find();
-});
 
-Meteor.publishComposite('todos.inList', function(list){
+Meteor.publishComposite('Todos.inList', function(list,guestId){
       const user = Meteor.users.findOne({_id: this.userId});
       return{
         find(){
               if(this.userId){
-                if(user.profile.adminUserId)
-                  Todos.find({$and:[{ownerId:user.profile.adminUserId},{list:list}]})
-                else
-                  Todos.find({$and:[{ownerId:user._id},{list:list}]})
-              }
-              else {
-                  Todos.find({$and:[{ownerId:null},{list:list}]})
+                if(user.profile.adminUserId){
+                  Todo.find({$and:[{ownerId:user.profile.adminUserId},{list:list}]})
+                } else {
+                  Todo.find({$and:[{ownerId:user._id},{list:list}]})
+                  /*Todo.find({$and:[
+                    {$or:[{ownerId:user._id},{list:list}]}
+                    ,{$or:[{guestId:guestId},{list:list}]}
+                  ]})
+                  */
+                }
+              } else {
+                  Todo.find({$and:[{guestId:guestId},{list:list}]})
               }
         },
         children:[{
           find(todo){
-              return Links.find({_id:{$in: todo.links }});
+              return video.find({_id:{$in: todo.videosId }});
           },
           find(todo){
 
-              return Products.find({_id:{$in: todo.productsId}});
+              return Product.find({_id:{$in: todo.productsId}});
           },
           find(todo){
-              return Documents.find({_id:{$in: todo.documents }});
-          },
-          find(todo){
-              return Friends.find({_id:{$in: todo.friends }});
-          },
-          find(todo){
-              return Notifications.find({todoId:todo._id });
+              return file.find({_id:{$in: todo.filesId }});
           },
         }]
       }
@@ -97,16 +100,13 @@ Meteor.publish("uploads", function () {
   return uploads;
 });
 
-Meteor.publish('NotificationList',function(todoId){
-    const user = Meteor.users.findOne({_id: this.userId});
-    if(user.profile.adminUserId)
-      return Notifications.find({userId:user.profile.adminUserId,todoId:todoId})
-    else
-      return Notifications.find({userId:user._id,todoId:todoId})
-})
 
 Meteor.publish('volumeObjects', function() {
   return VolumeObjects.find();
+});
+
+Meteor.publish('roomNames', function() {
+  return RoomNames.find();
 });
 
 Meteor.publishComposite('rooms', function() {
@@ -116,17 +116,17 @@ Meteor.publishComposite('rooms', function() {
         find(){
               if(this.userId){
                 if(user.profile.adminUserId)
-                  return Rooms.find({userId:user.profile.adminUserId})
+                  return Room.find({userId:user.profile.adminUserId})
                 else
-                  return Rooms.find({userId:user._id})
+                  return Room.find({userId:user._id})
               }
               else {
-                return Rooms.find({userId:null})
+                return Room.find({userId:null})
               }
         },
         children:[{
           find(room){
-              return RoomObjects.find({roomId: room._id});
+              return RoomObject.find({roomId: room._id});
           }
         }]
       }
@@ -159,7 +159,13 @@ Meteor.publish("coMovers", function () {
         if(user.profile.adminUserId)
           user = Meteor.users.findOne({_id: user.profile.adminUserId});
         for(var idx in user.profile.coMovers) {
-          self.added("CoMovers", idx, user.profile.coMovers[idx] );
+          if(user.profile.coMovers[idx].id) {
+            var coMover = Meteor.users.findOne({_id: user.profile.coMovers[idx].id});
+            if(coMover)
+              self.added("CoMovers", idx, {id: coMover._id, mail: coMover.emails[0].address, picture: coMover.profile.picture, name: coMover.profile.prenom, state: 'accepted'} );
+          }
+          else
+            self.added("CoMovers", idx, user.profile.coMovers[idx] );
         }
       }
     }
@@ -169,4 +175,33 @@ Meteor.publish("coMovers", function () {
 
 Meteor.publish('partners', function() {
   return Partners.find();
+});
+Meteor.publishComposite('MovingData', function() {
+  const user = Meteor.users.findOne({_id: this.userId});
+  if(!user) return;
+    if(!user.profile.movingId)return null;
+  return{
+        find(){
+              console.log('=============>'+Moving.find({_id:user.profile.movingId}).count())
+             return Moving.find({_id:user.profile.movingId})
+
+        },
+        children:[{
+          find(moving){
+            console.log('A=============>'+Address.find( {$or: [ { _id: moving.newAddressId }, { _id: moving.oldAddressId } ] }))
+              return Address.find( {$or: [ { _id: moving.newAddressId }, { _id: moving.oldAddressId } ] });
+          }
+        }]
+      }
+});
+Meteor.publish('UserMoving', function() {
+ const user = Meteor.users.findOne({_id: this.userId});
+    if(!user || !user.profile.movingId)return null;
+  return Moving.find({_id:user.profile.movingId});
+});
+Meteor.publish('MovingAdress', function() {
+  const user = Meteor.users.findOne({_id: this.userId});
+    if(!user || !user.profile.movingId)return null;
+    moving=Moving.findOne({_id:user.profile.movingId})
+  return Address.find( {$or: [ { _id: moving.newAddressId }, { _id: moving.oldAddressId } ] });
 });

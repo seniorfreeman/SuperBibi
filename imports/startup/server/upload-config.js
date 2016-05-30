@@ -1,4 +1,4 @@
-import { Uploads } from '../../api/collections/collections.js';
+import { Uploads } from '../../api/collections/upload/upload.js';
 
 Meteor.startup( function() {
 

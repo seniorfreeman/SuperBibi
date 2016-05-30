@@ -1,0 +1,37 @@
+i.picto {
+	display: block;
+	width: @taille_menu;
+	height: @taille_menu;
+	background-image: url(../images/Ada_Glyphs_Icons.png);
+	background-repeat: no-repeat;
+	float: left;
+}
+@he:@taille_menu*-1;
+@reduction:-10px;
+
+.volume i.picto{background-position: 0 0;}
+.profil i.picto{background-position: @he*1 0;}
+.trajet i.picto{background-position: @he*2 0;}
+.agenda i.picto{background-position: @he*3 0;}
+.dossier i.picto{background-position: @he*4 0;}
+.materiel i.picto{background-position: 0 @he*1;}
+.camion i.picto{background-position: @he*1 @he*1;}
+.amis i.picto{background-position: @he*2 @he*1;}
+.carburant i.picto {background-position: @he*1 @he*2;}
+.distance i.picto {background-position: @he*2 @he*2;}
+.temps i.picto {background-position: @he*3 @he*2;}
+.bras i.picto {background-position: @he*3 @he*1;}
+.date i.picto {background-position: @he*3 0;}
+.stress i.picto {background-position: 0 @he*2;}
+.scotch i.picto{background-position:@he*6 0;}
+.participantsBig i.picto{background-position:@he*7 0;}
+
+.boxes i.picto{background-position:0 @he;}
+.carVolume i.picto{background-position:@he @he;}
+.echeance i.picto {background-position:@he*3 0+@reduction;}
+.notifier i.picto {background-position:@he*6 @he*1+@reduction;}
+.participants i.picto {background-position:@he*7 @he*1+@reduction;}
+.conseils i.picto {background-position:@he*5 @he*1+@reduction;}
+.shopping i.picto {background-position:@he*4 @he*1+@reduction;}
+.videos i.picto {background-position:@he*8 @he*1+@reduction;}
+.fichiers i.picto {background-position:@he*5 @reduction;}
