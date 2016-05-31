@@ -39,6 +39,14 @@ Template.aside.onCreated(function asideOnCreated() {
 
 });
 
+Template.aside.onRendered(function(){
+  $('#todoEcheance').datetimepicker({
+    lang:'fr',
+    timepicker:false,
+    format: 'YYYY-MM-DD'
+  });
+});
+
 Template.aside.helpers({
     currentTodo: function() {
       var k = Todo.findOne({_id:FlowRouter.getParam('_idTodo')});
@@ -97,7 +105,7 @@ Template.aside.helpers({
     },
     getProducts:function(){
      var todo= Todo.findOne({_id:FlowRouter.getParam('_idTodo')});
-     
+
       if(todo) {
         products=todo.productsId;
         return Product.find({_id:{$in:{products}}});
@@ -106,7 +114,7 @@ Template.aside.helpers({
     },
     getVideos:function(){
      var todo= Todo.findOne({_id:FlowRouter.getParam('_idTodo')});
-     
+
       if(todo) {
         videos=todo.videosId;
         return Video.find({_id:{$in:{videos}}});
@@ -183,11 +191,11 @@ Template.aside.events({
       $('body').removeClass('soft').toggleClass('aside');
   },
   "autocompleteselect .addParticipant input": function(event, template, doc) {
-    /*HTTP.post( 'https://graph.facebook.com/v2.6/' + Meteor.user().profile.serviceId + '/apprequests?access_token=' + Session.get('accessToken'), {  }, function (error, result) { 
+    /*HTTP.post( 'https://graph.facebook.com/v2.6/' + Meteor.user().profile.serviceId + '/apprequests?access_token=' + Session.get('accessToken'), {  }, function (error, result) {
         console.log(error)
       console.log(result)
     });*/
-    addTodoFriend.call({todoId: FlowRouter.getParam('_idTodo'), name: doc.name, picture: doc.picture.data.url, invite_token: doc.id}, function (error, result) { 
+    addTodoFriend.call({todoId: FlowRouter.getParam('_idTodo'), name: doc.name, picture: doc.picture.data.url, invite_token: doc.id}, function (error, result) {
       template.$('input').val('');
     });
   },
@@ -197,12 +205,12 @@ Template.aside.events({
         event.stopPropagation();
         if(validateEmail(input.val())) {
           Modal.show('invit_message_modal', {mode: 'todoFriend', todoId: FlowRouter.getParam('_idTodo'), mail: input.val()});
-          /*addTodoFriend.call({todoId: FlowRouter.getParam('_idTodo'), mail: input.val()}, function (error, result) { 
+          /*addTodoFriend.call({todoId: FlowRouter.getParam('_idTodo'), mail: input.val()}, function (error, result) {
             template.$('.addParticipant input').val('');
           });*/
         }
         else {
-          addTodoFriend.call({todoId: FlowRouter.getParam('_idTodo'), name: input.val()}, function (error, result) { 
+          addTodoFriend.call({todoId: FlowRouter.getParam('_idTodo'), name: input.val()}, function (error, result) {
             template.$('.addParticipant input').val('');
           });
         }
@@ -210,9 +218,9 @@ Template.aside.events({
     }
   },
   'click input[type=checkbox]' (event) {
-    
+
     if($(event.target).attr('name')=="asideChecked"){
-      const $currentTodo =$(event.target).attr('data'); 
+      const $currentTodo =$(event.target).attr('data');
       makeFinished.call({
         todoId: $currentTodo
       });
@@ -226,7 +234,7 @@ Template.aside.events({
 
 Template.todo_friend.events({
   "click button.delete": function(event, template) {
-    removeTodoFriend.call({todoId: FlowRouter.getParam('_idTodo'), name: template.data.name, mail: template.data.mail, invite_token: template.data.invite_token}, function (error, result) { 
+    removeTodoFriend.call({todoId: FlowRouter.getParam('_idTodo'), name: template.data.name, mail: template.data.mail, invite_token: template.data.invite_token}, function (error, result) {
     });
   },
   "click button.resend": function(event, template) {

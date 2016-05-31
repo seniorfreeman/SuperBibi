@@ -15,12 +15,14 @@ template(name="aside")
 				.star(id="prioritaire")
 					i.fa.fa-star-o
 					i.fa.fa-star
-		
+
 		article
 			ul(class="whiteGroup")
 				li.echeance
 					i.picto
-					input(type="date", id="todoEcheance",placeholder="Définir une échéance" value="{{formatDate(getDeadLineDate)}}")
+					input.datetimepicker(type="text", id="todoEcheance",placeholder="Définir une échéance" value="{{formatDate(getDeadLineDate)}}")
+					span
+						button D
 			ul
 				li.notifier
 					i.picto
@@ -28,7 +30,7 @@ template(name="aside")
 						| {{_ "taskNotificationLabel"}}
 					input(type="range", id="allowNotification", min="0", max="1", class="slider{{#if allowNotification}} bg-green{{/if}}", value="{{allowNotification}}")
 					br.clearFix
-				
+
 				li.participants
 					i.picto
 					h2
@@ -41,7 +43,7 @@ template(name="aside")
 							i.fa.fa-plus
 						{{> inputAutocomplete settings=settings id="newParticipant" class="form-control" name="newParticipant" placeholder=taskParticipantAutocomplete }}
 						i.clearFix
-				
+
 				li.conseils
 					i.picto
 					h2
@@ -58,9 +60,9 @@ template(name="aside")
 						ul
 							each file in currentTodo.files
 								li
-									p 
+									p
 										| file.title
-									button(type="button",id="{{file._id}}") {{_ "taskAddFilesToDocs"}} 
+									button(type="button",id="{{file._id}}") {{_ "taskAddFilesToDocs"}}
 									br(class="clearFix")
 				li.shopping
 					i.picto
@@ -69,11 +71,11 @@ template(name="aside")
 					ul
 						li
 							img(src="../../../IMG/hb_logo.png", alt="")
-							p 
+							p
 								| Besoin d'un espace de stockage ?
-							a.btn.small(href="http://www.homebox.fr/",target="_blank") {{_ "taskSeeService"}} 
+							a.btn.small(href="http://www.homebox.fr/",target="_blank") {{_ "taskSeeService"}}
 							br(class="clearFix")
-								
+
 				if currentTodo.products
 					li.shopping
 						i.picto
@@ -83,20 +85,20 @@ template(name="aside")
 							each product in getProducts
 								li
 									img(src="{{product.imageUrl}}", alt="")
-									p 
+									p
 										| {{product.description}}
 									if product.price
-										p.price {{product.price}} € 
+										p.price {{product.price}} €
 									if product.apiProductId
 										button(type="button",id="{{product._id}}")
 											| {{#unless product.altCallToActionText}}{{_ "taskAddToCart"}} {{else}}{{product.altCallToActionText}}{{/unless}}
 									else
-										a.btn.small(href="{{product.href}}",target="_blank") 
+										a.btn.small(href="{{product.href}}",target="_blank")
 											| {{#unless product.altCallToActionText}}{{_ "taskSeeService"}} {{else}}{{product.altCallToActionText}}{{/unless}}
 									br(class="clearFix")
-							
 
-				if currentTodo.videos		
+
+				if currentTodo.videos
 					li.videos
 						i.picto
 						h2
