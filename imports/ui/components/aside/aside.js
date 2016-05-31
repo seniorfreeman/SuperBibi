@@ -31,12 +31,11 @@ Template.aside.onCreated(function asideOnCreated() {
   this.getListId = () => FlowRouter.getParam('_id');
   this.getTodoId = () => FlowRouter.getParam('_idTodo');
   this.autorun(() => {
-    this.getTodoId ();
-    this.subscribe('lists.all');
-    this.subscribe('todos.inList', this.getListId());
-    this.subscribe('MovingData');
+  this.getTodoId ();
+  this.subscribe('lists.all');
+  this.subscribe('todos.inList', this.getListId());
+  this.subscribe('MovingData');
   });
-
 });
 
 Template.aside.onRendered(function(){
