@@ -167,6 +167,21 @@ Template.aside.events({
   "click  .bckBtn": function(event, template) {
     $("body").removeClass("aside");
   },
+  "click #btnMoving": function(event, template){
+    var date = moment(new Date()).format('YYYY-MM-DD');
+    var todo= Todo.findOne({_id:FlowRouter.getParam('_idTodo')});
+    var user=Meteor.user();
+    if(user && user.profile.movingId){
+      moving=Moving.findOne({_id:user.profile.movingId})
+      if(todo.deadline){
+          date = moment(moving.movingDate).add(todo.deadline, 'days').format('YYYY-MM-DD')
+      }
+      else{
+          date = moment(new Date()).add(todo.deadline, 'days').format('YYYY-MM-DD');
+      }
+    }
+    $('#todoEcheance').val(date);
+  },
   "keyup  #conseils":  _.throttle(function todostiTleKeyUpInner(event) {
     var todoId=FlowRouter.getParam('_idTodo');
     updateConseils.call({

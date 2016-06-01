@@ -101,8 +101,6 @@ Template.event_page.events({
     start=$('#start').val();
     end=$('#end').val();
     title=$('#title').val();
-    console.log("start: " + start);
-    console.log("end:" + end);
     if(!moment(start).isBefore(end)){
       Modal.hide();
       alert("Veuillez vérifier la date fin de l'événement");
