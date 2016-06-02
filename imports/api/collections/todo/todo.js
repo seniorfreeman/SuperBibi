@@ -169,18 +169,6 @@ Product.deny({
     },
 });
 
-Events.allow({
-  insert: function(){
-    return true;
-  },
-  update: function(){
-    return true;
-  },
-  remove: function(){
-    return true;
-  }
-});
-
 Events.deny({
   insert() {
     return true;

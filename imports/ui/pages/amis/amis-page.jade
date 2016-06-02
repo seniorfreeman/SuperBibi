@@ -1,7 +1,7 @@
 template(name="amis_page")
 	div.amis_page
 		header
-			div.admin-title 
+			div.admin-title
 				span
 					| {{_ 'friendPageAdminTitle'}}
 				ul.icons.admin-list
@@ -11,6 +11,14 @@ template(name="amis_page")
 						h2
 							| {{_ "Add"}}
 						i.fa.fa-plus
+
+			ul.icons
+				li.amis
+					h2
+						|{{_ "stillHaveFriends"}}
+					i.picto
+					input(type="range", id="stillHaveFriends", min="0", max="1", class="slider{{#if stillHaveFriends}} bg_green{{/if}}",value="{{stillHaveFriends}}")
+
 			div.redaction
 				div
 					h1 {{_ 'friendPageTitle'}}
@@ -28,7 +36,7 @@ template(name="amis_page")
 					div.inputFriendsMover
 						i.fa.fa-plus
 						{{> inputAutocomplete settings=settings id="newMoverFriend" class="form-control" name="newMoverFriend" placeholder="Entrez un nom, un mail, ou choisissez un ami" }}
-						
+
 
 				div.task-friends-block
 					div.task-friends-title.participantsBig
@@ -42,7 +50,7 @@ template(name="amis_page")
 			ul.partners-list
 				each partners
 					{{> partner_item}}
-				
+
 
 template(name="admin_friend_item")
 	li
@@ -72,8 +80,8 @@ template(name="mover_friend_item")
 template(name="task_item")
 	li
 		a.go-to-task.btn.small(href="/list/{{list}}/todo/{{_id}}") {{_ "goToTask"}}
-		h3.task 
-			|• {{title}}	
+		h3.task
+			|• {{title}}
 		ul.friends-list
 			each friends
 				li {{name}}{{mail}}
